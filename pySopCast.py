@@ -63,9 +63,10 @@ class UpdateUIThread(threading.Thread):
 			if self.run_thread == True:
 				if self.parent.fork_sop.is_running() == True:
 					stats = self.parent.sop_stats.update_stats()
+					
 					if stats == None:
 						if was_playing == True:
-							self.parent.stop_vlc()
+							self.parent.stop_vlc()							
 							was_playing = False
 							
 						if retry == True:
@@ -74,7 +75,9 @@ class UpdateUIThread(threading.Thread):
 							if self.time_waiting > self.wait_before_restart:
 								self.parent.fork_sop.kill_sop()
 							else:
+								gtk.gdk.threads_enter()
 								self.parent.update_statusbar("%s" % _("Retrying channel"))
+								gtk.gdk.threads_leave()
 						else:
 							if loading == True:
 								self.time_waiting += 1
@@ -83,7 +86,9 @@ class UpdateUIThread(threading.Thread):
 									self.time_waiting = 0
 							loading = True
 							
+							gtk.gdk.threads_enter()
 							self.parent.update_statusbar("%s" % _("Connecting"))
+							gtk.gdk.threads_leave()
 					
 							if self.play_stream == True:
 								self.play_stream = False
@@ -94,18 +99,31 @@ class UpdateUIThread(threading.Thread):
 						if int(stats[0]) < 10:
 							if i == 5:
 								if int(stats[0]) > 0:
+									gtk.gdk.threads_enter()
 									self.parent.update_statusbar("%s: %s%%" % (_("Buffering"), stats[0]))
+									gtk.gdk.threads_leave()
 								else:
+									gtk.gdk.threads_enter()
 									self.parent.update_statusbar("%s" % _("Connecting"))
+									gtk.gdk.threads_leave()
 								i = 0
 						else:
 							if i == 5:
+								gtk.gdk.threads_enter()
 								self.parent.update_statusbar("%s: %s%%" % (_("Buffer"), stats[0]))
+								gtk.gdk.threads_leave()
 								i = 0
 								
 							if self.play_stream == False:
+								gtk.gdk.threads_enter()
 								self.parent.update_statusbar("%s: %s%%" % (_("Buffer"), stats[0]))
-								if self.parent.start_vlc() == True:
+								gtk.gdk.threads_leave()
+								
+								gtk.gdk.threads_enter()
+								started = self.parent.start_vlc()
+								gtk.gdk.threads_leave()
+								
+								if started == True:
 									self.play_stream = True
 									was_playing = True
 							
@@ -113,10 +131,17 @@ class UpdateUIThread(threading.Thread):
 						i += 1
 
 				else:
+					gtk.gdk.threads_enter()
 					self.parent.update_statusbar("")
+					gtk.gdk.threads_leave()
+					
 					self.play_stream = False
 					loading = False
+					
+					gtk.gdk.threads_enter()
 					self.parent.play_channel()
+					gtk.gdk.threads_leave()
+					
 					self.time_waiting = 0
 					loading = False
 					retry = False
@@ -187,9 +212,7 @@ class pySopCast(object):
 			"on_stop_clicked" : self.on_stop_clicked,
 			"on_volume_adjust_bounds" : self.on_volume_adjust_bounds,
 			"on_menu_about_activate" : self.on_menu_about_activate }
-			
 
-		
 		config_manager = pySopCastConfigurationManager.pySopCastConfigurationManager()
 		config_manager.read()
 		self.volume.set_value(config_manager.getint("player", "volume"))
@@ -210,7 +233,7 @@ class pySopCast(object):
 				self.play_channel(sop_address, sop_address_name)
 		
 		self.window.show_all()
-					
+		
 		gtk.gdk.threads_enter()
 		gtk.main()
 		gtk.gdk.threads_leave()
@@ -332,10 +355,12 @@ class pySopCast(object):
 			return False
 			
 	def stop_vlc(self):
-		self.vlc.stop_media()
-		if self.vlc.get_parent() == self.eb:
-			self.eb.remove(self.vlc)
-			self.window.show_all()
+		if self.eb != None:
+			self.vlc.stop_media()
+			if self.vlc.get_parent() == self.eb:
+				self.eb.remove(self.vlc)
+				if self.window != None:
+					self.window.show_all()
 		
 	def play_channel(self, channel_url=None, title=None):
 		if self.fork_sop.is_running() == True:
@@ -415,11 +440,12 @@ class pySopCast(object):
 			self.vlc.fullscreen()
 			self.vlc.display_text("         %s" % _("Press Esc to exit fullscreen"))
 			
-	def on_exit(self, widget, data=None):		
-		self.fork_sop.kill_sop()
-		self.ui_worker.stop()
-		self.vlc.stop_media()
-		self.vlc.exit_media()
+	def on_exit(self, widget, data=None):
+		if self.ui_worker.run_thread == True:
+			self.fork_sop.kill_sop()
+			self.ui_worker.stop()
+			self.vlc.stop_media()
+			self.vlc.exit_media()
 			
 		gtk.main_quit()
 		self = None
@@ -449,18 +475,19 @@ class pySopCast(object):
 			self.channel_url_entry.set_text(channel_name)
 	
 	def update_statusbar(self, text, display_time=None):
-		if display_time != None:
-			self.status_bar.push(1, text)
-			self.display_message_from_main_thread = True
-			self.display_message_time = display_time
-			self.start_display_time = time.time()
+		if self.status_bar != None:
+			if display_time != None:
+				self.status_bar.push(1, text)
+				self.display_message_from_main_thread = True
+				self.display_message_time = display_time
+				self.start_display_time = time.time()
 			
-		if self.display_message_from_main_thread == True and self.start_display_time != None:
-			if time.time() - self.start_display_time > self.display_message_time:
-				self.display_message_from_main_thread = False
-				self.start_display_time = None
-		else:
-			self.status_bar.push(1, text)
+			if self.display_message_from_main_thread == True and self.start_display_time != None:
+				if time.time() - self.start_display_time > self.display_message_time:
+					self.display_message_from_main_thread = False
+					self.start_display_time = None
+			else:
+				self.status_bar.push(1, text)
 		
 	def set_title(self, title="pySopCast"):
 		self.window.set_title(title)
