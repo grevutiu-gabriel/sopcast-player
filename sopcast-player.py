@@ -147,14 +147,7 @@ class UpdateUIThread(threading.Thread):
 								
 									gtk.gdk.threads_enter()
 									started = self.parent.start_vlc()
-									gtk.gdk.threads_leave()
-								
-									config_manager = pySopCastConfigurationManager.pySopCastConfigurationManager()
-									config_manager.read()
-									gtk.gdk.threads_enter()
-									self.parent.set_volume(config_manager.getint("player", "volume"))
-									gtk.gdk.threads_leave()
-								
+									gtk.gdk.threads_leave()								
 								
 									if started == True and self.run_thread == True:
 										self.play_stream = True
@@ -389,7 +382,8 @@ class pySopCast(object):
 
 		config_manager = pySopCastConfigurationManager.pySopCastConfigurationManager()
 		config_manager.read()
-		self.volume.set_value(config_manager.getint("player", "volume"))
+		self.player_volume = config_manager.getint("player", "volume")
+		self.volume.set_value(self.player_volume)
 		self.window.set_default_size(config_manager.getint("player", "width"), config_manager.getint("player", "height"))
 		self.display_pane.set_position(config_manager.getint("player", "div_position"))
 		show_channel_guide_pane = config_manager.getboolean("player", "show_channel_guide")
@@ -864,6 +858,7 @@ class pySopCast(object):
 		
 		if self.vlc.get_parent() == self.eb:
 			self.vlc.play_media()
+			self.vlc.set_volume(self.player_volume)
 			return True
 		else:
 			return False
@@ -941,7 +936,7 @@ class pySopCast(object):
 	def on_fullscreen_activate(self, src, data=None):
 		if self.ui_worker.play_stream == True:
 			self.vlc.fullscreen()
-			self.vlc.display_text("         %s" % _("Press Esc to exit fullscreen"))
+			self.vlc.display_text("         %s" % "Press Esc to exit fullscreen")
 			
 	def on_exit(self, widget, data=None):
 		rect = self.window.get_allocation()
@@ -970,7 +965,7 @@ class pySopCast(object):
 		if self.eb.is_focus() == True:
 			if key == 70 or key == 102:
 				self.vlc.fullscreen()
-				self.vlc.display_text("         %s" % _("Press Esc to exit fullscreen"))
+				self.vlc.display_text("         %s" % "Press Esc to exit fullscreen")
 		
 		return False
 	
