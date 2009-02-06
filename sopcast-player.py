@@ -1,4 +1,4 @@
-#! /usr/bin/python
+#! /usr/bin/env python
 
 # Copyright (C) 2009 Jason Scheunemann <jason.scheunemann@yahoo.com>.
 #
@@ -26,6 +26,7 @@ import threading
 import time
 import os
 
+#sys.path.append("%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "lib"))
 sys.path.append("/usr/share/sopcast-player/lib")
 import DatabaseOperations
 import dynamic_ports
@@ -56,36 +57,41 @@ class UpdateUIThread(threading.Thread):
 		self.wait_before_retry_time = 3 / self.sleep_time
 		self.wait_before_restart = 3 / self.sleep_time
 		self.time_waiting = 0
+		self.paused = True
+		self.terminated = False
 		self.retry = False
+		self.volume = None
 		
 	def run(self):
+		err_point = 0
 		i = 0
 		loading = False
 		retry = False
 		was_playing = False
 		while self.terminate == False:
 			if self.run_thread == True:
-				if self.parent.fork_sop.is_running() == True:
+				self.paused = False
+				if self.parent.fork_sop.is_running() == True and self.run_thread == True:
 					stats = self.parent.sop_stats.update_stats()
 					
-					if stats == None:
-						if was_playing == True:
-							self.parent.stop_vlc()							
+					if stats == None and self.run_thread == True:
+						if was_playing == True and self.run_thread == True:
+							self.parent.stop_vlc()						
 							was_playing = False
 							
-						if retry == True:
+						if retry == True and self.run_thread == True:
 							self.time_waiting += 1
-						
-							if self.time_waiting > self.wait_before_restart:
+							
+							if self.time_waiting > self.wait_before_restart and self.run_thread == True:
 								self.parent.fork_sop.kill_sop()
 							else:
 								gtk.gdk.threads_enter()
 								self.parent.update_statusbar("%s" % _("Retrying channel"))
 								gtk.gdk.threads_leave()
 						else:
-							if loading == True:
+							if loading == True and self.run_thread == True:
 								self.time_waiting += 1
-								if self.time_waiting > self.wait_before_retry_time:
+								if self.time_waiting > self.wait_before_retry_time and self.run_thread == True:
 									retry = True
 									self.time_waiting = 0
 							loading = True
@@ -94,15 +100,15 @@ class UpdateUIThread(threading.Thread):
 							self.parent.update_statusbar("%s" % _("Connecting"))
 							gtk.gdk.threads_leave()
 					
-							if self.play_stream == True:
+							if self.play_stream == True and self.run_thread == True:
 								self.play_stream = False
 					else:
 						self.time_waiting = 0
 						loading = False
 						retry = False
-						if int(stats[0]) < 10:
-							if i == 5:
-								if int(stats[0]) > 0:
+						if int(stats[0]) < 10 and self.run_thread == True:
+							if i == 5 and self.run_thread == True:
+								if int(stats[0]) > 0 and self.run_thread == True:
 									gtk.gdk.threads_enter()
 									self.parent.update_statusbar("%s: %s%%" % (_("Buffering"), stats[0]))
 									gtk.gdk.threads_leave()
@@ -112,13 +118,14 @@ class UpdateUIThread(threading.Thread):
 									gtk.gdk.threads_leave()
 								i = 0
 						else:
-							if i == 5:
+							if i == 5 and self.run_thread == True:
 								gtk.gdk.threads_enter()
 								self.parent.update_statusbar("%s: %s%%" % (_("Buffer"), stats[0]))
 								gtk.gdk.threads_leave()
+								
 								i = 0
 								
-							if self.play_stream == False:
+							if self.play_stream == False and self.run_thread == True:
 								gtk.gdk.threads_enter()
 								self.parent.update_statusbar("%s: %s%%" % (_("Buffer"), stats[0]))
 								gtk.gdk.threads_leave()
@@ -127,7 +134,14 @@ class UpdateUIThread(threading.Thread):
 								started = self.parent.start_vlc()
 								gtk.gdk.threads_leave()
 								
-								if started == True:
+								config_manager = pySopCastConfigurationManager.pySopCastConfigurationManager()
+								config_manager.read()
+								gtk.gdk.threads_enter()
+								self.parent.set_volume(config_manager.getint("player", "volume"))
+								gtk.gdk.threads_leave()
+								
+								
+								if started == True and self.run_thread == True:
 									self.play_stream = True
 									was_playing = True
 							
@@ -149,9 +163,16 @@ class UpdateUIThread(threading.Thread):
 					self.time_waiting = 0
 					loading = False
 					retry = False
+			else:
+				self.paused = True
 									
 			time.sleep(self.sleep_time)
-		self = None
+		self.terminated = True
+		
+	def print_point_on_exit(self, point):
+		if self.terminate == True:
+			print point
+		
 		
 	def startup(self):
 		self.run_thread = True
@@ -161,8 +182,13 @@ class UpdateUIThread(threading.Thread):
 		self.play_stream = False
 			
 	def stop(self):
+		self.shutdown()
 		self.terminate = True
-		self = None
+		
+		while self.terminated == False:
+			time.sleep(self.sleep_time)
+		
+		return True
 
 
 class PlayerStatus:
@@ -199,7 +225,8 @@ class pySopCast(object):
 		self.display_message_time = 5
 		
 	def main(self, sop_address=None, sop_address_name=None):
-		gladefile = "%s/%s" % ("/usr/share/sopcast-player/ui", 'pySopCast.glade')
+		gladefile = "%s/%s" % ("/usr/share/sopcast-player/ui", "pySopCast.glade")
+		#gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "ui/pySopCast.glade")
 		self.glade_window = gtk.glade.XML(gladefile, "window")
 		self.window = self.glade_window.get_widget("window")
 		self.window.set_title("%s" % _("SopCast Player"))
@@ -216,6 +243,15 @@ class pySopCast(object):
 			"on_stop_clicked" : self.on_stop_clicked,
 			"on_volume_adjust_bounds" : self.on_volume_adjust_bounds,
 			"on_menu_about_activate" : self.on_menu_about_activate }
+			
+		
+		screen = self.window.get_screen()
+		width, height = self.media_player_size(screen, .4, .75)
+		self.eb.set_size_request(width, height)
+			
+		
+		self.ui_worker = UpdateUIThread(self)
+		self.ui_worker.start()
 
 		config_manager = pySopCastConfigurationManager.pySopCastConfigurationManager()
 		config_manager.read()
@@ -226,9 +262,6 @@ class pySopCast(object):
 		
 		self.populate_bookmarks()
 		self.load_channel_url_entry_autocompletion()
-		
-		self.ui_worker = UpdateUIThread(self)
-		self.ui_worker.start()
 		
 		self.window.show_all()
 		
@@ -251,6 +284,11 @@ class pySopCast(object):
 			value = glade_window.get_widget(key)	
 
 		return value
+	
+	def media_player_size(self, screen, width_ratio, player_ratio):
+		width = int(screen.get_width() * width_ratio)
+		height = int(width * player_ratio)
+		return (width, height)
 	
 	def get_server(self):
 		config_manager = pySopCastConfigurationManager.pySopCastConfigurationManager()
@@ -328,14 +366,16 @@ class pySopCast(object):
 		self.update_statusbar("")
 		
 	def on_volume_adjust_bounds(self, src, data=None):
-		self.vlc.set_volume(int(src.get_value()))
+		volume = int(src.get_value())
+		self.vlc.set_volume(volume)
 		config_manager = pySopCastConfigurationManager.pySopCastConfigurationManager()
 		config_manager.read()
-		config_manager.set("player", "volume", int(src.get_value()))
+		config_manager.set("player", "volume", volume)
 		config_manager.write()
 	
 	def on_menu_about_activate(self, src, data=None):
-		gladefile = os.path.abspath("%s/%s") % (os.path.dirname(sys.argv[0]), 'ui/About.glade')
+		gladefile = "%s/%s" % ("/usr/share/sopcast-player/ui", "About.glade")
+		#gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "ui/About.glade")
 		about_file = gtk.glade.XML(gladefile, "about")
 		about = about_file.get_widget("about")
 		about.set_transient_for(self.window)
@@ -343,15 +383,19 @@ class pySopCast(object):
 		about.destroy()
 		
 	def update_status_bar_text(self, txt):
-		self.status_bar_text = txt
-		self.status_bar_text_changed = True
+		if self.status_bar != None:
+			self.status_bar_text = txt
+			self.status_bar_text_changed = True
+	
+	def set_volume(self, volume):
+		self.vlc.set_volume(volume)
 		
 	def start_vlc(self):
 		if self.vlc.get_parent() == None:
 			self.eb.add(self.vlc)
 			self.window.show_all()
 			return False
-			
+		
 		if self.vlc.get_parent() == self.eb:
 			self.vlc.play_media()
 			return True
@@ -359,13 +403,11 @@ class pySopCast(object):
 			return False
 			
 	def stop_vlc(self):
-		if self.ui_worker.terminate == False:
-			if self.eb != None:
-				self.vlc.stop_media()
-				if self.vlc.get_parent() == self.eb:
-					self.eb.remove(self.vlc)
-					if self.window != None:
-						self.window.show_all()
+		self.vlc.stop_media()
+		if self.vlc.get_parent() == self.eb:
+			self.eb.remove(self.vlc)
+			if self.window != None:
+				self.window.show_all()
 		
 	def play_channel(self, channel_url=None, title=None):
 		if self.fork_sop.is_running() == True:
@@ -446,16 +488,11 @@ class pySopCast(object):
 			self.vlc.display_text("         %s" % _("Press Esc to exit fullscreen"))
 			
 	def on_exit(self, widget, data=None):
-		self.ui_worker.shutdown()
-		
-		if self.ui_worker.run_thread == True:
-			self.fork_sop.kill_sop()
-			self.vlc.stop_media()
-			self.vlc.exit_media()
-		
 		self.ui_worker.stop()
 		
 		if self.fork_sop.is_running() == True:
+			self.vlc.stop_media()
+			self.vlc.exit_media()		
 			self.fork_sop.kill_sop()
 			
 		gtk.main_quit()
@@ -486,19 +523,18 @@ class pySopCast(object):
 			self.channel_url_entry.set_text(channel_name)
 	
 	def update_statusbar(self, text, display_time=None):
-		if self.status_bar != None:
-			if display_time != None:
-				self.status_bar.push(1, text)
-				self.display_message_from_main_thread = True
-				self.display_message_time = display_time
-				self.start_display_time = time.time()
-			
-			if self.display_message_from_main_thread == True and self.start_display_time != None:
-				if time.time() - self.start_display_time > self.display_message_time:
-					self.display_message_from_main_thread = False
-					self.start_display_time = None
-			else:
-				self.status_bar.push(1, text)
+		if display_time != None:
+			self.status_bar.push(1, text)
+			self.display_message_from_main_thread = True
+			self.display_message_time = display_time
+			self.start_display_time = time.time()
+		
+		if self.display_message_from_main_thread == True and self.start_display_time != None:
+			if time.time() - self.start_display_time > self.display_message_time:
+				self.display_message_from_main_thread = False
+				self.start_display_time = None
+		else:
+			self.status_bar.push(1, text)
 		
 	def set_title(self, title="pySopCast"):
 		self.window.set_title(title)
@@ -626,6 +662,7 @@ class ChannelGuide(object):
 		
 	def main(self):
 		gladefile = "%s/%s" % ("/usr/share/sopcast-player/ui", "ChannelGuide.glade")
+		#gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "ui/ChannelGuide.glade")
 		self.glade_window = gtk.glade.XML(gladefile, "window")
 		self.window = self.glade_window.get_widget("window")
 		
@@ -738,14 +775,14 @@ class ChannelGuide(object):
 		else:
 			if self.parent != None:
 				if self.parent.channel_url_entry == None:
-					self.parent = pySopCast.pySopCast()
+					self.parent = pySopCast()
 					self.parent.main(self.selection[9], self.selection[1])
 				else:
 					self.parent.play_channel(self.selection[9], self.selection[1])
 			
 	def on_toolbar_play_clicked(self, src, data=None):
 			if self.parent.channel_url_entry == None:
-				self.parent = pySopCast.pySopCast()
+				self.parent = pySopCast()
 				self.parent.main(self.selection[9], self.selection[1])
 			else:
 				self.parent.play_channel(self.selection[9], self.selection[1])
@@ -768,7 +805,8 @@ class ChannelGuide(object):
 			self.ui_worker.start()
 	
 	def on_menu_about_activate(self, src, data=None):
-		gladefile = os.path.abspath("%s/%s") % ("/usr/share/sopcast-player/ui/", "About.glade")
+		gladefile = "%s/%s" % ("/usr/share/sopcast-player/ui", "About.glade")
+		#gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "ui/About.glade")
 		about_file = gtk.glade.XML(gladefile, "about")
 		about = about_file.get_widget("about")
 		about.set_transient_for(self.window)
@@ -868,7 +906,8 @@ class AddBookmark(object):
 		self.url = url
 		
 	def main(self):
-		gladefile = "%s/%s" % ("/usr/share/sopcast-player/ui", 'AddBookmark.glade')
+		gladefile = "%s/%s" % ("/usr/share/sopcast-player/ui", "AddBookmark.glade")
+		#gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "ui/AddBookmark.glade")
 		self.glade_window = gtk.glade.XML(gladefile, "window")
 		self.window = self.glade_window.get_widget("window")
 		self.window.set_modal(True)
