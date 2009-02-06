@@ -1,3 +1,5 @@
+#! /usr/bin/env python
+
 # Copyright (C) 2009 Jason Scheunemann <jason.scheunemann@yahoo.com>.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -39,6 +41,15 @@ class ForkSOP:
 				perror("fork")
 				self.child_pid = None
 			elif pid == 0: #execute in child
+				#null = os.open(os.devnull, os.O_RDWR)
+				#os.dup2(null, sys.stdin.fileno())
+				#os.dup2(null, sys.stdout.fileno())
+				#os.dup2(null, sys.stderr.fileno())
+				#os.close(null)
+				stdout_file = sys.stdout.fileno()
+				sys.stdout.close()
+				os.close(stdout_file)
+				sys
 				os.execlp("sp-sc", "sp-sc", self.sop_address, self.inbound_port, self.outbound_port)
 			else: #child's pid, main process execution
 				self.child_pid = pid
@@ -61,3 +72,48 @@ class ForkSOP:
 		else:
 			return False
 
+class ForkExternalPlayer:
+	def __init__(self):
+		self.child_pid = None
+		self.command = None
+		self.url = None
+		
+	def fork_player(self, command, url):
+		self.command = command
+		self.url = url
+		
+		args = "%s %s" % (self.command, self.url)
+		command_split = args.split(" ")
+		
+		print args
+		
+		pid = os.fork();
+		if pid == -1: #fork error
+			perror("fork")
+			self.child_pid = None
+		elif pid == 0: #execute in child
+			os.execvp(command_split[0], command_split)
+		else: #child's pid, main process execution
+			self.child_pid = pid
+			
+	def kill(self):
+		if self.is_running() == True:
+			try:
+				os.kill(self.child_pid, signal.SIGKILL)
+				killedpid, stat = os.wait()
+			except OSError:
+				sys.stderr.write("Process %s does not exist\n" % self.child_pid)
+	
+	def is_running(self):
+		if self.child_pid != None:
+			try:
+				os.kill(self.child_pid, 0)
+				return True
+			except OSError:
+				return False
+		else:
+			return False
+
+if __name__ == '__main__':
+	fork_player = ForkExternalPlayer()
+	fork_player.fork_player("/usr/bin/mplayer -ontop -geometry 100%:100%", "http://127.0.0.1:8902/tv.asf")

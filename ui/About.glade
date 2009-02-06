@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.5 on Thu Jan  1 10:45:47 2009 -->
+<!--Generated with glade3 3.4.5 on Tue Feb  3 19:13:32 2009 -->
 <glade-interface>
   <widget class="GtkAboutDialog" id="about">
     <property name="border_width">5</property>
     <property name="title" translatable="yes">About SopCast Player</property>
     <property name="resizable">False</property>
     <property name="window_position">GTK_WIN_POS_CENTER_ON_PARENT</property>
+    <property name="icon">television.png</property>
     <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>
     <property name="has_separator">False</property>
     <property name="program_name">SopCast Player</property>
-    <property name="version">0.1.0</property>
+    <property name="version">0.2.0</property>
     <property name="copyright" translatable="yes">Copyright © 2009 Jason Scheunemann</property>
     <property name="comments" translatable="yes">A GUI front-end for SopCast</property>
-    <property name="website">http://code.google.com/p/sopcast-player/</property>
-    <property name="website_label" translatable="yes">http://code.google.com/p/sopcast-player/</property>
+    <property name="website">http://code.google.com/p/sopcast-player</property>
+    <property name="website_label" translatable="yes">http://code.google.com/p/sopcast-player</property>
     <property name="license" translatable="yes">SopCast Player is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
 
 SopCast Player is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with SopCast Player; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</property>
+    <property name="translator_credits" translatable="yes">王泽国 Wang Zeguo &lt;zak.zeguo.wang@gmail.com&gt;</property>
+    <property name="artists">Icon by famfamfam &lt;http://www.famfamfam.com/lab/icons/silk&gt;</property>
     <property name="wrap_license">True</property>
     <child internal-child="vbox">
       <widget class="GtkVBox" id="dialog-vbox1">

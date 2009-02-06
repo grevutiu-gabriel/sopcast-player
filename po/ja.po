@@ -1,0 +1,283 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: pySopCast 0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-20 20:24+0100\n"
+"PO-Revision-Date: 2009-01-20 21:47+0100\n"
+"Last-Translator: flyguy97 <flyguy97@gmail.com>\n"
+"Language-Team: flyguy97 <flyguy97@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-Country: UNITED STATES\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: _\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: /home/jason/Desktop/SopCast-Player\n"
+
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:88
+msgid "Retrying channel"
+msgstr "再度再生"
+
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:99
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:118
+msgid "Connecting"
+msgstr "応答を待ってます。"
+
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:114
+msgid "Buffering"
+msgstr "バッファリング"
+
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:124
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:131
+msgid "Buffer"
+msgstr "バッファー"
+
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:213
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:813
+msgid "Channel Guide Last Updated"
+msgstr "番組ガイドを最後に更新した日"
+
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:231
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:240
+msgid "SopCast Player"
+msgstr "SopCast Player"
+
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:289
+msgid "Channel Guide"
+msgstr "チャンネルガイド"
+
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:419
+msgid "Open Sop Address"
+msgstr "オープンSopアドレス"
+
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:428
+msgid "Enter Sop Address"
+msgstr "Sopアドレスの検索"
+
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:470
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:475
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:865
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:872
+msgid "Name"
+msgstr "番組"
+
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:470
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:865
+msgid "Channel Group"
+msgstr "番組グループ"
+
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:470
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:865
+msgid "Classification"
+msgstr "番組のジャンル"
+
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:470
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:865
+msgid "Stream Format"
+msgstr "ビデオフォーマット"
+
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:470
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:865
+msgid "QC"
+msgstr "QC"
+
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:470
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:865
+msgid "QS"
+msgstr "QS"
+
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:470
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:475
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:865
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:872
+msgid "Description"
+msgstr "番組内容"
+
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:475
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:872
+msgid "Channels"
+msgstr "番組項目"
+
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:579
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:608
+msgid "Press Esc to exit fullscreen"
+msgstr "Escを押すとフルスクリーンから離れる"
+
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:677
+msgid "Contacting Server"
+msgstr "サーバーに応答中"
+
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:685
+msgid "Updating Database"
+msgstr "データベースを更新中"
+
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:733
+msgid "Channel Guide Update Completed"
+msgstr "番組ガイドの更新完了"
+
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:741
+msgid "Channel Guide Retrieval Failed Due to Network Problems"
+msgstr "ネットワークに問題があるため番組の再生ができません。"
+
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:759
+msgid "Downloading Channel Guide"
+msgstr "番組をダウンロード中"
+
+msgid "_File"
+msgstr "ファイル(_F)"
+
+msgid "> Channel Guide"
+msgstr "> チャンネルガイド"
+
+msgid "Bookmark this Channel"
+msgstr "このチャンネルをブックマーク"
+
+msgid "Volume:"
+msgstr "音量"
+
+msgid "_Fullscreen"
+msgstr "フルスクリーン(_F)"
+
+msgid "_Help"
+msgstr "ヘルプ(_H)"
+
+msgid "_View"
+msgstr "表示(_V)"
+
+msgid "_Bookmarks"
+msgstr "ブックマーク(_B)"
+
+msgid "<i>Last Updated: </i>"
+msgstr "<i>最後の更新</i>"
+
+msgid "Last Updated: "
+msgstr "最後の更新"
+
+msgid "Never"
+msgstr "更新の記録なし"
+
+#: /home/jason/Desktop/SopCast-Player/ui/Options.glade
+msgid "<b>Channel Guide Auto-Update Frequency</b>"
+msgstr "<b></b>"
+
+#: /home/jason/Desktop/SopCast-Player/ui/Options.glade
+msgid "<b>Channel Guide Language</b>"
+msgstr "<b></b>"
+
+#: /home/jason/Desktop/SopCast-Player/ui/Options.glade
+msgid "<b>Channel Guide Layout:</b>"
+msgstr "<b></b>"
+
+#: /home/jason/Desktop/SopCast-Player/ui/Options.glade
+msgid "<b>Channel Guide URL</b>"
+msgstr "<b></b>"
+
+#: /home/jason/Desktop/SopCast-Player/ui/Options.glade
+msgid "<b>Channel Timeout</b>"
+msgstr "<b></b>"
+
+#: /home/jason/Desktop/SopCast-Player/ui/Options.glade
+msgid "<b>Media Player</b>"
+msgstr "<b></b>"
+
+#: /home/jason/Desktop/SopCast-Player/ui/Options.glade
+msgid "<b>Ports</b>"
+msgstr "<b></b>"
+
+#: /home/jason/Desktop/SopCast-Player/ui/Options.glade
+msgid "<i>3 Seconds</i>"
+msgstr "<i></i>"
+
+#: /home/jason/Desktop/SopCast-Player/ui/Options.glade
+msgid "<i>Never</i>"
+msgstr "<i></i>"
+
+#: /home/jason/Desktop/SopCast-Player/ui/Options.glade
+msgid "Channel Guide"
+msgstr ""
+
+#: /home/jason/Desktop/SopCast-Player/ui/Options.glade
+msgid "Classic (Separate windows)"
+msgstr ""
+
+#: /home/jason/Desktop/SopCast-Player/ui/Options.glade
+msgid "Command: "
+msgstr ""
+
+#: /home/jason/Desktop/SopCast-Player/ui/Options.glade
+msgid "Frequency"
+msgstr ""
+
+#: /home/jason/Desktop/SopCast-Player/ui/Options.glade
+msgid "In-bound Port: "
+msgstr ""
+
+#: /home/jason/Desktop/SopCast-Player/ui/Options.glade
+msgid "Language"
+msgstr ""
+
+#: /home/jason/Desktop/SopCast-Player/ui/Options.glade
+msgid "Out-bound Port: "
+msgstr ""
+
+#: /home/jason/Desktop/SopCast-Player/ui/Options.glade
+msgid "Player"
+msgstr ""
+
+#: /home/jason/Desktop/SopCast-Player/ui/Options.glade
+msgid "Static Ports"
+msgstr ""
+
+#: /home/jason/Desktop/SopCast-Player/ui/Options.glade
+msgid "Timeout"
+msgstr ""
+
+#: /home/jason/Desktop/SopCast-Player/ui/Options.glade
+msgid "URL: "
+msgstr ""
+
+#: /home/jason/Desktop/SopCast-Player/ui/Options.glade
+msgid "Unity (Single-window)"
+msgstr ""
+
+#: /home/jason/Desktop/SopCast-Player/ui/Options.glade
+msgid "Use External Player"
+msgstr ""
+
+#: /home/jason/Desktop/SopCast-Player/ui/Options.glade
+msgid "Completed"
+msgstr ""
+
+#: /home/jason/Desktop/SopCast-Player/ui/Options.glade
+msgid "Server Down"
+msgstr ""
+
+#: /home/jason/Desktop/SopCast-Player/ui/Options.glade
+msgid "Downloading"
+msgstr ""
+
+#: /home/jason/Desktop/SopCast-Player/ui/Options.glade
+msgid "Static Ports Unavailable"
+msgstr ""
+
+#: /home/jason/Desktop/SopCast-Player/ui/Options.glade
+msgid "Static ports unavailable, do you wish to continue using dynamic ports?"
+msgstr ""
+
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:754
+msgid "<i>3 Seconds</i>"
+msgstr ""
+
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:755
+msgid "<i>30 Seconds</i>"
+msgstr ""
+
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:756
+msgid "<i>5 Minutes</i>"
+msgstr ""
+
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:757
+msgid "<i>Never</i>"
+msgstr ""

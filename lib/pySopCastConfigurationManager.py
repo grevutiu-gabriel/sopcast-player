@@ -25,21 +25,27 @@ class ChannelGuideLanguages:
 class pySopCastConfigurationManager(ConfigurationManager.ConfigurationManager):
 	def __init__(self):
 		ConfigurationManager.ConfigurationManager.__init__(self, os.path.expanduser('~/.pySopCast/pySopCast.cfg'))
-		
-		self.__player_properties = { "static_ports" : False,
+					     
+		self.add_section("player", { "show_toolbar" : True,
+					     "static_ports" : False,
+					     "width" : 600,
+					     "height" : 400,
+					     "div_position" : -1,
+					     "show_channel_guide" : True,
 					     "inbound_port" : 8901,
 					     "outbound_port" : 8902,
 					     "volume" : 100,
-					     "server" : "127.0.0.1" }
-					     
-		self.add_section("player", self.__player_properties)
-		
-		self.__channel_guide_properties = { "default_width" : 650,
+					     "server" : "127.0.0.1",
+					     "channel_guide_width" : 80,
+					     "external_player" : False,
+					     "external_player_command" : "mplayer -ontop -geometry 100%%:100%%",
+					     "channel_timeout" : 3 })
+						  
+		self.add_section("ChannelGuide", { "default_width" : 650,
 						    "default_height" : 550,
 						    "auto_refresh" : False,
 						    "default_language" : True,
 						    "last_updated" : "Never",
-						    "language" : ChannelGuideLanguages.ENGLISH }
-						  
-		self.add_section("ChannelGuide", self.__channel_guide_properties)
+						    "language" : ChannelGuideLanguages.ENGLISH,
+						    "url" : "http://www.sopcast.com/gchlxml" })
 		

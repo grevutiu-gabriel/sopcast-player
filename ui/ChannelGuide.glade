@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.5 on Thu Jan  1 11:06:21 2009 -->
+<!--Generated with glade3 3.4.5 on Sat Jan 10 23:47:41 2009 -->
 <glade-interface>
   <widget class="GtkWindow" id="window">
     <property name="title" translatable="yes">Channel Guide - SopCast Player</property>
     <property name="destroy_with_parent">True</property>
+    <property name="icon">television.png</property>
     <signal name="destroy" handler="on_window_destroy"/>
     <signal name="size_allocate" handler="on_window_size_allocate"/>
     <child>

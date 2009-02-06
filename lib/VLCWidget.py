@@ -64,3 +64,6 @@ class VLCWidget(gtk.DrawingArea):
 	
 	def set_volume(self, level):
 		self.player.sound_set_volume(level)
+		
+	def screenshot(self):
+		self.player.snapshot(0)
