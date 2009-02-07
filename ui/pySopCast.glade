@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.5 on Sun Jan 25 12:37:10 2009 -->
+<!--Generated with glade3 3.4.5 on Sat Feb  7 12:52:56 2009 -->
 <glade-interface>
   <widget class="GtkWindow" id="window">
     <property name="role">SopCast Player Main Screen</property>
     <property name="window_position">GTK_WIN_POS_CENTER_ON_PARENT</property>
     <property name="icon">television.png</property>
+    <signal name="key_press_event" handler="on_window_key_press_event"/>
     <signal name="destroy" handler="on_mainWindow_destroy"/>
     <signal name="size_allocate" handler="on_window_size_allocate"/>
     <child>
       <widget class="GtkVBox" id="vbox1">
         <property name="visible">True</property>
         <child>
-          <widget class="GtkMenuBar" id="menubar1">
+          <widget class="GtkMenuBar" id="main_menu">
             <property name="visible">True</property>
             <child>
               <widget class="GtkMenuItem" id="menu_file">
@@ -97,6 +98,7 @@
                         <property name="label" translatable="yes" comments="Selecting this menu entry will open a dialog to allow the user to bookmark the currently playing channel">Bookmark this Channel</property>
                         <property name="use_underline">True</property>
                         <signal name="activate" handler="on_menu_add_bookmark_activate"/>
+                        <accelerator key="D" modifiers="GDK_CONTROL_MASK" signal="activate"/>
                       </widget>
                     </child>
                     <child>
@@ -124,6 +126,25 @@
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
                         <signal name="activate" handler="on_menu_fullscreen_activate"/>
+                        <accelerator key="F" modifiers="" signal="activate"/>
+                      </widget>
+                    </child>
+                    <child>
+                      <widget class="GtkCheckMenuItem" id="menu_stay_on_top">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">Always On Top</property>
+                        <property name="use_underline">True</property>
+                        <signal name="toggled" handler="on_menu_stay_on_top_toggled"/>
+                      </widget>
+                    </child>
+                    <child>
+                      <widget class="GtkCheckMenuItem" id="menu_show_controls">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">Show Controls</property>
+                        <property name="use_underline">True</property>
+                        <property name="active">True</property>
+                        <signal name="toggled" handler="on_menu_show_controls_toggled"/>
+                        <accelerator key="H" modifiers="GDK_CONTROL_MASK" signal="activate"/>
                       </widget>
                     </child>
                   </widget>
@@ -178,14 +199,14 @@
                   </widget>
                 </child>
                 <child>
-                  <widget class="GtkHBox" id="hbox2">
+                  <widget class="GtkHBox" id="media_controls">
                     <property name="visible">True</property>
                     <child>
                       <widget class="GtkButton" id="play_button">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
-                        <property name="extension_events">GDK_EXTENSION_EVENTS_ALL</property>
+                        <property name="tooltip_text">Play</property>
                         <property name="relief">GTK_RELIEF_NONE</property>
                         <property name="image_position">GTK_POS_RIGHT</property>
                         <property name="response_id">0</property>
@@ -207,6 +228,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
+                        <property name="tooltip_text">Stop</property>
                         <property name="relief">GTK_RELIEF_NONE</property>
                         <property name="response_id">0</property>
                         <signal name="clicked" handler="on_stop_clicked"/>

@@ -357,6 +357,8 @@ class pySopCast(object):
 		self.channel_guide_worker = None
 		self.channel_guide_url = None
 		self.window_title = "SopCast Player"
+		self.hide_controls_size = None
+		self.show_controls = True
 		
 	def main(self, sop_address=None, sop_address_name=None):
 		#gladefile = "%s/%s" % ("/usr/share/sopcast-player/ui", "pySopCast.glade")
@@ -376,7 +378,10 @@ class pySopCast(object):
 			"on_open_sop_address_activate" : self.on_open_sop_address_activate,
 			"on_refresh_channel_guide_clicked" : self.on_refresh_channel_guide_clicked,
 			"on_menu_screenshot_activate" : self.on_menu_screenshot_activate,
-			"on_menu_preferences_activate" : self.on_menu_preferences_activate }
+			"on_menu_preferences_activate" : self.on_menu_preferences_activate,
+			"on_menu_stay_on_top_toggled" : self.on_menu_stay_on_top_toggled,
+			"on_menu_show_controls_toggled" : self.on_menu_show_controls_toggled,
+			"on_window_key_press_event" : self.on_window_key_press_event }
 		
 		self.glade_window.signal_autoconnect(dic)
 
@@ -388,8 +393,13 @@ class pySopCast(object):
 		self.display_pane.set_position(config_manager.getint("player", "div_position"))
 		show_channel_guide_pane = config_manager.getboolean("player", "show_channel_guide")
 		channel_timeout = config_manager.getint("player", "channel_timeout")
+		self.window.set_keep_above(config_manager.getboolean("player", "stay_on_top"))
+		self.menu_stay_on_top.set_active(config_manager.getboolean("player", "stay_on_top"))
+		
 		last_updated = config_manager.get("ChannelGuide", "last_updated")
 		self.channel_guide_url = config_manager.get("ChannelGuide", "url")
+		
+
 		
 		textrenderer = gtk.CellRendererText()
 		
@@ -829,7 +839,64 @@ class pySopCast(object):
 		
 		# Post-response action area
 		dialog.destroy()
-
+	
+	def on_menu_stay_on_top_toggled(self, src, data=None):
+		self.window.set_keep_above(src.get_active())
+		config_manager = pySopCastConfigurationManager.pySopCastConfigurationManager()
+		config_manager.read()
+		config_manager.set("player", "stay_on_top", src.get_active())
+		config_manager.write()
+	
+	def on_menu_show_controls_toggled(self, src, data=None):
+		self.show_menu_controls(src.get_active())
+		
+	def show_menu_controls(self, show):
+		self.show_controls = show
+		window_height = self.window.get_size()[1]
+		window_width = self.window.get_size()[0]
+				
+		if show == True:
+			self.window.resize(window_width, window_height + self.hide_controls_size)
+			self.menu_show_controls.set_active(show)
+			self.main_menu.show()
+			self.media_controls.show()
+			self.status_bar.show()
+		else:
+			if self.hide_controls_size == None:
+				self.hide_controls_size = self.main_menu.get_allocation()[3] + self.media_controls.get_allocation()[3] + self.status_bar.get_allocation()[3]
+			
+			if self.show_channel_guide.get_active() == True:
+				self.show_channel_guide.set_active(False)
+				self.channel_guide_pane.hide()
+				window_width = self.display_pane.get_child1().get_allocation()[2]
+			
+			self.main_menu.hide()
+			self.media_controls.hide()
+			self.status_bar.hide()
+			
+			self.window.resize(window_width, window_height - self.hide_controls_size)
+			
+	def on_window_key_press_event(self, src, event, data=None):
+		if event.state & gtk.gdk.CONTROL_MASK:
+			if gtk.gdk.keyval_name(event.keyval) in ["h", "H"]:
+				self.show_menu_controls(not self.show_controls)
+			elif gtk.gdk.keyval_name(event.keyval) in ["t", "T"]:
+				self.menu_stay_on_top.set_active(not self.menu_stay_on_top.get_active())
+			elif gtk.gdk.keyval_name(event.keyval) in ["q", "Q"]:
+				self.menu_quit.activate()
+			elif gtk.gdk.keyval_name(event.keyval) in ["o", "O"]:
+				self.open_sop_address.activate()
+			elif gtk.gdk.keyval_name(event.keyval) in ["d", "D"]:
+				self.menu_add_bookmark.activate()
+			elif gtk.gdk.keyval_name(event.keyval) in ["f", "F"]:
+				self.menu_fullscreen.activate()
+		else:
+			if gtk.gdk.keyval_name(event.keyval) in ["h", "H"]:
+				self.show_menu_controls(not self.show_controls)
+			elif gtk.gdk.keyval_name(event.keyval) in ["t", "T"]:
+				self.menu_stay_on_top.set_active(not self.menu_stay_on_top.get_active())
+			elif gtk.gdk.keyval_name(event.keyval) in ["f", "F"]:
+				self.menu_fullscreen.activate()
 
 	def get_iter_child_count(self, parent_iter):
 		i = 0
@@ -943,7 +1010,12 @@ class pySopCast(object):
 		config_manager = pySopCastConfigurationManager.pySopCastConfigurationManager()
 		config_manager.read()
 		config_manager.set("player", "width", rect[2])
-		config_manager.set("player", "height", rect[3])
+		
+		if self.show_controls == True:
+			config_manager.set("player", "height", rect[3])
+		else:
+			config_manager.set("player", "height", rect[3] + self.hide_controls_size)
+			
 		config_manager.set("player", "div_position", self.display_pane.get_position())
 		config_manager.set("player", "show_channel_guide", self.show_channel_guide.get_active())
 		config_manager.set("player", "volume", int(self.volume.get_value()))

@@ -39,7 +39,8 @@ class pySopCastConfigurationManager(ConfigurationManager.ConfigurationManager):
 					     "channel_guide_width" : 80,
 					     "external_player" : False,
 					     "external_player_command" : "mplayer -ontop -geometry 100%%:100%%",
-					     "channel_timeout" : 3 })
+					     "channel_timeout" : 3,
+					     "stay_on_top" : False })
 						  
 		self.add_section("ChannelGuide", { "default_width" : 650,
 						    "default_height" : 550,
