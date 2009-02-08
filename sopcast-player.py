@@ -74,6 +74,7 @@ class UpdateUIThread(threading.Thread):
 		self.terminated = False
 		self.retry = False
 		self.volume = None
+		self.external_player = fork.ForkExternalPlayer()
 		
 	def run(self):
 		err_point = 0
@@ -89,7 +90,13 @@ class UpdateUIThread(threading.Thread):
 					
 					if stats == None and self.run_thread == True:
 						if was_playing == True and self.run_thread == True:
-							self.parent.stop_vlc()						
+							if self.parent.external_player_command != None:
+								if self.parent.external_player_command != "":
+									self.external_player.kill()
+									print "stoping external media player"
+							else:
+								self.parent.stop_vlc()						
+								
 							was_playing = False
 							
 						if retry == True and self.run_thread == True:
@@ -119,6 +126,7 @@ class UpdateUIThread(threading.Thread):
 						self.time_waiting = 0
 						loading = False
 						retry = False
+						started = True
 						
 						if stats != None:
 							if int(stats[0]) < 10 and self.run_thread == True:
@@ -144,10 +152,15 @@ class UpdateUIThread(threading.Thread):
 									gtk.gdk.threads_enter()
 									self.parent.update_statusbar("%s: %s%%" % (_("Buffer"), stats[0]))
 									gtk.gdk.threads_leave()
-								
-									gtk.gdk.threads_enter()
-									started = self.parent.start_vlc()
-									gtk.gdk.threads_leave()								
+									
+									if self.parent.external_player_command != None:
+										if self.parent.external_player_command != "":
+											self.external_player.fork_player(self.parent.external_player_command, self.parent.outbound_media_url)
+											print "Executing " + self.parent.external_player_command
+									else:
+										gtk.gdk.threads_enter()
+										started = self.parent.start_vlc()
+										gtk.gdk.threads_leave()								
 								
 									if started == True and self.run_thread == True:
 										self.play_stream = True
@@ -175,6 +188,7 @@ class UpdateUIThread(threading.Thread):
 				self.paused = True
 									
 			time.sleep(self.sleep_time)
+		self.external_player.kill()
 		self.terminated = True
 		
 	def print_point_on_exit(self, point):
@@ -360,6 +374,8 @@ class pySopCast(object):
 		self.window_title = "SopCast Player"
 		self.hide_controls_size = None
 		self.show_controls = True
+		self.external_player_command = None
+		self.outbound_media_url = None
 		
 	def main(self, sop_address=None, sop_address_name=None):
 		#gladefile = "%s/%s" % ("/usr/share/sopcast-player/ui", "pySopCast.glade")
@@ -402,6 +418,11 @@ class pySopCast(object):
 		channel_timeout = config_manager.getint("player", "channel_timeout")
 		self.window.set_keep_above(config_manager.getboolean("player", "stay_on_top"))
 		self.menu_stay_on_top.set_active(config_manager.getboolean("player", "stay_on_top"))
+		
+		if config_manager.getboolean("player", "external_player") == True:
+			self.external_player_command = config_manager.get("player", "external_player_command")
+			
+		print self.external_player_command
 		
 		last_updated = config_manager.get("ChannelGuide", "last_updated")
 		self.channel_guide_url = config_manager.get("ChannelGuide", "url")
@@ -785,12 +806,19 @@ class pySopCast(object):
 			external_player_command.set_sensitive(src.get_active())
 			config_manager.set("player", "external_player", src.get_active())
 			config_manager.write()
+			
+			if src.get_active() == True:
+				self.external_player_command = external_player_command.get_text()
+			else:
+				self.external_player_command = None
 			#TODO: Mashup the player window to only show channel guide and set ui_worker to launch external command
 		
 		def on_external_player_command_focus_out_event(src, event, data=None):
 			if external_player_command.get_text() != external_player_command_default:
 				config_manager.set("player", "external_player_command", src.get_text())
 				config_manager.write()
+				
+				self.external_player_command = external_player_command.get_text()
 				#TODO: Mashup the player window to only show channel guide and set ui_worker to launch external command
 				
 		def on_channel_timeout_adjust_bounds(src, value, data=None):					 
@@ -1000,8 +1028,8 @@ class pySopCast(object):
 			self.menu_add_bookmark.set_sensitive(True)
 			self.menu_fullscreen.set_sensitive(True)
 		
-			url = "http://%s:%d/tv.asf" % (self.server, self.outbound_port)
-			self.vlc.set_media_url(url)
+			self.outbound_media_url = "http://%s:%d/tv.asf" % (self.server, self.outbound_port)
+			self.vlc.set_media_url(self.outbound_media_url)
 			self.ui_worker.startup()
 
 	def on_play_button_clicked(self, src, data=None):

@@ -99,7 +99,7 @@ class ForkExternalPlayer:
 	def kill(self):
 		if self.is_running() == True:
 			try:
-				os.kill(self.child_pid, signal.SIGKILL)
+				os.kill(self.child_pid, signal.SIGINT)
 				killedpid, stat = os.wait()
 			except OSError:
 				sys.stderr.write("Process %s does not exist\n" % self.child_pid)
