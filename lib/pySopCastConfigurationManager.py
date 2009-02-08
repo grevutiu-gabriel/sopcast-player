@@ -48,5 +48,6 @@ class pySopCastConfigurationManager(ConfigurationManager.ConfigurationManager):
 						    "default_language" : True,
 						    "last_updated" : "Never",
 						    "language" : ChannelGuideLanguages.ENGLISH,
-						    "url" : "http://www.sopcast.com/gchlxml" })
+						    "url" : "http://www.sopcast.com/gchlxml",
+						    "div_position" : -1 })
 		

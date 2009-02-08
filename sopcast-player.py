@@ -317,6 +317,7 @@ class UpdateChannelGuideThread(threading.Thread):
 		gtk.gdk.threads_enter()
 		if self.parent.update_channel_guide_progress != None:
 			self.parent.update_channel_guide_progress.hide()
+			self.parent.channel_guide_label.show()
 		gtk.gdk.threads_leave()
 		
 		self.running = False
@@ -420,7 +421,9 @@ class pySopCast(object):
 		self.menu_stay_on_top.set_active(config_manager.getboolean("player", "stay_on_top"))
 		
 		if config_manager.getboolean("player", "external_player") == True:
+			self.set_media_player_visible(False)
 			self.external_player_command = config_manager.get("player", "external_player_command")
+			show_channel_guide_pane = True
 			
 		print self.external_player_command
 		
@@ -439,7 +442,7 @@ class pySopCast(object):
 		self.treeview_selection_changed_handler = self.treeview_selection.connect("changed", self.on_selection_changed)
 		self.channel_treeview.connect("row_activated", self.on_channel_treeview_row_activated)		
 		
-		if config_manager.getboolean("player", "show_channel_guide") == False:
+		if show_channel_guide_pane == False:
 			self.channel_guide_pane.hide()
 
 		self.eb.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("black"))
@@ -565,6 +568,19 @@ class pySopCast(object):
 				self.channel_treeview_model.append(channel_group_iter, self.prepare_row_for_channel_treeview_model(channel))
 		
 		self.channel_treeview.set_model(self.channel_treeview_model)
+
+	def set_media_player_visible(self, visible):
+		if visible == True:
+			self.menu_view.show()
+			self.media_box.show()
+			self.channel_properties_pane.hide()
+		else:
+			self.menu_view.hide()
+			self.media_box.hide()
+			self.channel_properties_pane.show()
+			
+			if self.show_channel_guide.get_active() == False:
+				self.show_channel_guide.set_active(True)
 	
 	def prepare_row_for_channel_treeview_model(self, row):
 		if len(row) == 10:
@@ -668,6 +684,17 @@ class pySopCast(object):
 				self.channel_treeview.collapse_row(self.channel_treeview_model.get_path(self.selected_iter))
 		else:
 			self.play_channel(self.selection[9], self.selection[1])
+			
+	def set_label_group(self, label_group, labels=None):
+		i = 0
+		if labels != None:
+			while i < len(label_group):
+				label_group[i].set_label(labels[i])
+				i += 1
+		else:
+			while i < len(label_group):
+				label_group[i].set_label("")
+				i += 1
 
 	def on_selection_changed(self, src, data=None):
 		model, s_iter = src.get_selected()
@@ -677,25 +704,24 @@ class pySopCast(object):
 			self.selected_iter = s_iter
 			self.selection = self.channel_treeview_model[row]
 	
-			#self.update_statusbar(self.channel_treeview_model[row][1])
-	
 			if self.channel_treeview_model.iter_has_child(self.selected_iter) == False:
 				label_group = [self.label_name, self.label_channel_group, self.label_classification, self.label_stream_type, self.label_bitrate, self.label_qc, self.label_qs, self.label_description]
 				labels = ["%s: %s" % (_("Name"), self.html_escape(self.selection[1])), "%s: %s" % (_("Channel Group"), self.html_escape(self.channel_treeview_model[self.channel_treeview_model.get_path(self.channel_treeview_model.iter_parent(s_iter))][1])), "%s: %s" % (_("Classification"), self.html_escape(self.selection[4])), "%s: %s" % (_("Stream Format"), self.html_escape(self.selection[5].upper())), "Bitrate: %d kb/s" % self.selection[6], "%s: %d" % (_("QC"), self.selection[7]), "%s: %d" % (_("QS"), self.selection[8]), "%s: %s" % (_("Description"), self.html_escape(self.selection[2]))]
-				#self.set_label_group(label_group, labels)
+				self.set_label_group(label_group, labels)
 		
 			else:
 				label_group = [self.label_name, self.label_channel_group, self.label_classification, self.label_stream_type, self.label_bitrate, self.label_qc, self.label_qs, self.label_description]
 				labels = ["%s: %s" % (_("Name"), self.html_escape(self.selection[1])), "%s: %d" % (_("Channels"), self.get_iter_child_count(self.selected_iter)), "%s: %s" % (_("Description"), self.html_escape(self.selection[2])), "" ,"" ,"" ,"" ,""]
-				#self.set_label_group(label_group, labels)
+				self.set_label_group(label_group, labels)
 		else:
 			self.selected_iter = None
 			self.selection = None
 			label_group = [self.label_name, self.label_channel_group, self.label_classification, self.label_stream_type, self.label_bitrate, self.label_qc, self.label_qs, self.label_description]
-			#self.set_label_group(label_group)
+			self.set_label_group(label_group)
 	
 	def on_refresh_channel_guide_clicked(self, src, data=None):
 		self.update_channel_guide_progress.set_fraction(0)
+		self.channel_guide_label.hide()
 		self.update_channel_guide_progress.show()
 	
 		if self.channel_guide_worker != None:
@@ -809,8 +835,10 @@ class pySopCast(object):
 			
 			if src.get_active() == True:
 				self.external_player_command = external_player_command.get_text()
+				self.set_media_player_visible(False)
 			else:
 				self.external_player_command = None
+				self.set_media_player_visible(True)
 			#TODO: Mashup the player window to only show channel guide and set ui_worker to launch external command
 		
 		def on_external_player_command_focus_out_event(src, event, data=None):
@@ -883,7 +911,7 @@ class pySopCast(object):
 		config_manager.write()
 	
 	def on_menu_show_controls_toggled(self, src, data=None):
-		self.show_menu_controls(src.get_active())
+		return True
 		
 	def show_menu_controls(self, show):
 		self.show_controls = show
@@ -943,7 +971,8 @@ class pySopCast(object):
 				path, col, cellx, celly = pthinfo
 				self.channel_treeview.grab_focus()
 				self.channel_treeview.set_cursor( path, col, 0 )
-				self.context_menu.popup( None, None, None, event.button, time)
+				if self.channel_treeview_model.iter_has_child(self.channel_treeview_model.get_iter(path)) == False:
+					self.context_menu.popup( None, None, None, event.button, time)
 		return False
 	
 	def on_context_menu_play_activate(self, src, data=None):
