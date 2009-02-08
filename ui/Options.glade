@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.5 on Thu Feb  5 19:46:01 2009 -->
+<!--Generated with glade3 3.4.5 on Sun Feb  8 19:46:49 2009 -->
 <glade-interface>
   <widget class="GtkDialog" id="window">
     <property name="border_width">5</property>
@@ -548,18 +548,13 @@
                               </packing>
                             </child>
                             <child>
-                              <widget class="GtkComboBoxEntry" id="comboboxentry1">
+                              <widget class="GtkComboBox" id="language_combobox">
                                 <property name="visible">True</property>
-                                <child internal-child="entry">
-                                  <widget class="GtkEntry" id="comboboxentry-entry1">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                  </widget>
-                                </child>
+                                <property name="items" translatable="yes"></property>
+                                <signal name="changed" handler="on_language_combobox_changed"/>
                               </widget>
                               <packing>
                                 <property name="expand">False</property>
-                                <property name="fill">False</property>
                                 <property name="padding">2</property>
                                 <property name="position">2</property>
                               </packing>

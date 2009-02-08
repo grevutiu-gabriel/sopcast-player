@@ -17,14 +17,25 @@
 
 import ConfigurationManager
 import os
+import locale
 
 class ChannelGuideLanguages:
 	ENGLISH = 0
 	CHINESE = 1
 
+cur_locale = locale.setlocale(locale.LC_ALL, "")
+
+def is_chinese():
+	return not cur_locale[:len("zh".lower())] != "zh".lower()
+
 class pySopCastConfigurationManager(ConfigurationManager.ConfigurationManager):
 	def __init__(self):
 		ConfigurationManager.ConfigurationManager.__init__(self, os.path.expanduser('~/.pySopCast/pySopCast.cfg'))
+		
+		if is_chinese() == True:
+			language = _("Chinese")
+		else:
+			language = _("English")
 					     
 		self.add_section("player", { "show_toolbar" : True,
 					     "static_ports" : False,
@@ -42,12 +53,13 @@ class pySopCastConfigurationManager(ConfigurationManager.ConfigurationManager):
 					     "channel_timeout" : 3,
 					     "stay_on_top" : False })
 						  
-		self.add_section("ChannelGuide", { "default_width" : 650,
+		self.add_section("ChannelGuide", {  "width" : 600,
+						    "height" : 400,
+						    "default_width" : 650,
 						    "default_height" : 550,
 						    "auto_refresh" : False,
-						    "default_language" : True,
+						    "channel_guide_language" : language,
 						    "last_updated" : "Never",
-						    "language" : ChannelGuideLanguages.ENGLISH,
 						    "url" : "http://www.sopcast.com/gchlxml",
 						    "div_position" : -1 })
 		

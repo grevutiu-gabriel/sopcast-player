@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.5 on Sun Feb  8 18:30:10 2009 -->
+<!--Generated with glade3 3.4.5 on Sun Feb  8 20:16:07 2009 -->
 <glade-interface>
   <widget class="GtkWindow" id="window">
     <property name="role">SopCast Player Main Screen</property>
@@ -307,7 +307,7 @@
               <widget class="GtkVBox" id="channel_guide_pane">
                 <property name="visible">True</property>
                 <child>
-                  <widget class="GtkHPaned" id="hpaned1">
+                  <widget class="GtkHPaned" id="channel_guide_hpane">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <child>

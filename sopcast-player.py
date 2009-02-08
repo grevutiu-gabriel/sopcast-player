@@ -41,8 +41,8 @@ import signal
 import vlc
 import VLCWidget
 
-cur_locale = locale.setlocale(locale.LC_ALL, "")
-#cur_locale = locale.setlocale(locale.LC_ALL, ("zh_CN", "utf8"))
+#cur_locale = locale.setlocale(locale.LC_ALL, "")
+cur_locale = locale.setlocale(locale.LC_ALL, ("zh_CN", "utf8"))
 
 gtk.glade.bindtextdomain("sopcast-player", "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "locale"))
 gtk.glade.textdomain("sopcast-player")
@@ -268,7 +268,7 @@ class UpdateChannelGuideThread(threading.Thread):
 			self.parent.channel_treeview_model.clear()
 			gtk.gdk.threads_leave()
 			
-			if is_chinese() == False:
+			if self.parent.channel_guide_language == _("English"):
 				channel_groups = db_operations.retrieve_channel_groups()
 			else:
 				channel_groups = db_operations.retrieve_channel_groups_cn()
@@ -278,7 +278,7 @@ class UpdateChannelGuideThread(threading.Thread):
 				channel_group_iter = self.parent.channel_treeview_model.append(None, self.parent.prepare_row_for_channel_treeview_model(channel_group))
 				gtk.gdk.threads_leave()
 				
-				if is_chinese() == False:
+				if self.parent.channel_guide_language == _("English"):
 					channels = db_operations.retrieve_channels_by_channel_group_id(channel_group[0])
 				else:
 					channels = db_operations.retrieve_channels_by_channel_group_id_cn(channel_group[0])
@@ -377,6 +377,7 @@ class pySopCast(object):
 		self.show_controls = True
 		self.external_player_command = None
 		self.outbound_media_url = None
+		self.channel_guide_language = None
 		
 	def main(self, sop_address=None, sop_address_name=None):
 		#gladefile = "%s/%s" % ("/usr/share/sopcast-player/ui", "pySopCast.glade")
@@ -424,12 +425,13 @@ class pySopCast(object):
 			self.set_media_player_visible(False)
 			self.external_player_command = config_manager.get("player", "external_player_command")
 			show_channel_guide_pane = True
-			
-		print self.external_player_command
 		
 		last_updated = config_manager.get("ChannelGuide", "last_updated")
 		self.channel_guide_url = config_manager.get("ChannelGuide", "url")
+		self.channel_guide_hpane.set_position(config_manager.getint("ChannelGuide", "div_position"))
 		
+		
+		self.channel_guide_language = config_manager.get("ChannelGuide", "channel_guide_language")
 
 		
 		textrenderer = gtk.CellRendererText()
@@ -451,7 +453,9 @@ class pySopCast(object):
 		self.ui_worker.start()		
 		
 		self.populate_bookmarks()
-		self.populate_channel_treeview(is_chinese())
+		
+		chinese = self.channel_guide_language == _("Chinese")
+		self.populate_channel_treeview(chinese)
 		
 		self.show_channel_guide.set_active(show_channel_guide_pane)
 		self.show_channel_guide.connect("toggled", self.on_show_channel_guide_toggled)
@@ -551,6 +555,8 @@ class pySopCast(object):
 			self.menu_bookmarks.get_submenu().show_all()
 	
 	def populate_channel_treeview(self, chinese=False):
+		self.channel_treeview.set_model()
+		self.channel_treeview_model.clear()
 		if chinese == False:
 			channel_groups = self.db_operations.retrieve_channel_groups()
 		else:
@@ -774,9 +780,8 @@ class pySopCast(object):
 		
 		channel_timeout_default = config_manager.getint("player", "channel_timeout")
 		
-		#external_player_default = config_manager.getboolean("player", 
-		
 		channel_guide_url_default = config_manager.get("ChannelGuide", "url")
+		language_combobox_default = config_manager.get("ChannelGuide", "channel_guide_language")
 		
 
 		# Widget variables
@@ -792,6 +797,8 @@ class pySopCast(object):
 		channel_timeout = tree.get_widget("channel_timeout")
 		
 		channel_guide_url = tree.get_widget("channel_guide_url")
+		
+		language_combobox = tree.get_widget("language_combobox")
 		
 		
 		# Signal functions and helpers
@@ -869,6 +876,19 @@ class pySopCast(object):
 				config_manager.write()
 				self.channel_guide_url = src.get_text()
 		
+		def on_language_combobox_changed(src, data=None):
+			chinese = False
+			config_manager.set("ChannelGuide", "channel_guide_language", src.get_active_text())
+			config_manager.write()
+			
+			if src.get_active_text() == _("Chinese"):
+				chinese = True
+			
+			print chinese
+			
+			self.populate_channel_treeview(chinese)
+			self.channel_guide_language = src.get_active_text()
+		
 		
 		# Setup widget defaults
 		static_ports.set_active(static_ports_default)
@@ -885,6 +905,23 @@ class pySopCast(object):
 		
 		channel_guide_url.set_text(channel_guide_url_default)
 		
+		if is_chinese() == False:
+			language_combobox.insert_text(0, _("English"))
+			language_combobox.insert_text(1, _("Chinese"))
+		else:
+			language_combobox.insert_text(0, _("Chinese"))				
+			language_combobox.insert_text(1, _("English"))
+		
+		if is_chinese() == False:
+			if language_combobox_default == _("English"):
+				language_combobox.set_active(0)
+			else:
+				language_combobox.set_active(1)
+		else:
+			if language_combobox_default == _("Chinese"):
+				language_combobox.set_active(0)
+			else:
+				language_combobox.set_active(1)
 
 		# Signal connect
 		dic = { "on_static_ports_toggled" : on_static_ports_toggled,
@@ -894,7 +931,8 @@ class pySopCast(object):
 			"on_external_player_command_focus_out_event" : on_external_player_command_focus_out_event,
 			"on_channel_timeout_adjust_bounds" : on_channel_timeout_adjust_bounds,
 			"on_channel_timeout_focus_out_event" : on_channel_timeout_focus_out_event,
-			"on_channel_guide_url_focus_out_event" : on_channel_guide_url_focus_out_event, }
+			"on_channel_guide_url_focus_out_event" : on_channel_guide_url_focus_out_event,
+			"on_language_combobox_changed" : on_language_combobox_changed}
 		tree.signal_autoconnect(dic)
 		
 		dialog.run()
@@ -1098,8 +1136,12 @@ class pySopCast(object):
 			config_manager.set("player", "height", rect[3])
 		else:
 			config_manager.set("player", "height", rect[3] + self.hide_controls_size)
-			
-		config_manager.set("player", "div_position", self.display_pane.get_position())
+		
+		if self.channel_selection_pane.get_property("visible") == True and self.media_box.get_property("visible") == True:	
+			config_manager.set("player", "div_position", self.display_pane.get_position())
+		
+		if self.channel_properties_pane.get_property("visible") == True and self.media_box.get_property("visible") == False:
+			config_manager.set("ChannelGuide", "div_position", self.channel_guide_hpane.get_position())
 		config_manager.set("player", "show_channel_guide", self.show_channel_guide.get_active())
 		config_manager.set("player", "volume", int(self.volume.get_value()))
 		config_manager.write()
@@ -1108,7 +1150,7 @@ class pySopCast(object):
 		
 		if self.fork_sop.is_running() == True:
 			self.vlc.stop_media()
-			self.vlc.exit_media()		
+			self.vlc.exit_media()
 			self.fork_sop.kill_sop()
 			
 		gtk.main_quit()
@@ -1156,6 +1198,237 @@ class pySopCast(object):
 		
 	def set_play_button_active(self, active=True):
 		self.play_button.set_sensitive(active)
+		
+	def html_escape(self, text):
+		html_escape_table = {
+			"&": "&amp;",
+			'"': "&quot;",
+			"'": "&apos;",
+			">": "&gt;",
+			"<": "&lt;",
+			}
+		"""Produce entities within text."""
+		L=[]
+		for c in text:
+			L.append(html_escape_table.get(c,c))
+		return "".join(L)
+
+class ChannelGuide2(object):
+	def __init__(self, parent=None):
+		gtk.gdk.threads_init()
+		self.last_update = 0
+		self.status_bar_text = None
+		self.status_bar_text_changed = False
+		self.db_operations = DatabaseOperations.DatabaseOperations()
+		self.display_message_from_main_thread = False
+		self.start_display_time = None
+		self.display_message_time = 5
+		self.treeview_selection = None
+		self.channel_guide_worker = None
+		self.channel_guide_language = None
+		self.parent = parent
+		
+	def main(self, sop_address=None, sop_address_name=None):
+		#gladefile = "%s/%s" % ("/usr/share/sopcast-player/ui", "ChannelGuide2.glade")
+		gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "ui/ChannelGuide2.glade")
+		self.glade_window = gtk.glade.XML(gladefile, "window", "sopcast-player")
+		self.window = self.glade_window.get_widget("window")
+		
+		window_signals = { "on_mainWindow_destroy" : self.on_exit,
+			"on_menu_quit_activate" : self.on_menu_quit_activate,
+			"on_menu_about_activate" : self.on_menu_about_activate,
+			"on_refresh_channel_guide_clicked" : self.on_refresh_channel_guide_clicked }
+		
+		self.glade_window.signal_autoconnect(window_signals)
+
+		config_manager = pySopCastConfigurationManager.pySopCastConfigurationManager()
+		config_manager.read()
+		
+		self.window.set_default_size(config_manager.getint("ChannelGuide", "width"), config_manager.getint("ChannelGuide", "height"))
+		self.channel_guide_url = config_manager.get("ChannelGuide", "url")
+		self.channel_guide_hpane.set_position(config_manager.getint("ChannelGuide", "div_position"))		
+		self.channel_guide_language = config_manager.get("ChannelGuide", "channel_guide_language")
+
+		textrenderer = gtk.CellRendererText()
+		
+		column = gtk.TreeViewColumn("Name", textrenderer, text=1)
+		self.channel_treeview.append_column(column)
+		
+		self.channel_treeview_model = gtk.TreeStore(int, str, str, str, str, str, int, int, int, str)
+		self.treeview_selection = self.channel_treeview.get_selection()
+		self.treeview_selection_changed_handler = self.treeview_selection.connect("changed", self.on_selection_changed)
+		self.channel_treeview.connect("row_activated", self.on_channel_treeview_row_activated)
+		
+		chinese = self.channel_guide_language == _("Chinese")
+		self.populate_channel_treeview(chinese)
+		
+		self.window.show()
+		
+		gtk.gdk.threads_enter()
+		gtk.main()
+		gtk.gdk.threads_leave()
+		
+	def __getattribute__(self, key):
+		value = None
+		try:
+			value = object.__getattribute__(self, key)
+		except AttributeError:
+			glade_window = object.__getattribute__(self, 'glade_window')
+			value = glade_window.get_widget(key)	
+
+		return value
+	
+	def populate_channel_treeview(self, chinese=False):
+		self.channel_treeview.set_model()
+		self.channel_treeview_model.clear()
+		if chinese == False:
+			channel_groups = self.db_operations.retrieve_channel_groups()
+		else:
+			channel_groups = self.db_operations.retrieve_channel_groups_cn()
+		
+		for channel_group in channel_groups:
+			channel_group_iter = self.channel_treeview_model.append(None, self.prepare_row_for_channel_treeview_model(channel_group))
+			
+			if chinese == False:
+				channels = self.db_operations.retrieve_channels_by_channel_group_id(channel_group[0])
+			else:
+				channels = self.db_operations.retrieve_channels_by_channel_group_id_cn(channel_group[0])
+		
+			for channel in channels:
+				self.channel_treeview_model.append(channel_group_iter, self.prepare_row_for_channel_treeview_model(channel))
+		
+		self.channel_treeview.set_model(self.channel_treeview_model)
+	
+	def prepare_row_for_channel_treeview_model(self, row):
+		if len(row) == 10:
+			return row
+		else:
+			return [row[0], row[1], row[2], None, None, None, 0, 0, 0, None]
+	
+	def on_menu_quit_activate(self, src, data=None):
+		self.window.destroy()
+	
+	def on_menu_about_activate(self, src, data=None):
+		#gladefile = "%s/%s" % ("/usr/share/sopcast-player/ui", "About.glade")
+		gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "ui/About.glade")
+		about_file = gtk.glade.XML(gladefile, "about")
+		about = about_file.get_widget("about")
+		about.set_transient_for(self.window)
+		about.run()
+		about.destroy()
+	
+	def on_channel_treeview_row_activated(self, treeview, path, view_column, data=None):
+		if self.channel_treeview_model.iter_has_child(self.selected_iter) == True:
+			if self.channel_treeview.row_expanded(self.channel_treeview_model.get_path(self.selected_iter)) == False:
+				self.channel_treeview.expand_row(self.channel_treeview_model.get_path(self.selected_iter), False)
+			else:
+				self.channel_treeview.collapse_row(self.channel_treeview_model.get_path(self.selected_iter))
+		else:
+			if self.parent != None:
+				if self.parent.eb == None:
+					self.parent = pySopCast()
+					self.parent.main(self.selection[9], self.selection[1])
+				else:
+					self.parent.play_channel(self.selection[9], self.selection[1])
+			else:
+				self.parent = pySopCast()
+				self.parent.main(self.selection[9], self.selection[1])
+			
+	def set_label_group(self, label_group, labels=None):
+		i = 0
+		if labels != None:
+			while i < len(label_group):
+				label_group[i].set_label(labels[i])
+				i += 1
+		else:
+			while i < len(label_group):
+				label_group[i].set_label("")
+				i += 1
+
+	def on_selection_changed(self, src, data=None):
+		model, s_iter = src.get_selected()
+
+		if s_iter:
+			row = model.get_path(s_iter)
+			self.selected_iter = s_iter
+			self.selection = self.channel_treeview_model[row]
+	
+			if self.channel_treeview_model.iter_has_child(self.selected_iter) == False:
+				label_group = [self.label_name, self.label_channel_group, self.label_classification, self.label_stream_type, self.label_bitrate, self.label_qc, self.label_qs, self.label_description]
+				labels = ["%s: %s" % (_("Name"), self.html_escape(self.selection[1])), "%s: %s" % (_("Channel Group"), self.html_escape(self.channel_treeview_model[self.channel_treeview_model.get_path(self.channel_treeview_model.iter_parent(s_iter))][1])), "%s: %s" % (_("Classification"), self.html_escape(self.selection[4])), "%s: %s" % (_("Stream Format"), self.html_escape(self.selection[5].upper())), "Bitrate: %d kb/s" % self.selection[6], "%s: %d" % (_("QC"), self.selection[7]), "%s: %d" % (_("QS"), self.selection[8]), "%s: %s" % (_("Description"), self.html_escape(self.selection[2]))]
+				self.set_label_group(label_group, labels)
+		
+			else:
+				label_group = [self.label_name, self.label_channel_group, self.label_classification, self.label_stream_type, self.label_bitrate, self.label_qc, self.label_qs, self.label_description]
+				labels = ["%s: %s" % (_("Name"), self.html_escape(self.selection[1])), "%s: %d" % (_("Channels"), self.get_iter_child_count(self.selected_iter)), "%s: %s" % (_("Description"), self.html_escape(self.selection[2])), "" ,"" ,"" ,"" ,""]
+				self.set_label_group(label_group, labels)
+		else:
+			self.selected_iter = None
+			self.selection = None
+			label_group = [self.label_name, self.label_channel_group, self.label_classification, self.label_stream_type, self.label_bitrate, self.label_qc, self.label_qs, self.label_description]
+			self.set_label_group(label_group)
+	
+	def on_refresh_channel_guide_clicked(self, src, data=None):
+		self.update_channel_guide_progress.set_fraction(0)
+		self.channel_guide_label.hide()
+		self.update_channel_guide_progress.show()
+	
+		if self.channel_guide_worker != None:
+			if self.channel_guide_worker.running == False:
+				self.channel_guide_worker = None
+			
+				self.channel_guide_worker = UpdateChannelGuideThread(self)
+				self.channel_guide_worker.start()
+		else:
+			self.channel_guide_worker = UpdateChannelGuideThread(self)
+			self.channel_guide_worker.start()
+	
+	def get_iter_child_count(self, parent_iter):
+		i = 0
+		
+		child = self.channel_treeview_model.iter_children(parent_iter)
+		
+		while child != None:
+			child = self.channel_treeview_model.iter_next(child)
+			i += 1
+		
+		return i
+		
+	def update_status_bar_text(self, txt):
+		if self.status_bar != None:
+			self.status_bar_text = txt
+			self.status_bar_text_changed = True
+	
+	def set_volume(self, volume):
+		self.vlc.set_volume(volume)
+			
+	def on_exit(self, widget, data=None):
+		rect = self.window.get_allocation()
+		config_manager = pySopCastConfigurationManager.pySopCastConfigurationManager()
+		config_manager.read()
+		config_manager.set("ChannelGuide", "width", rect[2])
+		
+		config_manager.set("ChannelGuide", "height", rect[3])
+		
+		config_manager.set("ChannelGuide", "div_position", self.channel_guide_hpane.get_position())
+		config_manager.write()
+			
+		gtk.main_quit()
+		self = None
+	
+	def update_statusbar(self, text, display_time=None):
+		if display_time != None:
+			self.status_bar.push(1, text)
+			self.display_message_from_main_thread = True
+			self.display_message_time = display_time
+			self.start_display_time = time.time()
+		
+		if self.display_message_from_main_thread == True and self.start_display_time != None:
+			if time.time() - self.start_display_time > self.display_message_time:
+				self.display_message_from_main_thread = False
+				self.start_display_time = None
+		else:
+			self.status_bar.push(1, text)
 		
 	def html_escape(self, text):
 		html_escape_table = {
@@ -1635,7 +1908,8 @@ if __name__ == '__main__':
 		else:
 			print_usage_and_exit()
 	else:
-		pySop = pySopCast()
+		#pySop = pySopCast()
+		pySop = ChannelGuide2()
 		pySop.main()
 	
 	
