@@ -289,7 +289,8 @@ class UpdateChannelGuideThread(threading.Thread):
 			self.updated = True
 		except Exception, e:
 			gtk.gdk.threads_enter()
-			self.parent.update_channel_guide_progress.set_text(_("Server Down"))
+			if self.parent.update_channel_guide_progress != None:
+				self.parent.update_channel_guide_progress.set_text(_("Server Down"))
 			gtk.gdk.threads_leave()
 			print e
 		
@@ -300,7 +301,8 @@ class UpdateChannelGuideThread(threading.Thread):
 		
 		time.sleep(5)
 		gtk.gdk.threads_enter()
-		self.parent.update_channel_guide_progress.hide()
+		if self.parent.update_channel_guide_progress != None:
+			self.parent.update_channel_guide_progress.hide()
 		gtk.gdk.threads_leave()
 		
 		self.running = False
@@ -333,7 +335,6 @@ class PlayerStatus:
 	Error = 9
 
 class pySopCast(object):
-
 	def __init__(self, channel_url=None, inbound_port=None, outbound_port=None, *p):
 		gtk.gdk.threads_init()
 		self.vlc = VLCWidget.VLCWidget(*p)
@@ -365,9 +366,10 @@ class pySopCast(object):
 		gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "ui/pySopCast.glade")
 		self.glade_window = gtk.glade.XML(gladefile, "window", "sopcast-player")
 		self.window = self.glade_window.get_widget("window")
-		self.window.set_title("%s" % _("SopCast Player"))
+		glade_context_menu = gtk.glade.XML(gladefile, "context_menu", "sopcast-player")
+		self.context_menu = glade_context_menu.get_widget("context_menu")
 		
-		dic = { "on_mainWindow_destroy" : self.on_exit,
+		window_signals = { "on_mainWindow_destroy" : self.on_exit,
 			"on_play_button_clicked" : self.on_play_button_clicked,
 			"on_menu_quit_activate" : self.on_menu_quit_activate,
 			"on_menu_fullscreen_activate" : self.on_fullscreen_activate,
@@ -381,9 +383,14 @@ class pySopCast(object):
 			"on_menu_preferences_activate" : self.on_menu_preferences_activate,
 			"on_menu_stay_on_top_toggled" : self.on_menu_stay_on_top_toggled,
 			"on_menu_show_controls_toggled" : self.on_menu_show_controls_toggled,
-			"on_window_key_press_event" : self.on_window_key_press_event }
+			"on_window_key_press_event" : self.on_window_key_press_event,
+			"on_channel_treeview_button_press_event" : self.on_channel_treeview_button_press_event }
 		
-		self.glade_window.signal_autoconnect(dic)
+		self.glade_window.signal_autoconnect(window_signals)
+		
+		context_menu_signals = { "on_context_menu_play_activate" : self.on_context_menu_play_activate }
+		
+		glade_context_menu.signal_autoconnect(context_menu_signals)
 
 		config_manager = pySopCastConfigurationManager.pySopCastConfigurationManager()
 		config_manager.read()
@@ -897,6 +904,25 @@ class pySopCast(object):
 				self.menu_stay_on_top.set_active(not self.menu_stay_on_top.get_active())
 			elif gtk.gdk.keyval_name(event.keyval) in ["f", "F"]:
 				self.menu_fullscreen.activate()
+	
+	def on_channel_treeview_button_press_event(self, src, event, data=None):
+		if event.button == 3:
+			x = int(event.x)
+			y = int(event.y)
+			time = event.time
+			pthinfo = self.channel_treeview.get_path_at_pos(x, y)
+			if pthinfo is not None:
+				path, col, cellx, celly = pthinfo
+				self.channel_treeview.grab_focus()
+				self.channel_treeview.set_cursor( path, col, 0 )
+				self.context_menu.popup( None, None, None, event.button, time)
+		return False
+	
+	def on_context_menu_play_activate(self, src, data=None):
+		path, column = self.channel_treeview.get_cursor()
+		
+		self.play_channel(self.channel_treeview_model[path][9], self.channel_treeview_model[path][1])
+		print self.channel_treeview_model[path][2]
 
 	def get_iter_child_count(self, parent_iter):
 		i = 0

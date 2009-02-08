@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.5 on Sat Feb  7 12:52:56 2009 -->
+<!--Generated with glade3 3.4.5 on Sat Feb  7 17:09:47 2009 -->
 <glade-interface>
   <widget class="GtkWindow" id="window">
     <property name="role">SopCast Player Main Screen</property>
@@ -367,6 +367,7 @@
                         <property name="can_focus">True</property>
                         <property name="has_tooltip">True</property>
                         <property name="headers_visible">False</property>
+                        <signal name="button_press_event" handler="on_channel_treeview_button_press_event"/>
                       </widget>
                     </child>
                   </widget>
@@ -401,11 +402,16 @@
   <widget class="GtkMenu" id="context_menu">
     <property name="visible">True</property>
     <child>
-      <widget class="GtkMenuItem" id="popup_fullscreen">
+      <widget class="GtkImageMenuItem" id="context_menu_play">
         <property name="visible">True</property>
-        <property name="label" translatable="yes">_Fullscreen</property>
+        <property name="label" translatable="yes">Play</property>
         <property name="use_underline">True</property>
-        <signal name="activate" handler="on_popup_fullscreen_activate"/>
+        <signal name="activate" handler="on_context_menu_play_activate"/>
+        <child internal-child="image">
+          <widget class="GtkImage" id="menu-item-image1">
+            <property name="stock">gtk-media-play</property>
+          </widget>
+        </child>
       </widget>
     </child>
   </widget>

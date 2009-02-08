@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: pySopCast 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-01-20 20:24+0100\n"
-"PO-Revision-Date: 2009-02-03 05:09+0100\n"
+"PO-Revision-Date: 2009-02-08 07:17+0100\n"
 "Last-Translator: flyguy97 <flyguy97@gmail.com>\n"
 "Language-Team: flyguy97 <flyguy97@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -283,4 +283,58 @@ msgstr "<i>5分</i>"
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<i>Never</i>"
 msgstr "<i>从不</i>"
+
+msgid "Screenshot"
+msgstr "截图"
+
+msgid "Name:"
+msgstr "名称："
+
+msgid "Format:"
+msgstr "格式："
+
+msgid "Bitrate:"
+msgstr "比特率："
+
+msgid "Channel Group:"
+msgstr "频道组："
+
+msgid "Classification:"
+msgstr "分类："
+
+msgid "Description:"
+msgstr "描述："
+
+msgid "Preferences"
+msgstr "首选项"
+
+msgid "Play"
+msgstr "播放"
+
+msgid "Stop"
+msgstr "停止"
+
+msgid "Always On Top"
+msgstr "总是置顶"
+
+msgid "Show Controls"
+msgstr "显示按钮和边框"
+
+msgid "Chinese"
+msgstr "汉语"
+
+msgid "English"
+msgstr "English"
+
+msgid "<i>Daily</i>"
+msgstr "<i>每天</i>"
+
+msgid "<i>Program Start</i>"
+msgstr "<i>程序启动时</i>"
+
+msgid "<big><b>Channel Bookmark</b></big>"
+msgstr "<big><b>频道收藏</b></big>"
+
+msgid "_Edit"
+msgstr "编辑(_E)"
 

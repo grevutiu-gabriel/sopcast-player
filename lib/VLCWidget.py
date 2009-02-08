@@ -21,7 +21,7 @@ import vlc
 class VLCWidget(gtk.DrawingArea):
 	def __init__(self, *p):
 		gtk.DrawingArea.__init__(self)
-		self.player=vlc.MediaControl(*p)
+		self.player=vlc.MediaControl([ "--vout-filter", "clone" ], *p)
 		def handle_embed(*p):
 			if sys.platform == 'win32':
 				xidattr='handle'
@@ -30,7 +30,7 @@ class VLCWidget(gtk.DrawingArea):
 				self.player.set_visual(getattr(self.window, xidattr))
 			return True
 		self.connect("map-event", handle_embed)
-		
+
 	def set_media_url(self, url):
 		self.player.set_mrl(url)
 		
@@ -50,7 +50,6 @@ class VLCWidget(gtk.DrawingArea):
 		self.player.exit(0)
 		
 	def display_text(self, text):
-		vlc_info = self.player.get_stream_information()
 		self.player.display_text("%s" % text, 0, 5000)
 		
 	def is_fullscreen(self):
@@ -66,4 +65,4 @@ class VLCWidget(gtk.DrawingArea):
 		self.player.sound_set_volume(level)
 		
 	def screenshot(self):
-		self.player.snapshot(0)
+		return self.player.snapshot(0)
