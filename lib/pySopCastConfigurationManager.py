@@ -34,8 +34,10 @@ class pySopCastConfigurationManager(ConfigurationManager.ConfigurationManager):
 		
 		if is_chinese() == True:
 			language = _("Chinese")
+			channel_guide = "http://channel.sopcast.com/gchlxml"
 		else:
 			language = _("English")
+			channel_guide = "http://www.sopcast.com/gchlxml"
 					     
 		self.add_section("player", { "show_toolbar" : True,
 					     "static_ports" : False,
@@ -60,6 +62,6 @@ class pySopCastConfigurationManager(ConfigurationManager.ConfigurationManager):
 						    "auto_refresh" : False,
 						    "channel_guide_language" : language,
 						    "last_updated" : "Never",
-						    "url" : "http://www.sopcast.com/gchlxml",
+						    "url" : channel_guide,
 						    "div_position" : -1 })
 		
