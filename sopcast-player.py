@@ -41,8 +41,9 @@ import signal
 import vlc
 import VLCWidget
 
-#cur_locale = locale.setlocale(locale.LC_ALL, "")
-cur_locale = locale.setlocale(locale.LC_ALL, ("zh_CN", "utf8"))
+cur_locale = locale.setlocale(locale.LC_ALL, "")
+#cur_locale = locale.setlocale(locale.LC_ALL, ("zh_CN", "utf8"))
+#cur_locale = locale.setlocale(locale.LC_ALL, ("es_ES", "utf8"))
 
 gtk.glade.bindtextdomain("sopcast-player", "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "locale"))
 gtk.glade.textdomain("sopcast-player")
@@ -348,6 +349,10 @@ class PlayerStatus:
 	Backward = 7
 	EndOfStream = 8
 	Error = 9
+
+class ChannelGuideLayout:
+	UNITY = 0
+	DUAL_WINDOW = 1
 
 class pySopCast(object):
 	def __init__(self, channel_url=None, inbound_port=None, outbound_port=None, *p):
@@ -782,6 +787,7 @@ class pySopCast(object):
 		
 		channel_guide_url_default = config_manager.get("ChannelGuide", "url")
 		language_combobox_default = config_manager.get("ChannelGuide", "channel_guide_language")
+		layout_default = config_manager.getint("ChannelGuide", "layout")
 		
 
 		# Widget variables
@@ -799,6 +805,8 @@ class pySopCast(object):
 		channel_guide_url = tree.get_widget("channel_guide_url")
 		
 		language_combobox = tree.get_widget("language_combobox")
+		unity_radiobutton = tree.get_widget("unity_radiobutton")
+		classic_radiobutton = tree.get_widget("classic_radiobutton")
 		
 		
 		# Signal functions and helpers
@@ -884,12 +892,19 @@ class pySopCast(object):
 			if src.get_active_text() == _("Chinese"):
 				chinese = True
 			
-			print chinese
-			
 			self.populate_channel_treeview(chinese)
 			self.channel_guide_language = src.get_active_text()
-		
-		
+			
+		def channel_guide_layout_callback(src, data=None):
+			if src.get_active() == True:
+				if data == ChannelGuideLayout.UNITY:
+					config_manager.set("ChannelGuide", "layout", ChannelGuideLayout.UNITY)
+					config_manager.write()
+				else:	
+					config_manager.set("ChannelGuide", "layout", ChannelGuideLayout.DUAL_WINDOW)
+					config_manager.write()
+					
+					
 		# Setup widget defaults
 		static_ports.set_active(static_ports_default)
 		set_widgets_sensitive(static_ports_children, static_ports_default)
@@ -922,6 +937,11 @@ class pySopCast(object):
 				language_combobox.set_active(0)
 			else:
 				language_combobox.set_active(1)
+		
+		if layout_default == ChannelGuideLayout.UNITY:
+			unity_radiobutton.set_active(True)
+		else:
+			classic_radiobutton.set_active(True)
 
 		# Signal connect
 		dic = { "on_static_ports_toggled" : on_static_ports_toggled,
@@ -934,6 +954,9 @@ class pySopCast(object):
 			"on_channel_guide_url_focus_out_event" : on_channel_guide_url_focus_out_event,
 			"on_language_combobox_changed" : on_language_combobox_changed}
 		tree.signal_autoconnect(dic)
+		
+		unity_radiobutton.connect("toggled", channel_guide_layout_callback, ChannelGuideLayout.UNITY)
+		classic_radiobutton.connect("toggled", channel_guide_layout_callback, ChannelGuideLayout.DUAL_WINDOW)
 		
 		dialog.run()
 		
@@ -963,8 +986,7 @@ class pySopCast(object):
 			self.media_controls.show()
 			self.status_bar.show()
 		else:
-			if self.hide_controls_size == None:
-				self.hide_controls_size = self.main_menu.get_allocation()[3] + self.media_controls.get_allocation()[3] + self.status_bar.get_allocation()[3]
+			self.hide_controls_size = self.main_menu.get_allocation()[3] + self.media_controls.get_allocation()[3] + self.status_bar.get_allocation()[3]
 			
 			if self.show_channel_guide.get_active() == True:
 				self.show_channel_guide.set_active(False)

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.5 on Sun Feb  8 19:46:49 2009 -->
+<!--Generated with glade3 3.4.5 on Tue Feb 10 05:30:59 2009 -->
 <glade-interface>
   <widget class="GtkDialog" id="window">
     <property name="border_width">5</property>
@@ -459,13 +459,14 @@
                             </child>
                             <child>
                               <widget class="GtkHScale" id="hscale2">
-                                <property name="width_request">80</property>
+                                <property name="width_request">100</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="adjustment">0 0 4 1 1 1</property>
                                 <property name="draw_value">False</property>
                               </widget>
                               <packing>
+                                <property name="expand">False</property>
                                 <property name="padding">2</property>
                                 <property name="position">2</property>
                               </packing>
@@ -608,14 +609,13 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <widget class="GtkRadioButton" id="radiobutton1">
+                                  <widget class="GtkRadioButton" id="unity_radiobutton">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="label" translatable="yes">Unity (Single-window)</property>
                                     <property name="response_id">0</property>
                                     <property name="active">True</property>
                                     <property name="draw_indicator">True</property>
-                                    <property name="group">radiobutton2</property>
                                   </widget>
                                   <packing>
                                     <property name="position">1</property>
@@ -637,13 +637,14 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <widget class="GtkRadioButton" id="radiobutton2">
+                                  <widget class="GtkRadioButton" id="classic_radiobutton">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="label" translatable="yes">Classic (Separate windows)</property>
                                     <property name="response_id">0</property>
                                     <property name="active">True</property>
                                     <property name="draw_indicator">True</property>
+                                    <property name="group">unity_radiobutton</property>
                                   </widget>
                                   <packing>
                                     <property name="position">1</property>

@@ -23,6 +23,10 @@ class ChannelGuideLanguages:
 	ENGLISH = 0
 	CHINESE = 1
 
+class ChannelGuideLayout:
+	UNITY = 0
+	DUAL_WINDOW = 1
+
 cur_locale = locale.setlocale(locale.LC_ALL, "")
 
 def is_chinese():
@@ -63,5 +67,6 @@ class pySopCastConfigurationManager(ConfigurationManager.ConfigurationManager):
 						    "channel_guide_language" : language,
 						    "last_updated" : "Never",
 						    "url" : channel_guide,
-						    "div_position" : -1 })
+						    "div_position" : -1,
+						    "layout" : ChannelGuideLayout.UNITY })
 		
