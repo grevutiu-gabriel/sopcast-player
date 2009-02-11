@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: pySopCast 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-01-20 20:24+0100\n"
-"PO-Revision-Date: 2009-02-09 16:52+0100\n"
+"PO-Revision-Date: 2009-02-10 20:55+0100\n"
 "Last-Translator: flyguy97 <flyguy97@gmail.com>\n"
 "Language-Team: flyguy97 <flyguy97@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -340,4 +340,10 @@ msgstr "编辑(_E)"
 
 msgid "Properties"
 msgstr "属性"
+
+msgid "Bookmark"
+msgstr "收藏频道"
+
+msgid "Show Toolbar"
+msgstr "工具栏"
 

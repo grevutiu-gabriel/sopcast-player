@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.5 on Tue Feb  3 19:13:32 2009 -->
+<!--Generated with glade3 3.4.5 on Tue Feb 10 21:03:27 2009 -->
 <glade-interface>
   <widget class="GtkAboutDialog" id="about">
     <property name="border_width">5</property>
@@ -21,7 +21,9 @@
 SopCast Player is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with SopCast Player; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</property>
-    <property name="translator_credits" translatable="yes">王泽国 Wang Zeguo &lt;zak.zeguo.wang@gmail.com&gt;</property>
+    <property name="translator_credits" translatable="yes">王泽国 Wang Zeguo &lt;zak.zeguo.wang@gmail.com&gt;
+梁穗隆 Liang Suilong &lt;liangsuilong@gmail.com&gt;
+jjgomera</property>
     <property name="artists">Icon by famfamfam &lt;http://www.famfamfam.com/lab/icons/silk&gt;</property>
     <property name="wrap_license">True</property>
     <child internal-child="vbox">

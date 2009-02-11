@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.5 on Tue Feb 10 05:30:59 2009 -->
+<!--Generated with glade3 3.4.5 on Tue Feb 10 20:12:04 2009 -->
 <glade-interface>
   <widget class="GtkDialog" id="window">
     <property name="border_width">5</property>
@@ -427,7 +427,6 @@
                 </child>
                 <child>
                   <widget class="GtkFrame" id="frame4">
-                    <property name="visible">True</property>
                     <property name="label_xalign">0</property>
                     <property name="shadow_type">GTK_SHADOW_NONE</property>
                     <child>
@@ -674,6 +673,7 @@
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">False</property>
+                    <property name="padding">5</property>
                     <property name="position">3</property>
                   </packing>
                 </child>

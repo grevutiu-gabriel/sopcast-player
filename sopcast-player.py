@@ -16,6 +16,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+import datetime
 import gobject
 import gettext
 import gtk
@@ -27,8 +28,8 @@ import threading
 import time
 import os
 
-sys.path.append("%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "lib"))
-#sys.path.append("/usr/share/sopcast-player/lib")
+#sys.path.append("%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "lib"))
+sys.path.append("/usr/share/sopcast-player/lib")
 import DatabaseOperations
 import dynamic_ports
 import FileDownload
@@ -42,16 +43,23 @@ import vlc
 import VLCWidget
 
 cur_locale = locale.setlocale(locale.LC_ALL, "")
-#cur_locale = locale.setlocale(locale.LC_ALL, ("zh_CN", "utf8"))
-#cur_locale = locale.setlocale(locale.LC_ALL, ("es_ES", "utf8"))
 
-gtk.glade.bindtextdomain("sopcast-player", "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "locale"))
+#gtk.glade.bindtextdomain("sopcast-player", "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "locale"))
+#gtk.glade.textdomain("sopcast-player")
+
+gtk.glade.bindtextdomain("sopcast-player", "/usr/share/sopcast-player/locale")
 gtk.glade.textdomain("sopcast-player")
 
-gettext.bindtextdomain("sopcast-player", "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "locale"))
+#gettext.bindtextdomain("sopcast-player", "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "locale"))
+#gettext.textdomain("sopcast-player")
+
+gettext.bindtextdomain("sopcast-player", "/usr/share/sopcast-player/locale")
 gettext.textdomain("sopcast-player")
 
-lang = gettext.translation("sopcast-player", "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "locale"), [cur_locale], fallback=True)
+#lang = gettext.translation("sopcast-player", "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "locale"), [cur_locale], fallback=True)
+#lang.install('sopcast-player')
+
+lang = gettext.translation("sopcast-player", "/usr/share/sopcast-player/locale", [cur_locale], fallback=True)
 lang.install('sopcast-player')
 
 #mma: sop://broker.sopcast.com:3912/65416
@@ -297,9 +305,10 @@ class UpdateChannelGuideThread(threading.Thread):
 			self.parent.update_channel_guide_progress.set_text(_("Completed"))
 			gtk.gdk.threads_leave()
 			
+			t = datetime.datetime.now()
+
 			config_manager = pySopCastConfigurationManager.pySopCastConfigurationManager()
-			self.last_updated = time.strftime(locale.nl_langinfo(locale.D_T_FMT))
-			config_manager.set("ChannelGuide", "last_updated", self.last_updated)
+			config_manager.set("ChannelGuide", "last_updated", time.mktime(t.timetuple()))
 			config_manager.write()
 			self.updated = True
 		except Exception, e:
@@ -354,6 +363,11 @@ class ChannelGuideLayout:
 	UNITY = 0
 	DUAL_WINDOW = 1
 
+class ChannelGuideAutoRefresh:
+	NEVER = 0
+	DAILY = 1
+	PROGRAM_START = 2
+
 class pySopCast(object):
 	def __init__(self, channel_url=None, inbound_port=None, outbound_port=None, *p):
 		gtk.gdk.threads_init()
@@ -385,8 +399,8 @@ class pySopCast(object):
 		self.channel_guide_language = None
 		
 	def main(self, sop_address=None, sop_address_name=None):
-		#gladefile = "%s/%s" % ("/usr/share/sopcast-player/ui", "pySopCast.glade")
-		gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "ui/pySopCast.glade")
+		gladefile = "%s/%s" % ("/usr/share/sopcast-player/ui", "pySopCast.glade")
+		#gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "ui/pySopCast.glade")
 		self.glade_window = gtk.glade.XML(gladefile, "window", "sopcast-player")
 		self.window = self.glade_window.get_widget("window")
 		glade_context_menu = gtk.glade.XML(gladefile, "context_menu", "sopcast-player")
@@ -396,7 +410,9 @@ class pySopCast(object):
 			"on_play_button_clicked" : self.on_play_button_clicked,
 			"on_menu_quit_activate" : self.on_menu_quit_activate,
 			"on_menu_fullscreen_activate" : self.on_fullscreen_activate,
+			"on_toolbar_fullscreen_clicked" : self.on_fullscreen_activate,
 			"on_menu_add_bookmark_activate" : self.on_add_bookmark,
+			"on_toolbar_add_bookmark_clicked" : self.on_add_bookmark,
 			"on_stop_clicked" : self.on_stop_clicked,
 			"on_volume_adjust_bounds" : self.on_volume_adjust_bounds,
 			"on_menu_about_activate" : self.on_menu_about_activate,
@@ -407,11 +423,14 @@ class pySopCast(object):
 			"on_menu_stay_on_top_toggled" : self.on_menu_stay_on_top_toggled,
 			"on_menu_show_controls_toggled" : self.on_menu_show_controls_toggled,
 			"on_window_key_press_event" : self.on_window_key_press_event,
-			"on_channel_treeview_button_press_event" : self.on_channel_treeview_button_press_event }
+			"on_channel_treeview_button_press_event" : self.on_channel_treeview_button_press_event,
+			"on_menu_show_toolbar_toggled" : self.on_menu_show_toolbar_toggled,
+			"on_toolbar_channel_guide_clicked" : self.on_toolbar_channel_guide_clicked }
 		
 		self.glade_window.signal_autoconnect(window_signals)
 		
-		context_menu_signals = { "on_context_menu_play_activate" : self.on_context_menu_play_activate }
+		context_menu_signals = { "on_context_menu_play_activate" : self.on_context_menu_play_activate,
+					 "on_context_menu_properties_activate" : self.on_context_menu_properties_activate }
 		
 		glade_context_menu.signal_autoconnect(context_menu_signals)
 
@@ -419,6 +438,7 @@ class pySopCast(object):
 		config_manager.read()
 		self.player_volume = config_manager.getint("player", "volume")
 		self.volume.set_value(self.player_volume)
+			
 		self.window.set_default_size(config_manager.getint("player", "width"), config_manager.getint("player", "height"))
 		self.display_pane.set_position(config_manager.getint("player", "div_position"))
 		show_channel_guide_pane = config_manager.getboolean("player", "show_channel_guide")
@@ -426,10 +446,19 @@ class pySopCast(object):
 		self.window.set_keep_above(config_manager.getboolean("player", "stay_on_top"))
 		self.menu_stay_on_top.set_active(config_manager.getboolean("player", "stay_on_top"))
 		
+
+		
 		if config_manager.getboolean("player", "external_player") == True:
 			self.set_media_player_visible(False)
 			self.external_player_command = config_manager.get("player", "external_player_command")
 			show_channel_guide_pane = True
+		else:
+			if config_manager.getint("player", "layout") == ChannelGuideLayout.DUAL_WINDOW:
+				self.set_classic_view(True, True)
+				self.menu_show_toolbar.set_active(config_manager.getboolean("player", "show_channel_guide_toolbar_item"))
+			
+				if self.menu_show_toolbar.get_active() == False:
+					self.player_toolbar.hide()
 		
 		last_updated = config_manager.get("ChannelGuide", "last_updated")
 		self.channel_guide_url = config_manager.get("ChannelGuide", "url")
@@ -582,6 +611,19 @@ class pySopCast(object):
 
 	def set_media_player_visible(self, visible):
 		if visible == True:
+			config_manager = pySopCastConfigurationManager.pySopCastConfigurationManager()
+			config_manager.read()
+			
+			if config_manager.getint("player", "layout") == ChannelGuideLayout.DUAL_WINDOW:
+				self.set_classic_view(True, True)
+				self.menu_show_toolbar.set_active(config_manager.getboolean("player", "show_channel_guide_toolbar_item"))
+			
+				if self.menu_show_toolbar.get_active() == False:
+					self.player_toolbar.hide()
+			else:
+				if self.show_channel_guide.get_active() == False:
+					self.channel_guide_pane.hide()
+					
 			self.menu_view.show()
 			self.media_box.show()
 			self.channel_properties_pane.hide()
@@ -590,8 +632,32 @@ class pySopCast(object):
 			self.media_box.hide()
 			self.channel_properties_pane.show()
 			
-			if self.show_channel_guide.get_active() == False:
-				self.show_channel_guide.set_active(True)
+			if self.channel_guide_pane.get_property("visible") == False:
+				self.channel_guide_pane.show()
+	
+	def set_classic_view(self, classic, on_load=False):
+		if classic == True:
+			self.channel_guide_pane.hide()
+			self.show_channel_guide.hide()
+			self.menu_show_toolbar.show()
+			
+			if self.menu_show_toolbar.get_active() == False:
+				self.player_toolbar.hide()
+			else:
+				self.player_toolbar.show()
+				
+			self.media_box.show()
+			window_height = self.window.get_size()[1]
+			
+			if on_load == False:
+				self.window.resize(self.display_pane.get_child1().get_allocation()[2], window_height)
+			
+			if self.show_channel_guide.get_active() == True:
+				self.show_channel_guide.set_active(False)
+		else:
+			self.show_channel_guide.show()
+			self.menu_show_toolbar.hide()
+			self.player_toolbar.hide()
 	
 	def prepare_row_for_channel_treeview_model(self, row):
 		if len(row) == 10:
@@ -619,6 +685,8 @@ class pySopCast(object):
 		add_bookmark_dialog.main()
 		
 	def on_stop_clicked(self, src, data=None):
+		self.menu_fullscreen.set_sensitive(False)
+		self.toolbar_fullscreen.set_sensitive(False)
 		self.stop_vlc()
 		
 		self.ui_worker.shutdown()
@@ -633,8 +701,8 @@ class pySopCast(object):
 		self.vlc.set_volume(self.player_volume)
 	
 	def on_menu_about_activate(self, src, data=None):
-		#gladefile = "%s/%s" % ("/usr/share/sopcast-player/ui", "About.glade")
-		gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "ui/About.glade")
+		gladefile = "%s/%s" % ("/usr/share/sopcast-player/ui", "About.glade")
+		#gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "ui/About.glade")
 		about_file = gtk.glade.XML(gladefile, "about")
 		about = about_file.get_widget("about")
 		about.set_transient_for(self.window)
@@ -763,13 +831,28 @@ class pySopCast(object):
 		channel_timeout_inverse = { 3: 0,
 					    30: 1,
 					    300: 2,
+					    sys.maxint: 3 }
+					    
+		channel_guide_auto_refresh_display = { 0: _("<i>Never</i>"),
+			    1: _("<i>Daily</i>"),
+			    2: _("<i>Program Start</i>") }
+			
+		channel_guide_auto_refresh_value = { 0: 3,
+				 1: 30,
+				 2: 300,
+				 3: sys.maxint }
+		
+		channel_guide_auto_refresh_inverse = { 3: 0,
+					    30: 1,
+					    300: 2,
 					    sys.maxint: 3 }		 
 				 
-		#gladefile = "%s/%s" % ("/usr/share/sopcast-player/ui", "Options.glade")
-		gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "ui/Options.glade")
+		gladefile = "%s/%s" % ("/usr/share/sopcast-player/ui", "Options.glade")
+		#gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "ui/Options.glade")
 		tree = gtk.glade.XML(gladefile, "window")
 		
 		dialog = tree.get_widget("window")
+		dialog.set_title("%s - %s" % (_("Preferences"), "SopCast Player"))
 		dialog.set_transient_for(self.window)
 		
 				
@@ -787,7 +870,7 @@ class pySopCast(object):
 		
 		channel_guide_url_default = config_manager.get("ChannelGuide", "url")
 		language_combobox_default = config_manager.get("ChannelGuide", "channel_guide_language")
-		layout_default = config_manager.getint("ChannelGuide", "layout")
+		layout_default = config_manager.getint("player", "layout")
 		
 
 		# Widget variables
@@ -898,11 +981,13 @@ class pySopCast(object):
 		def channel_guide_layout_callback(src, data=None):
 			if src.get_active() == True:
 				if data == ChannelGuideLayout.UNITY:
-					config_manager.set("ChannelGuide", "layout", ChannelGuideLayout.UNITY)
+					config_manager.set("player", "layout", ChannelGuideLayout.UNITY)
 					config_manager.write()
+					self.set_classic_view(False)
 				else:	
-					config_manager.set("ChannelGuide", "layout", ChannelGuideLayout.DUAL_WINDOW)
+					config_manager.set("player", "layout", ChannelGuideLayout.DUAL_WINDOW)
 					config_manager.write()
+					self.set_classic_view(True)
 					
 					
 		# Setup widget defaults
@@ -972,7 +1057,8 @@ class pySopCast(object):
 		config_manager.write()
 	
 	def on_menu_show_controls_toggled(self, src, data=None):
-		return True
+		print "toggled"
+		self.show_menu_controls(not self.show_controls)
 		
 	def show_menu_controls(self, show):
 		self.show_controls = show
@@ -985,8 +1071,10 @@ class pySopCast(object):
 			self.main_menu.show()
 			self.media_controls.show()
 			self.status_bar.show()
+			if self.menu_show_toolbar.get_active() == True:
+				self.player_toolbar.show()
 		else:
-			self.hide_controls_size = self.main_menu.get_allocation()[3] + self.media_controls.get_allocation()[3] + self.status_bar.get_allocation()[3]
+			self.hide_controls_size = self.main_menu.get_allocation()[3] + self.media_controls.get_allocation()[3] + self.status_bar.get_allocation()[3] + self.player_toolbar.get_allocation()[3]
 			
 			if self.show_channel_guide.get_active() == True:
 				self.show_channel_guide.set_active(False)
@@ -996,13 +1084,36 @@ class pySopCast(object):
 			self.main_menu.hide()
 			self.media_controls.hide()
 			self.status_bar.hide()
+			self.player_toolbar.hide()
 			
 			self.window.resize(window_width, window_height - self.hide_controls_size)
 			
+	def on_menu_show_toolbar_toggled(self, src, data=None):
+		config_manager = pySopCastConfigurationManager.pySopCastConfigurationManager()
+		config_manager.read()
+		config_manager.set("player", "show_channel_guide_toolbar_item", src.get_active())
+		config_manager.write()
+		self.menu_show_toolbar_enabled(src.get_active())
+	
+	def on_toolbar_channel_guide_clicked(self, src, data=None):
+		channel_guide = ChannelGuide2(self)
+		channel_guide.main()
+	
+	def menu_show_toolbar_enabled(self, enabled):
+		window_height = self.window.get_size()[1]
+		window_width = self.window.get_size()[0]
+		
+		if enabled == True:
+			self.player_toolbar.show()
+			self.window.resize(window_width, window_height + self.player_toolbar.get_allocation()[3])
+		else:
+			self.window.resize(window_width, window_height - self.player_toolbar.get_allocation()[3])
+			self.player_toolbar.hide()
+
 	def on_window_key_press_event(self, src, event, data=None):
 		if event.state & gtk.gdk.CONTROL_MASK:
 			if gtk.gdk.keyval_name(event.keyval) in ["h", "H"]:
-				self.show_menu_controls(not self.show_controls)
+				self.menu_show_controls.toggled()
 			elif gtk.gdk.keyval_name(event.keyval) in ["t", "T"]:
 				self.menu_stay_on_top.set_active(not self.menu_stay_on_top.get_active())
 			elif gtk.gdk.keyval_name(event.keyval) in ["q", "Q"]:
@@ -1020,6 +1131,8 @@ class pySopCast(object):
 				self.menu_stay_on_top.set_active(not self.menu_stay_on_top.get_active())
 			elif gtk.gdk.keyval_name(event.keyval) in ["f", "F"]:
 				self.menu_fullscreen.activate()
+		
+		return True
 	
 	def on_channel_treeview_button_press_event(self, src, event, data=None):
 		if event.button == 3:
@@ -1039,7 +1152,33 @@ class pySopCast(object):
 		path, column = self.channel_treeview.get_cursor()
 		
 		self.play_channel(self.channel_treeview_model[path][9], self.channel_treeview_model[path][1])
-		print self.channel_treeview_model[path][2]
+	
+	def on_context_menu_properties_activate(self, src, data=None):
+		path, column = self.channel_treeview.get_cursor()
+		
+		gladefile = "%s/%s" % ("/usr/share/sopcast-player/ui", "ChannelProperties.glade")
+		#gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "ui/ChannelProperties.glade")
+		tree = gtk.glade.XML(gladefile, "window")
+		
+		dialog = tree.get_widget("window")
+		dialog.set_title("%s - %s" % (_("Properties"), "SopCast Player"))
+		dialog.set_transient_for(self.window)
+		
+		label_name = tree.get_widget("label_name")
+		label_classification = tree.get_widget("label_classification")
+		label_stream_type = tree.get_widget("label_stream_type")
+		label_bitrate = tree.get_widget("label_bitrate")
+		label_qc = tree.get_widget("label_qc")
+		label_qs = tree.get_widget("label_qs")
+		label_description = tree.get_widget("label_description")
+		
+		label_group = [label_name, label_classification, label_stream_type, label_bitrate, label_qc, label_qs, label_description]
+		labels = ["%s: %s" % (_("Name"), self.html_escape(self.channel_treeview_model[path][1])), "%s: %s" % (_("Classification"), self.html_escape(self.channel_treeview_model[path][4])), "%s: %s" % (_("Stream Format"), self.html_escape(self.channel_treeview_model[path][5].upper())), "%s %d kb/s" % (_("Bitrate:"), self.channel_treeview_model[path][6]), "%s: %d" % (_("QC"), self.channel_treeview_model[path][7]), "%s: %d" % (_("QS"), self.channel_treeview_model[path][8]), "%s: %s" % (_("Description"), self.html_escape(self.channel_treeview_model[path][2]))]
+		self.set_label_group(label_group, labels)
+		
+		dialog.run()
+		
+		dialog.destroy()
 
 	def get_iter_child_count(self, parent_iter):
 		i = 0
@@ -1115,7 +1254,9 @@ class pySopCast(object):
 			self.fork_sop.fork_sop(self.channel_url, str(self.inbound_port), str(self.outbound_port))
 		
 			self.menu_add_bookmark.set_sensitive(True)
+			self.toolbar_add_bookmark.set_sensitive(True)
 			self.menu_fullscreen.set_sensitive(True)
+			self.toolbar_fullscreen.set_sensitive(True)
 		
 			self.outbound_media_url = "http://%s:%d/tv.asf" % (self.server, self.outbound_port)
 			self.vlc.set_media_url(self.outbound_media_url)
@@ -1164,6 +1305,7 @@ class pySopCast(object):
 		
 		if self.channel_properties_pane.get_property("visible") == True and self.media_box.get_property("visible") == False:
 			config_manager.set("ChannelGuide", "div_position", self.channel_guide_hpane.get_position())
+			
 		config_manager.set("player", "show_channel_guide", self.show_channel_guide.get_active())
 		config_manager.set("player", "volume", int(self.volume.get_value()))
 		config_manager.write()
@@ -1251,8 +1393,8 @@ class ChannelGuide2(object):
 		self.parent = parent
 		
 	def main(self, sop_address=None, sop_address_name=None):
-		#gladefile = "%s/%s" % ("/usr/share/sopcast-player/ui", "ChannelGuide2.glade")
-		gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "ui/ChannelGuide2.glade")
+		gladefile = "%s/%s" % ("/usr/share/sopcast-player/ui", "ChannelGuide2.glade")
+		#gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "ui/ChannelGuide2.glade")
 		self.glade_window = gtk.glade.XML(gladefile, "window", "sopcast-player")
 		self.window = self.glade_window.get_widget("window")
 		
@@ -1331,8 +1473,8 @@ class ChannelGuide2(object):
 		self.window.destroy()
 	
 	def on_menu_about_activate(self, src, data=None):
-		#gladefile = "%s/%s" % ("/usr/share/sopcast-player/ui", "About.glade")
-		gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "ui/About.glade")
+		gladefile = "%s/%s" % ("/usr/share/sopcast-player/ui", "About.glade")
+		#gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "ui/About.glade")
 		about_file = gtk.glade.XML(gladefile, "about")
 		about = about_file.get_widget("about")
 		about.set_transient_for(self.window)
@@ -1474,8 +1616,8 @@ class AddBookmark(object):
 		self.url = url
 		
 	def main(self):
-		#gladefile = "%s/%s" % ("/usr/share/sopcast-player/ui", "AddBookmark.glade")
-		gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "ui/AddBookmark.glade")
+		gladefile = "%s/%s" % ("/usr/share/sopcast-player/ui", "AddBookmark.glade")
+		#gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "ui/AddBookmark.glade")
 		self.glade_window = gtk.glade.XML(gladefile, "window")
 		self.window = self.glade_window.get_widget("window")
 		self.window.set_modal(True)
@@ -1504,7 +1646,8 @@ class AddBookmark(object):
 		self.window.destroy()
 		
 	def on_done_clicked(self, src, data=None):
-		self.parent.add_bookmark(self.channel_name.get_text(), self.url)
+		if self.channel_name.get_text() != "":
+			self.parent.add_bookmark(self.channel_name.get_text(), self.url)
 		
 		self.window.destroy()
 		
@@ -1524,8 +1667,8 @@ class OpenSopAddress(object):
 		self.parent = parent
 		
 	def main(self):
-		#gladefile = "%s/%s" % ("/usr/share/sopcast-player/ui", "OpenSopAddress.glade")
-		gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "ui/OpenSopAddress.glade")
+		gladefile = "%s/%s" % ("/usr/share/sopcast-player/ui", "OpenSopAddress.glade")
+		#gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "ui/OpenSopAddress.glade")
 		self.glade_window = gtk.glade.XML(gladefile, "window")
 		self.window = self.glade_window.get_widget("window")
 		self.window.set_modal(True)
@@ -1579,7 +1722,6 @@ if __name__ == '__main__':
 			print_usage_and_exit()
 	else:
 		pySop = pySopCast()
-		#pySop = ChannelGuide2()
 		pySop.main()
 	
 	

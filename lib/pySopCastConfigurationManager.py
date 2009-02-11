@@ -26,6 +26,11 @@ class ChannelGuideLanguages:
 class ChannelGuideLayout:
 	UNITY = 0
 	DUAL_WINDOW = 1
+	
+class ChannelGuideAutoRefresh:
+	NEVER = 0
+	DAILY = 1
+	PROGRAM_START = 2
 
 cur_locale = locale.setlocale(locale.LC_ALL, "")
 
@@ -47,7 +52,7 @@ class pySopCastConfigurationManager(ConfigurationManager.ConfigurationManager):
 					     "static_ports" : False,
 					     "width" : 600,
 					     "height" : 400,
-					     "div_position" : -1,
+					     "div_position" : 300,
 					     "show_channel_guide" : True,
 					     "inbound_port" : 8901,
 					     "outbound_port" : 8902,
@@ -57,16 +62,16 @@ class pySopCastConfigurationManager(ConfigurationManager.ConfigurationManager):
 					     "external_player" : False,
 					     "external_player_command" : "mplayer -ontop -geometry 100%%:100%%",
 					     "channel_timeout" : 3,
-					     "stay_on_top" : False })
+					     "stay_on_top" : False,
+					     "show_channel_guide_toolbar_item" : True,
+					     "layout" : ChannelGuideLayout.UNITY })
 						  
 		self.add_section("ChannelGuide", {  "width" : 600,
 						    "height" : 400,
-						    "default_width" : 650,
-						    "default_height" : 550,
 						    "auto_refresh" : False,
+						    "auto_refresh_frequency" : ChannelGuideAutoRefresh.NEVER,
 						    "channel_guide_language" : language,
 						    "last_updated" : "Never",
 						    "url" : channel_guide,
-						    "div_position" : -1,
-						    "layout" : ChannelGuideLayout.UNITY })
+						    "div_position" : 200 })
 		
