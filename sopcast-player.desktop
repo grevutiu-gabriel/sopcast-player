@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=sopcast-player
+GenericName=Internet Television
+Comment=GUI front-end to SopCast
+Exec=sopcast-player
+Icon=sopcast-player
+Terminal=false
+Type=Application
+Categories=AudioVideo;Video;TV;
