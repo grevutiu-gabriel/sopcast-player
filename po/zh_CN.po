@@ -3,18 +3,20 @@ msgstr ""
 "Project-Id-Version: pySopCast 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-01-20 20:24+0100\n"
-"PO-Revision-Date: 2009-02-10 20:55+0100\n"
-"Last-Translator: flyguy97 <flyguy97@gmail.com>\n"
+"PO-Revision-Date: 2009-02-14 09:56+0000\n"
+"Last-Translator: flyguy97 <Unknown>\n"
 "Language-Team: flyguy97 <flyguy97@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: English\n"
+"X-Launchpad-Export-Date: 2009-02-16 18:16+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
 "X-Poedit-Country: UNITED STATES\n"
+"X-Poedit-Language: English\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Poedit-KeywordsList: _\n"
-"X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: /home/jason/Desktop/SopCast-Player\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-KeywordsList: _\n"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:88
 msgid "Retrying channel"
@@ -164,7 +166,7 @@ msgstr "<i>上次升级：</i>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "Last Updated: "
-msgstr "上次升级："
+msgstr "上次升级： "
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "Never"
@@ -204,7 +206,7 @@ msgstr "经典模式（独立窗口）"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Command: "
-msgstr "命令："
+msgstr "命令： "
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Frequency"
@@ -212,7 +214,7 @@ msgstr "频率"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "In-bound Port: "
-msgstr "入口"
+msgstr "入口 "
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Language"
@@ -220,7 +222,7 @@ msgstr "语言"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Out-bound Port: "
-msgstr "出口"
+msgstr "出口 "
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Player"
@@ -236,7 +238,7 @@ msgstr "超时"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "URL: "
-msgstr "URL地址："
+msgstr "URL地址： "
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Unity (Single-window)"
@@ -263,7 +265,8 @@ msgid "Static Ports Unavailable"
 msgstr "静态端口不可用"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
-msgid "Static ports unavailable, do you wish to continue using dynamic ports?"
+msgid ""
+"Static ports unavailable, do you wish to continue using dynamic ports?"
 msgstr "静态端口不可用，你是否愿意使用动态端口继续？"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
@@ -345,5 +348,4 @@ msgid "Bookmark"
 msgstr "收藏频道"
 
 msgid "Show Toolbar"
-msgstr "工具栏"
-
+msgstr "显示工具栏"
