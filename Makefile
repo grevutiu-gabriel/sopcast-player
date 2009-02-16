@@ -12,7 +12,9 @@ ICONDIR ?= $(DATADIR)/icons/hicolor/scalable/apps
 DESKDIR ?= $(DATADIR)/applications
 INSTALL ?= install -p
 EDIT ?= sed -e 's|@DATADIR@|$(DATADIR)|g' \
-	    -e 's|@NAME@|$(NAME)|g'
+	    -e 's|@NAME@|$(NAME)|g' \
+	    -e 's|@PYTHON@|$(PYTHON)|g' \
+	    -e 's|@INSTALLDIR@|$(INSTALLDIR)|g'
 PYTHON ?= $(BINDIR)/python
 CFLAGS ?= -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions \
           -fstack-protector --param=ssp-buffer-size=4
@@ -24,7 +26,6 @@ desktop:
 	$(EDIT) $(NAME).in > $(NAME)
 
 byte-compile:
-	$(PYTHON) -c 'import py_compile; py_compile.compile("$(NAME).py")'
 	$(PYTHON) -c 'import compileall; compileall.compile_dir("lib", force=1)'
 
 language:
