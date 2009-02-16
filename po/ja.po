@@ -3,18 +3,20 @@ msgstr ""
 "Project-Id-Version: pySopCast 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-01-20 20:24+0100\n"
-"PO-Revision-Date: 2009-02-10 22:11+0100\n"
-"Last-Translator: flyguy97 <flyguy97@gmail.com>\n"
+"PO-Revision-Date: 2009-02-10 22:48+0000\n"
+"Last-Translator: flyguy97 <Unknown>\n"
 "Language-Team: flyguy97 <flyguy97@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: English\n"
+"X-Launchpad-Export-Date: 2009-02-16 18:16+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
 "X-Poedit-Country: UNITED STATES\n"
+"X-Poedit-Language: English\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Poedit-KeywordsList: _\n"
-"X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: /home/jason/Desktop/SopCast-Player\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-KeywordsList: _\n"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:88
 msgid "Retrying channel"
@@ -45,6 +47,7 @@ msgid "SopCast Player"
 msgstr "SopCast Player"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:289
+#: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Channel Guide"
 msgstr "チャンネルガイド"
 
@@ -125,36 +128,47 @@ msgstr "ネットワークに問題があるため番組の再生ができませ
 msgid "Downloading Channel Guide"
 msgstr "番組をダウンロード中"
 
+#: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "_File"
 msgstr "ファイル(_F)"
 
+#: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "> Channel Guide"
 msgstr "> チャンネルガイド"
 
+#: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "Bookmark this Channel"
 msgstr "このチャンネルをブックマーク"
 
+#: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "Volume:"
 msgstr "音量"
 
+#: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "_Fullscreen"
 msgstr "フルスクリーン(_F)"
 
+#: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "_Help"
 msgstr "ヘルプ(_H)"
 
+#: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "_View"
 msgstr "表示(_V)"
 
+#: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "_Bookmarks"
 msgstr "ブックマーク(_B)"
 
+#: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "<i>Last Updated: </i>"
 msgstr "<i>最後の更新</i>"
 
+#: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "Last Updated: "
-msgstr "最後の更新"
+msgstr "最後の更新 "
 
+#: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "Never"
 msgstr "更新の記録なし"
 
@@ -187,20 +201,12 @@ msgid "<b>Ports</b>"
 msgstr "<b>接続</b>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
-msgid "<i>3 Seconds</i>"
-msgstr "<i>3秒</i>"
-
-#: /home/jason/Desktop/SopCast-Player/ui/Options.glade
-msgid "<i>Never</i>"
-msgstr "<i>なし</i>"
-
-#: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Classic (Separate windows)"
 msgstr "クラシック（分離されたウィンドウ）"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Command: "
-msgstr "命令"
+msgstr "命令 "
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Frequency"
@@ -208,7 +214,7 @@ msgstr "頻度数"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "In-bound Port: "
-msgstr "入力TCP接続"
+msgstr "入力TCP接続 "
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Language"
@@ -216,7 +222,7 @@ msgstr "言語"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Out-bound Port: "
-msgstr "出力TCP接続"
+msgstr "出力TCP接続 "
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Player"
@@ -232,7 +238,7 @@ msgstr "時間切れ"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "URL: "
-msgstr "URL:"
+msgstr "URL: "
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Unity (Single-window)"
@@ -259,8 +265,14 @@ msgid "Static Ports Unavailable"
 msgstr "接続の無変換が使用できません"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
-msgid "Static ports unavailable, do you wish to continue using dynamic ports?"
+msgid ""
+"Static ports unavailable, do you wish to continue using dynamic ports?"
 msgstr "接続の無変換が使用できません。他の接続を希望しますか？"
+
+#: /home/jason/Desktop/SopCast-Player/ui/Options.glade
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:754
+msgid "<i>3 Seconds</i>"
+msgstr "<i>3秒</i>"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:755
 msgid "<i>30 Seconds</i>"
@@ -269,6 +281,11 @@ msgstr "<i>３０秒</i>"
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:756
 msgid "<i>5 Minutes</i>"
 msgstr "<i>5分</i>"
+
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:757
+#: /home/jason/Desktop/SopCast-Player/ui/Options.glade
+msgid "<i>Never</i>"
+msgstr "<i>なし</i>"
 
 msgid "Screenshot"
 msgstr "スクリーンショット"
@@ -332,4 +349,3 @@ msgstr "ブックマーク"
 
 msgid "Show Toolbar"
 msgstr "ツールバーの表示"
-
