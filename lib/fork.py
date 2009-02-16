@@ -1,5 +1,3 @@
-#! /usr/bin/env python
-
 # Copyright (C) 2009 Jason Scheunemann <jason.scheunemann@yahoo.com>.
 #
 # This program is free software; you can redistribute it and/or modify
