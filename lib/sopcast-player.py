@@ -385,10 +385,7 @@ class pySopCast(object):
 		self.channel_guide_language = None
 		
 	def main(self, sop_address=None, sop_address_name=None):
-		if os.path.realpath(os.path.dirname(sys.argv[0])) == "/usr/bin":
-			gladefile = "%s/%s" % ("/usr/share/sopcast-player/ui", "pySopCast.glade")
-		else:
-			gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "../ui/pySopCast.glade")
+		gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "../ui/pySopCast.glade")
 			
 		self.glade_window = gtk.glade.XML(gladefile, "window", "sopcast-player")
 		self.window = self.glade_window.get_widget("window")
@@ -690,10 +687,7 @@ class pySopCast(object):
 		self.vlc.set_volume(self.player_volume)
 	
 	def on_menu_about_activate(self, src, data=None):
-		if os.path.realpath(os.path.dirname(sys.argv[0])) == "/usr/bin":
-			gladefile = "%s/%s" % ("/usr/share/sopcast-player/ui", "About.glade")
-		else:
-			gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "../ui/About.glade")
+		gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "../ui/About.glade")
 		about_file = gtk.glade.XML(gladefile, "about")
 		about = about_file.get_widget("about")
 		about.set_transient_for(self.window)
@@ -838,10 +832,7 @@ class pySopCast(object):
 					    300: 2,
 					    sys.maxint: 3 }		 
 		
-		if os.path.realpath(os.path.dirname(sys.argv[0])) == "/usr/bin": 
-			gladefile = "%s/%s" % ("/usr/share/sopcast-player/ui", "Options.glade")
-		else:
-			gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "../ui/Options.glade")
+		gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "../ui/Options.glade")
 			
 		tree = gtk.glade.XML(gladefile, "window")
 		
@@ -1150,10 +1141,7 @@ class pySopCast(object):
 	def on_context_menu_properties_activate(self, src, data=None):
 		path, column = self.channel_treeview.get_cursor()
 		
-		if os.path.realpath(os.path.dirname(sys.argv[0])) == "/usr/bin":
-			gladefile = "%s/%s" % ("/usr/share/sopcast-player/ui", "ChannelProperties.glade")
-		else:
-			gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "../ui/ChannelProperties.glade")
+		gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "../ui/ChannelProperties.glade")
 			
 		tree = gtk.glade.XML(gladefile, "window")
 		
@@ -1390,10 +1378,7 @@ class ChannelGuide2(object):
 		self.parent = parent
 		
 	def main(self, sop_address=None, sop_address_name=None):
-		if os.path.realpath(os.path.dirname(sys.argv[0])) == "/usr/bin":
-			gladefile = "%s/%s" % ("/usr/share/sopcast-player/ui", "ChannelGuide2.glade")
-		else:
-			gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "../ui/ChannelGuide2.glade")
+		gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "../ui/ChannelGuide2.glade")
 		self.glade_window = gtk.glade.XML(gladefile, "window", "sopcast-player")
 		self.window = self.glade_window.get_widget("window")
 		
@@ -1472,10 +1457,7 @@ class ChannelGuide2(object):
 		self.window.destroy()
 	
 	def on_menu_about_activate(self, src, data=None):
-		if os.path.realpath(os.path.dirname(sys.argv[0])) == "/usr/bin":
-			gladefile = "%s/%s" % ("/usr/share/sopcast-player/ui", "About.glade")
-		else:
-			gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "../ui/About.glade")
+		gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "../ui/About.glade")
 			
 		about_file = gtk.glade.XML(gladefile, "about")
 		about = about_file.get_widget("about")
@@ -1618,10 +1600,7 @@ class AddBookmark(object):
 		self.url = url
 		
 	def main(self):
-		if os.path.realpath(os.path.dirname(sys.argv[0])) == "/usr/bin":
-			gladefile = "%s/%s" % ("/usr/share/sopcast-player/ui", "AddBookmark.glade")
-		else:
-			gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "../ui/AddBookmark.glade")
+		gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "../ui/AddBookmark.glade")
 		
 		self.glade_window = gtk.glade.XML(gladefile, "window")
 		self.window = self.glade_window.get_widget("window")
@@ -1672,10 +1651,7 @@ class OpenSopAddress(object):
 		self.parent = parent
 		
 	def main(self):
-		if os.path.realpath(os.path.dirname(sys.argv[0])) == "/usr/bin":
-			gladefile = "%s/%s" % ("/usr/share/sopcast-player/ui", "OpenSopAddress.glade")
-		else:
-			gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "../ui/OpenSopAddress.glade")
+		gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "../ui/OpenSopAddress.glade")
 			
 		self.glade_window = gtk.glade.XML(gladefile, "window")
 		self.window = self.glade_window.get_widget("window")
