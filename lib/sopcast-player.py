@@ -432,7 +432,7 @@ class pySopCast(object):
 		self.window.set_keep_above(config_manager.getboolean("player", "stay_on_top"))
 		self.menu_stay_on_top.set_active(config_manager.getboolean("player", "stay_on_top"))
 		
-
+		#self.window.connect('event-after', gtk.main_quit)
 		
 		if config_manager.getboolean("player", "external_player") == True:
 			self.set_media_player_visible(False)
@@ -492,6 +492,8 @@ class pySopCast(object):
 		gtk.gdk.threads_enter()
 		gtk.main()
 		gtk.gdk.threads_leave()
+		
+		self.fork_sop.kill_sop()
 		
 	def __getattribute__(self, key):
 		value = None
@@ -1081,7 +1083,7 @@ class pySopCast(object):
 		self.menu_show_toolbar_enabled(src.get_active())
 	
 	def on_toolbar_channel_guide_clicked(self, src, data=None):
-		channel_guide = ChannelGuide2(self)
+		channel_guide = ChannelGuide(self)
 		channel_guide.main()
 	
 	def menu_show_toolbar_enabled(self, enabled):
@@ -1362,7 +1364,7 @@ class pySopCast(object):
 			L.append(html_escape_table.get(c,c))
 		return "".join(L)
 
-class ChannelGuide2(object):
+class ChannelGuide(object):
 	def __init__(self, parent=None):
 		gtk.gdk.threads_init()
 		self.last_update = 0
@@ -1378,7 +1380,7 @@ class ChannelGuide2(object):
 		self.parent = parent
 		
 	def main(self, sop_address=None, sop_address_name=None):
-		gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "../ui/ChannelGuide2.glade")
+		gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "../ui/ChannelGuide.glade")
 		self.glade_window = gtk.glade.XML(gladefile, "window", "sopcast-player")
 		self.window = self.glade_window.get_widget("window")
 		

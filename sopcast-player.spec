@@ -9,7 +9,7 @@ Source0:       http://sopcast-player.googlecode.com/files/%{name}-%{version}.tar
 Buildroot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: gettext python-setuptools-devel 
 BuildRequires: vlc-devel >= 0.9.4 desktop-file-utils
-Requires:      python >= 2.4.3 vlc-core >= 0.9.4 sp-auth >= 3.0.1
+Requires:      python >= 2.4.3 vlc >= 0.9.4 sp-auth >= 3.0.1
 Requires:      hicolor-icon-theme pygtk2-libglade
 
 %description
