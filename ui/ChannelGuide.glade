@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.5 on Tue Feb 17 17:55:18 2009 -->
+<!--Generated with glade3 3.4.5 on Sun Feb 22 14:57:32 2009 -->
 <glade-interface>
   <widget class="GtkWindow" id="window">
     <property name="title" translatable="yes">Channel Guide - SopCast Player</property>
     <property name="role">SopCast Player Main Screen</property>
     <property name="window_position">GTK_WIN_POS_CENTER_ON_PARENT</property>
-    <property name="icon">television.png</property>
+    <property name="icon">sopcast-player.svg</property>
     <signal name="key_press_event" handler="on_window_key_press_event"/>
     <signal name="destroy" handler="on_mainWindow_destroy"/>
     <signal name="size_allocate" handler="on_window_size_allocate"/>

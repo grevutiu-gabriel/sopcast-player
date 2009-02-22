@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.5 on Sat Feb 21 20:48:44 2009 -->
+<!--Generated with glade3 3.4.5 on Sun Feb 22 14:59:03 2009 -->
 <glade-interface>
   <widget class="GtkAboutDialog" id="about">
     <property name="border_width">5</property>
     <property name="title" translatable="yes">About SopCast Player</property>
     <property name="resizable">False</property>
     <property name="window_position">GTK_WIN_POS_CENTER_ON_PARENT</property>
-    <property name="icon">television.png</property>
+    <property name="icon">sopcast-player.svg</property>
     <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>
     <property name="has_separator">False</property>
     <property name="program_name">SopCast Player</property>
@@ -32,7 +32,7 @@ jjgomera
 Vadim Peretokin &lt;vperetokin@gmail.com&gt;
 oriolsbd &lt;oriolsbd@yahoo.es&gt;
 Martin S. Weber</property>
-    <property name="artists">Icon by famfamfam &lt;http://www.famfamfam.com/lab/icons/silk&gt;</property>
+    <property name="artists"></property>
     <property name="wrap_license">True</property>
     <child internal-child="vbox">
       <widget class="GtkVBox" id="dialog-vbox1">
