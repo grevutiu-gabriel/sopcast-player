@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.5 on Sun Feb 22 14:59:03 2009 -->
+<!--Generated with glade3 3.4.5 on Thu Feb 26 20:02:01 2009 -->
 <glade-interface>
   <widget class="GtkAboutDialog" id="about">
     <property name="border_width">5</property>
@@ -31,7 +31,10 @@ jjgomera
 Øyvind Munthe
 Vadim Peretokin &lt;vperetokin@gmail.com&gt;
 oriolsbd &lt;oriolsbd@yahoo.es&gt;
-Martin S. Weber</property>
+Martin S. Weber
+joanmunoz
+komputes
+Dinth &lt;dinth@wikipasy.pl&gt;</property>
     <property name="artists"></property>
     <property name="wrap_license">True</property>
     <child internal-child="vbox">
