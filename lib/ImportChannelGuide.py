@@ -173,38 +173,38 @@ class ImportChannelGuide:
 	def get_channel_group_info(self, channel_group):
 		info = [int(self.get_tag_attribute(channel_group, "id")),
 			int(self.get_tag_attribute(channel_group, "type")),
-			self.get_tag_translation(channel_group, Language.ENGLISH).encode('utf-8'),
-			self.get_tag_translation(channel_group, Language.CHINESE).encode('utf-8'),
-			self.get_tag_value(channel_group).encode('utf-8'),
-			self.format_description(self.get_tag_attribute(channel_group, "description")).encode('utf-8')]
+			self.get_tag_translation(channel_group, Language.ENGLISH),
+			self.get_tag_translation(channel_group, Language.CHINESE),
+			self.get_tag_value(channel_group),
+			self.format_description(self.get_tag_attribute(channel_group, "description"))]
 		
 		return info
 		
 	def get_channel_info(self, channel, channel_group_id):
 		info = [int(self.get_tag_attribute(channel, "type")),
 			int(self.get_tag_attribute(channel, "btype")),
-			self.get_tag_attribute(channel, "language").encode('utf-8'),
-			self.get_child_tag_translation(channel, "name", Language.ENGLISH).encode('utf-8'),
-			self.get_child_tag_translation(channel, "name", Language.CHINESE).encode('utf-8'),
-			self.get_child_tag_translation(channel, "name").encode('utf-8'),
+			self.get_tag_attribute(channel, "language"),
+			self.get_child_tag_translation(channel, "name", Language.ENGLISH),
+			self.get_child_tag_translation(channel, "name", Language.CHINESE),
+			self.get_child_tag_translation(channel, "name"),
 			int(self.get_child_tag_value(channel, "status")),
-			self.get_child_tag_translation(channel, "region", Language.ENGLISH).encode('utf-8'),
-			self.get_child_tag_translation(channel, "region", Language.CHINESE).encode('utf-8'),
-			self.get_child_tag_translation(channel, "region").encode('utf-8'),
-			self.get_child_tag_translation(channel, "class", Language.ENGLISH).encode('utf-8'),
-			self.get_child_tag_translation(channel, "class", Language.CHINESE).encode('utf-8'),
+			self.get_child_tag_translation(channel, "region", Language.ENGLISH),
+			self.get_child_tag_translation(channel, "region", Language.CHINESE),
+			self.get_child_tag_translation(channel, "region"),
+			self.get_child_tag_translation(channel, "class", Language.ENGLISH),
+			self.get_child_tag_translation(channel, "class", Language.CHINESE),
 			int(self.get_child_tag_translation(channel, "class")),
 			int(self.get_child_tag_value(channel, "user_count")),
 			int(self.get_child_tag_value(channel, "sn")),
 			int(self.get_child_tag_value(channel, "visit_count")),
-			self.get_child_tag_value(channel, "start_from").encode('utf-8'),
-			self.get_child_tag_value(channel, "stream_type").encode('utf-8'),
+			self.get_child_tag_value(channel, "start_from"),
+			self.get_child_tag_value(channel, "stream_type"),
 			int(self.get_child_tag_value(channel, "kbps")),
 			int(self.get_child_tag_value(channel, "qs")),
 			int(self.get_child_tag_value(channel, "qc")),
-			self.get_child_tag_value(channel, "sop_address").encode('utf-8'),
-			self.format_description(self.get_child_tag_translation(channel, "description", Language.CHINESE)).encode('utf-8'),
-			self.format_description(self.get_child_tag_value(channel, "description")).encode('utf-8'),
+			self.get_child_tag_value(channel, "sop_address"),
+			self.format_description(self.get_child_tag_translation(channel, "description", Language.CHINESE)),
+			self.format_description(self.get_child_tag_value(channel, "description")),
 			channel_group_id]
 			
 		return info

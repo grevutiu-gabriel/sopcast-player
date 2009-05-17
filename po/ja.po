@@ -3,13 +3,13 @@ msgstr ""
 "Project-Id-Version: pySopCast 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-01-20 20:24+0100\n"
-"PO-Revision-Date: 2009-02-10 22:48+0000\n"
-"Last-Translator: flyguy97 <Unknown>\n"
+"PO-Revision-Date: 2009-03-26 02:45+0000\n"
+"Last-Translator: yngd <Unknown>\n"
 "Language-Team: flyguy97 <flyguy97@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-03-12 18:12+0000\n"
+"X-Launchpad-Export-Date: 2009-05-17 19:08+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 "X-Poedit-Country: UNITED STATES\n"
 "X-Poedit-Language: English\n"
@@ -20,26 +20,26 @@ msgstr ""
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:88
 msgid "Retrying channel"
-msgstr "再度再生"
+msgstr "再接続中"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:99
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:118
 msgid "Connecting"
-msgstr "応答を待ってます。"
+msgstr "接続中"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:114
 msgid "Buffering"
-msgstr "バッファリング"
+msgstr ""
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:124
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:131
 msgid "Buffer"
-msgstr "バッファー"
+msgstr "バッファ"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:213
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:813
 msgid "Channel Guide Last Updated"
-msgstr "番組ガイドを最後に更新した日"
+msgstr "番組表の最終更新日"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:231
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:240
@@ -57,7 +57,7 @@ msgstr "オープンSopアドレス"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:428
 msgid "Enter Sop Address"
-msgstr "Sopアドレスの検索"
+msgstr "Sopアドレス入力"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:470
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:475
@@ -106,11 +106,11 @@ msgstr "番組項目"
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:579
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:608
 msgid "Press Esc to exit fullscreen"
-msgstr "Escを押すとフルスクリーンから離れる"
+msgstr "Escでフルスクリーン解除"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:677
 msgid "Contacting Server"
-msgstr "サーバーに応答中"
+msgstr "サーバに接続中"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:685
 msgid "Updating Database"
@@ -178,11 +178,11 @@ msgstr "<b>チャンネルガイド自動更新頻繁度</b>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Channel Guide Language</b>"
-msgstr "<b>言語のガイド</b>"
+msgstr "<b>ガイドの言語</b>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Channel Guide Layout:</b>"
-msgstr "<b>言語のレイアウト</b>"
+msgstr "<b>ガイドのレイアウト</b>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Channel Guide URL</b>"
@@ -214,7 +214,7 @@ msgstr "頻度数"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "In-bound Port: "
-msgstr "入力TCP接続 "
+msgstr "待機TCPポート: "
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Language"
@@ -222,7 +222,7 @@ msgstr "言語"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Out-bound Port: "
-msgstr "出力TCP接続 "
+msgstr "出力TCPポート: "
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Player"
@@ -230,7 +230,7 @@ msgstr "プレイヤー"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Static Ports"
-msgstr "接続の無変換"
+msgstr "固定ポート"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Timeout"
@@ -242,7 +242,7 @@ msgstr "URL: "
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Unity (Single-window)"
-msgstr "合同(シングルウィンドウ）"
+msgstr "シングルウィンドウ"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Use External Player"
@@ -254,20 +254,20 @@ msgstr "終了"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Server Down"
-msgstr "サーバーへの接続ができません"
+msgstr "サーバーの応答無し"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Downloading"
-msgstr "ダウンローディング"
+msgstr "ダウンロード中"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Static Ports Unavailable"
-msgstr "接続の無変換が使用できません"
+msgstr "指定のポートが使用できません"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid ""
 "Static ports unavailable, do you wish to continue using dynamic ports?"
-msgstr "接続の無変換が使用できません。他の接続を希望しますか？"
+msgstr "指定ポートが使用できません。他のポートを使いますか？"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:754
@@ -297,10 +297,10 @@ msgid "Format:"
 msgstr "フォーマット"
 
 msgid "Bitrate:"
-msgstr "ビットレイト"
+msgstr "ビットレート"
 
 msgid "Channel Group:"
-msgstr "チャンネルガイド"
+msgstr "チャンネルグループ:"
 
 msgid "Classification:"
 msgstr "分類"
@@ -318,13 +318,13 @@ msgid "Stop"
 msgstr "停止"
 
 msgid "Always On Top"
-msgstr "スクリーンの位置（上）"
+msgstr "常に最前面"
 
 msgid "Show Controls"
-msgstr "コントロールあり、なし"
+msgstr "コントロール表示"
 
 msgid "Chinese"
-msgstr "中国"
+msgstr "中国語"
 
 msgid "English"
 msgstr "英語"

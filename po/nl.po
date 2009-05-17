@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: sopcast-player\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-01-20 20:24+0100\n"
-"PO-Revision-Date: 2009-03-09 01:00+0000\n"
-"Last-Translator: stefanwilkens <stefanwilkens@gmail.com>\n"
+"PO-Revision-Date: 2009-03-30 15:55+0000\n"
+"Last-Translator: Niels Peen <niels.peen@gmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-03-12 18:12+0000\n"
+"X-Launchpad-Export-Date: 2009-05-17 19:08+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:88
@@ -161,7 +161,7 @@ msgstr "_Bladwijzers"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "<i>Last Updated: </i>"
-msgstr "<i>Laatste Update: <i>"
+msgstr "<i>Laatste Update: </i>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "Last Updated: "

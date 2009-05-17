@@ -235,6 +235,10 @@ class UpdateChannelGuideThread(threading.Thread):
 		self.parent.update_channel_guide_progress.set_text(_("Contacting Server"))
 		gtk.gdk.threads_leave()
 		
+		gtk.gdk.threads_enter()
+		self.parent.refresh_channel_guide.set_sensitive(False)
+		gtk.gdk.threads_leave()
+		
 		try:
 			db_operations = DatabaseOperations.DatabaseOperations()
 			downloader.download_file(self.parent.channel_guide_url, os.path.expanduser('~/.pySopCast/channel_guide.xml'), self.report_progress)
@@ -303,6 +307,10 @@ class UpdateChannelGuideThread(threading.Thread):
 				self.parent.update_channel_guide_progress.set_text(_("Server Down"))
 			gtk.gdk.threads_leave()
 			print e
+			
+		gtk.gdk.threads_enter()
+		self.parent.refresh_channel_guide.set_sensitive(True)
+		gtk.gdk.threads_leave()
 		
 		if handler_blocked == True:
 			gtk.gdk.threads_enter()

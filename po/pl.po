@@ -8,18 +8,14 @@ msgstr ""
 "Project-Id-Version: sopcast-player\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-01-20 20:24+0100\n"
-"PO-Revision-Date: 2009-03-01 12:46+0000\n"
-"Last-Translator: sake12 <sake12@gmail.com>\n"
+"PO-Revision-Date: 2009-05-08 20:36+0000\n"
+"Last-Translator: shai <Unknown>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-03-12 18:12+0000\n"
+"X-Launchpad-Export-Date: 2009-05-17 19:08+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
-
-#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:88
-msgid "Retrying channel"
-msgstr ""
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:99
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:118
@@ -81,16 +77,6 @@ msgid "Stream Format"
 msgstr "Format strumienia"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:470
-#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:865
-msgid "QC"
-msgstr ""
-
-#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:470
-#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:865
-msgid "QS"
-msgstr ""
-
-#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:470
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:475
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:865
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:872
@@ -105,11 +91,7 @@ msgstr "Kanały"
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:579
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:608
 msgid "Press Esc to exit fullscreen"
-msgstr "Wciśnij Esc aby wyjść z pełnego ekranu"
-
-#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:677
-msgid "Contacting Server"
-msgstr ""
+msgstr "Wciśnij Esc, aby wyjść z pełnego ekranu"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:685
 msgid "Updating Database"
@@ -118,10 +100,6 @@ msgstr "Aktualizacja bazy danych"
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:733
 msgid "Channel Guide Update Completed"
 msgstr "Aktualizacja przewodnika po kanałach zakończona"
-
-#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:741
-msgid "Channel Guide Retrieval Failed Due to Network Problems"
-msgstr ""
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:759
 msgid "Downloading Channel Guide"
@@ -188,10 +166,6 @@ msgid "<b>Channel Guide URL</b>"
 msgstr "<b>Adres URL przewodnika po kanałach</b>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
-msgid "<b>Channel Timeout</b>"
-msgstr ""
-
-#: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Media Player</b>"
 msgstr "<b>Odtwarzacz mediów</b>"
 
@@ -232,10 +206,6 @@ msgid "Static Ports"
 msgstr "Porty statyczne"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
-msgid "Timeout"
-msgstr ""
-
-#: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "URL: "
 msgstr "Adres URL: "
 
@@ -253,7 +223,7 @@ msgstr "Ukończono"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Server Down"
-msgstr ""
+msgstr "Serwer wyłączony"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Downloading"
@@ -277,7 +247,7 @@ msgstr "<i>3 sekundy</i>"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:755
 msgid "<i>30 Seconds</i>"
-msgstr "<i>30 sekundy</i>"
+msgstr "30 sekund"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:756
 msgid "<i>5 Minutes</i>"
@@ -321,9 +291,6 @@ msgstr "Zatrzymaj"
 msgid "Always On Top"
 msgstr "Zawsze na wierzchu"
 
-msgid "Show Controls"
-msgstr ""
-
 msgid "Chinese"
 msgstr "Chiński"
 
@@ -332,12 +299,6 @@ msgstr "Angielski"
 
 msgid "<i>Daily</i>"
 msgstr "<i>Dziennie</i>"
-
-msgid "<i>Program Start</i>"
-msgstr ""
-
-msgid "<big><b>Channel Bookmark</b></big>"
-msgstr ""
 
 msgid "_Edit"
 msgstr "_Edycja"
@@ -350,3 +311,44 @@ msgstr "Ulubione"
 
 msgid "Show Toolbar"
 msgstr "Pokaż pasek narzędzi"
+
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:88
+msgid "Retrying channel"
+msgstr "Ponawianie połączenia"
+
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:470
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:865
+msgid "QC"
+msgstr ""
+
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:470
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:865
+msgid "QS"
+msgstr ""
+
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:677
+msgid "Contacting Server"
+msgstr "Sprawdzanie serwera"
+
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:741
+msgid "Channel Guide Retrieval Failed Due to Network Problems"
+msgstr ""
+"Ściąganie przewodnika po kanałach zakończono niepowodzeniem z powodu "
+"problemów z połączeniem sieciowym"
+
+#: /home/jason/Desktop/SopCast-Player/ui/Options.glade
+msgid "<b>Channel Timeout</b>"
+msgstr "<b>Minął czas oczekiwania</b>"
+
+#: /home/jason/Desktop/SopCast-Player/ui/Options.glade
+msgid "Timeout"
+msgstr "Połączenie wygasło"
+
+msgid "Show Controls"
+msgstr "Pokazuj kontrolki"
+
+msgid "<i>Program Start</i>"
+msgstr "<i>Start programu</i>"
+
+msgid "<big><b>Channel Bookmark</b></big>"
+msgstr ""

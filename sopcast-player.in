@@ -1,2 +1,2 @@
 #!/bin/sh
-@PYTHON@ @DESTDIR@@INSTALLDIR@/lib/@NAME@.pyc $@
+@PYTHON@ @DESTDIR@@INSTALLDIR@/lib/@NAME@.py $@

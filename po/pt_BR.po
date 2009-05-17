@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-03-12 18:12+0000\n"
+"X-Launchpad-Export-Date: 2009-05-17 19:08+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:88
@@ -79,16 +79,6 @@ msgstr "Classificação"
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:865
 msgid "Stream Format"
 msgstr "Formato do fluxo(Stream)"
-
-#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:470
-#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:865
-msgid "QC"
-msgstr ""
-
-#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:470
-#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:865
-msgid "QS"
-msgstr ""
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:470
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:475
@@ -333,9 +323,6 @@ msgstr "Inglês"
 msgid "<i>Daily</i>"
 msgstr "<i>Diariamente</i>"
 
-msgid "<i>Program Start</i>"
-msgstr ""
-
 msgid "<big><b>Channel Bookmark</b></big>"
 msgstr "<big><b>Canais Favoritos</b></big>"
 
@@ -350,3 +337,16 @@ msgstr "Favorito"
 
 msgid "Show Toolbar"
 msgstr "Mostrar barra de ferramentas"
+
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:470
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:865
+msgid "QC"
+msgstr ""
+
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:470
+#: /home/jason/Desktop/SopCast-Player/sopcast-player.py:865
+msgid "QS"
+msgstr ""
+
+msgid "<i>Program Start</i>"
+msgstr ""
