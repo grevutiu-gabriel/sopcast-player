@@ -11,7 +11,7 @@
     <property name="type_hint">dialog</property>
     <property name="has_separator">False</property>
     <property name="program_name">SopCast Player</property>
-    <property name="version">0.2.1</property>
+    <property name="version">0.3.0</property>
     <property name="copyright" translatable="yes">Copyright &#xA9; 2009 Jason Scheunemann</property>
     <property name="comments" translatable="yes">A GUI front-end for SopCast</property>
     <property name="website">http://code.google.com/p/sopcast-player</property>
@@ -48,7 +48,8 @@ shai
 joni_meri
 Gayan C. Jayasinghe &lt;gayancj@yahoo.com&gt;
 Chet Thaphong &lt;chetth@gmail.com&gt;
-svv &lt;skrypnychuk@gmail.com&gt;</property>
+svv &lt;skrypnychuk@gmail.com&gt;
+Lodberg</property>
     <property name="artists"></property>
     <property name="wrap_license">True</property>
     <child internal-child="vbox">
