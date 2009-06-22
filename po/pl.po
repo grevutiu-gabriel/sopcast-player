@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: sopcast-player\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-01-20 20:24+0100\n"
-"PO-Revision-Date: 2009-05-08 20:36+0000\n"
-"Last-Translator: shai <Unknown>\n"
+"PO-Revision-Date: 2009-06-04 23:27+0000\n"
+"Last-Translator: thifx <thifx@o2.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-05-17 19:08+0000\n"
+"X-Launchpad-Export-Date: 2009-06-22 16:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:99
@@ -29,12 +29,12 @@ msgstr "Buforowanie"
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:124
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:131
 msgid "Buffer"
-msgstr "Bufor"
+msgstr "Buforowanie"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:213
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:813
 msgid "Channel Guide Last Updated"
-msgstr "Przewodnik po kanałach ostatnio zmieniany"
+msgstr "Przewodnik po kanałach ostatnio zaktualizowanych"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:231
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:240
@@ -107,7 +107,7 @@ msgstr "Ściąganie przewodnika po kanałach"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "_File"
-msgstr "P_lik"
+msgstr "_Plik"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "> Channel Guide"
@@ -123,7 +123,7 @@ msgstr "Głośność:"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "_Fullscreen"
-msgstr "P_ełny ekran"
+msgstr "_Tryb pełnoekranowy"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "_Help"
@@ -211,7 +211,7 @@ msgstr "Adres URL: "
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Unity (Single-window)"
-msgstr "Jedność (pojedyńcze okno)"
+msgstr "Jednolite (Pojedyńcze okno)"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Use External Player"
@@ -243,15 +243,15 @@ msgstr ""
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:754
 msgid "<i>3 Seconds</i>"
-msgstr "<i>3 sekundy</i>"
+msgstr "<i>3 Sekundy</i>"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:755
 msgid "<i>30 Seconds</i>"
-msgstr "30 sekund"
+msgstr "<i>30 Sekund</i>"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:756
 msgid "<i>5 Minutes</i>"
-msgstr "<i>5 minut</i>"
+msgstr "<i>5 Minut</i>"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:757
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
@@ -319,12 +319,12 @@ msgstr "Ponawianie połączenia"
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:470
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:865
 msgid "QC"
-msgstr ""
+msgstr "Jakość kanału"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:470
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:865
 msgid "QS"
-msgstr ""
+msgstr "Jakość strumienia"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:677
 msgid "Contacting Server"
@@ -351,4 +351,4 @@ msgid "<i>Program Start</i>"
 msgstr "<i>Start programu</i>"
 
 msgid "<big><b>Channel Bookmark</b></big>"
-msgstr ""
+msgstr "<big><b>Dodaj kanał do ulubionych</b></big>"
