@@ -88,7 +88,7 @@ class UpdateUIThread(threading.Thread):
 							if self.parent.external_player_command != None:
 								if self.parent.external_player_command != "":
 									self.external_player.kill()
-									print "stoping external media player"
+									print("stoping external media player")
 							else:
 								self.parent.stop_vlc()						
 								
@@ -151,7 +151,7 @@ class UpdateUIThread(threading.Thread):
 									if self.parent.external_player_command != None:
 										if self.parent.external_player_command != "":
 											self.external_player.fork_player(self.parent.external_player_command, self.parent.outbound_media_url)
-											print "Executing " + self.parent.external_player_command
+											print("Executing " + self.parent.external_player_command)
 									else:
 										gtk.gdk.threads_enter()
 										started = self.parent.start_vlc()
@@ -188,7 +188,7 @@ class UpdateUIThread(threading.Thread):
 		
 	def print_point_on_exit(self, point):
 		if self.terminate == True:
-			print point
+			print(point)
 	
 	def set_channel_timeout(self, channel_timeout):
 		if channel_timeout != sys.maxint:
@@ -301,12 +301,12 @@ class UpdateChannelGuideThread(threading.Thread):
 			config_manager.set("ChannelGuide", "last_updated", time.mktime(t.timetuple()))
 			config_manager.write()
 			self.updated = True
-		except Exception, e:
+		except(Exception, e):
 			gtk.gdk.threads_enter()
 			if self.parent.update_channel_guide_progress != None:
 				self.parent.update_channel_guide_progress.set_text(_("Server Down"))
 			gtk.gdk.threads_leave()
-			print e
+			print(e)
 			
 		gtk.gdk.threads_enter()
 		self.parent.refresh_channel_guide.set_sensitive(True)
@@ -810,7 +810,7 @@ class pySopCast(object):
 	
 	def on_menu_screenshot_activate(self, src, data=None):
 		screenshot = self.vlc.screenshot()
-		print screenshot
+		print(screenshot)
 	
 	def on_menu_preferences_activate(self, src, data=None):
 		channel_timeout_display = { 0: _("<i>3 Seconds</i>"),
@@ -1052,7 +1052,6 @@ class pySopCast(object):
 		config_manager.write()
 	
 	def on_menu_show_controls_toggled(self, src, data=None):
-		print "toggled"
 		self.show_menu_controls(not self.show_controls)
 		
 	def show_menu_controls(self, show):
@@ -1227,8 +1226,8 @@ class pySopCast(object):
 		else:
 			self.sop_stats = listen.SOPStats(self.server, self.outbound_port)
 		
-			print "%s: %s" % ("Inbound Port", self.inbound_port)
-			print "%s: %s" % ("Outbound Port", self.outbound_port)
+			print("%s: %s" % ("Inbound Port", self.inbound_port))
+			print("%s: %s" % ("Outbound Port", self.outbound_port))
 			
 			if channel_url != None:
 				self.channel_url = channel_url
@@ -1698,7 +1697,7 @@ class OpenSopAddress(object):
 		
 if __name__ == '__main__':
 	def print_usage_and_exit():
-		print "Usage: sopcast-player [SOP_ADDRESS] [IN-BOUND_PORT OUT-BOUND_PORT]"
+		print("Usage: sopcast-player [SOP_ADDRESS] [IN-BOUND_PORT OUT-BOUND_PORT]")
 		sys.exit(1)
 		
 	if len(sys.argv) > 1:

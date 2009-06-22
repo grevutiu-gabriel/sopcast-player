@@ -40,7 +40,6 @@ typedef int Py_ssize_t;
 #define PY_SSIZE_T_MIN INT_MIN
 #endif
 
-#define SELF ((MediaControl*)self)
 
 /**********************************************************************
  * Exceptions handling
@@ -89,8 +88,6 @@ typedef struct
     libvlc_instance_t* p_instance;
 } vlcInstance;
 
-#define LIBVLC_INSTANCE ((vlcInstance*)self)
-
 /**********************************************************************
  * MediaControl Object
  **********************************************************************/
@@ -137,9 +134,10 @@ staticforward PyTypeObject vlcInstance_Type;
 staticforward PyTypeObject vlcMediaPlayer_Type;
 staticforward PyTypeObject vlcMedia_Type;
 
-#define LIBVLC_INSTANCE ((vlcInstance*)self)
-#define LIBVLC_MEDIAPLAYER ((vlcMediaPlayer*)self)
-#define LIBVLC_MEDIA ((vlcMedia*)self)
+#define LIBVLC_INSTANCE(self) (((vlcInstance*)self)->p_instance)
+#define LIBVLC_MEDIAPLAYER(self) (((vlcMediaPlayer*)self)->p_mp)
+#define LIBVLC_MEDIA(self) (((vlcMedia*)self)->p_media)
+#define LIBVLC_MC(self) (((MediaControl*)self)->mc)
 
 #define LIBVLC_TRY libvlc_exception_init( &ex );
 
