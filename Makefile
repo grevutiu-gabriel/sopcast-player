@@ -23,7 +23,7 @@ CFLAGS ?= -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions \
 VERSION ?= 0.2.0
 
 
-build: language byte-compile desktop
+build: language byte-compile desktop build-vlc
 
 desktop:
 	$(EDIT) $(NAME).in > $(NAME)
@@ -44,8 +44,6 @@ build-vlc:
 	   CFLAGS="$(CFLAGS)" $(PYTHON) -c 'import setuptools; execfile("setup.py")' build; \
 	cd ..
 
-all: build build-vlc
-
 clean:
 	@for file in .pyc .py~ .so .mo .o; do \
 	   echo "cleaning $$file files..." ; \
@@ -55,13 +53,11 @@ clean:
 	rm -fr $(VLCDIR)/build || :
 	rm -f $(NAME) || :
 
-install-all: install install-vlc
-
 install-vlc:
 	$(INSTALL) -dm 0755 $(DESTDIR)$(INSTALLDIR)/lib
 	$(INSTALL) -m 0755 $(VLCDIR)/build/*/vlc.so $(DESTDIR)$(INSTALLDIR)/lib
 
-install:
+install: install-vlc
 	$(INSTALL) -dm 0755 $(DESTDIR)$(INSTALLDIR)/lib
 	$(INSTALL) -dm 0755 $(DESTDIR)$(INSTALLDIR)/ui
 	$(INSTALL) -dm 0755 $(DESTDIR)$(BINDIR)
