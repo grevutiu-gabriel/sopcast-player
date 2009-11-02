@@ -18,6 +18,7 @@ import os
 import signal
 import sys
 import time
+import pyUserPathCheck
 
 class ForkSOP:
 	def __init__(self, sop_address=None, inbound_port=None, outbound_port=None):
@@ -25,6 +26,8 @@ class ForkSOP:
 		self.sop_address = sop_address
 		self.inbound_port = inbound_port
 		self.outbound_port = outbound_port
+		if not pyUserPathCheck.UserPathCheck('sp-sc').file_exists():
+			raise
 		
 	def fork_sop(self, sop_address=None, inbound_port=None, outbound_port=None):
 		self.sop_address = sop_address
@@ -39,11 +42,6 @@ class ForkSOP:
 				perror("fork")
 				self.child_pid = None
 			elif pid == 0: #execute in child
-				#null = os.open(os.devnull, os.O_RDWR)
-				#os.dup2(null, sys.stdin.fileno())
-				#os.dup2(null, sys.stdout.fileno())
-				#os.dup2(null, sys.stderr.fileno())
-				#os.close(null)
 				stdout_file = sys.stdout.fileno()
 				sys.stdout.close()
 				os.close(stdout_file)
@@ -112,6 +110,3 @@ class ForkExternalPlayer:
 		else:
 			return False
 
-if __name__ == '__main__':
-	fork_player = ForkExternalPlayer()
-	fork_player.fork_player("/usr/bin/mplayer -ontop -geometry 100%:100%", "http://127.0.0.1:8902/tv.asf")

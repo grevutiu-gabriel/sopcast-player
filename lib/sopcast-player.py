@@ -369,7 +369,6 @@ class pySopCast(object):
 		self.vlc = VLCWidget.VLCWidget(*p)
 		self.player = self.vlc.player
 		self.ui_worker = None
-		self.fork_sop = fork.ForkSOP()
 		self.last_update = 0
 		self.status_bar_text = None
 		self.status_bar_text_changed = False
@@ -392,6 +391,11 @@ class pySopCast(object):
 		self.external_player_command = None
 		self.outbound_media_url = None
 		self.channel_guide_language = None
+		self.sopcast_client_installed = True
+		try:
+			self.fork_sop = fork.ForkSOP()
+		except:
+			self.sopcast_client_installed = False
 		
 	def main(self, sop_address=None, sop_address_name=None):
 		gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "../ui/pySopCast.glade")
@@ -498,11 +502,16 @@ class pySopCast(object):
 		
 		self.window.show()
 		
+
+		
 		gtk.gdk.threads_enter()
+		if not self.sopcast_client_installed:
+			self.show_missing_sopcast_client_dialog()		
 		gtk.main()
 		gtk.gdk.threads_leave()
 		
-		self.fork_sop.kill_sop()
+		if self.fork_sop != None:
+			self.fork_sop.kill_sop()
 		
 	def __getattribute__(self, key):
 		value = None
@@ -513,7 +522,21 @@ class pySopCast(object):
 			value = glade_window.get_widget(key)	
 
 		return value
-	
+
+	def show_missing_sopcast_client_dialog(self):
+		gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "../ui/SopCastClientMissing.glade")
+		tree = gtk.glade.XML(gladefile, "sopcast-client-missing-dialog")
+		
+		dialog = tree.get_widget("sopcast-client-missing-dialog")
+		dialog.set_title("%s - %s" % (_("Missing Dependency"), "SopCast Player"))
+		dialog.set_transient_for(self.window)
+		
+		dialog.run()
+		
+		
+		# Post-response action area
+		dialog.destroy()
+
 	def media_player_size(self, screen, width_ratio, player_ratio):
 		width = int(screen.get_width() * width_ratio)
 		height = int(width * player_ratio)
@@ -1215,47 +1238,48 @@ class pySopCast(object):
 				self.eb.show_all()
 		
 	def play_channel(self, channel_url=None, title=None):
-		if self.fork_sop.is_running() == True:
-			self.fork_sop.kill_sop()
+		if self.fork_sop != None:
+			if self.fork_sop.is_running() == True:
+				self.fork_sop.kill_sop()
 		
-		s = pySocket.pySocket()
-		if (self.inbound_port == None or self.outbound_port == None) or (not s.is_available(self.server, self.inbound_port) or not s.is_available(self.server, self.outbound_port)):
-			self.inbound_port, self.outbound_port = self.get_ports()
+			s = pySocket.pySocket()
+			if (self.inbound_port == None or self.outbound_port == None) or (not s.is_available(self.server, self.inbound_port) or not s.is_available(self.server, self.outbound_port)):
+				self.inbound_port, self.outbound_port = self.get_ports()
 			
-		if self.inbound_port == None or self.outbound_port == None:
-			self.window.destroy()
-		else:
-			self.sop_stats = listen.SOPStats(self.server, self.outbound_port)
-		
-			print("%s: %s" % ("Inbound Port", self.inbound_port))
-			print("%s: %s" % ("Outbound Port", self.outbound_port))
-			
-			if channel_url != None:
-				self.channel_url = channel_url
-				if title == None:
-					self.window.set_title("%s - %s" % (channel_url, self.window_title))
-			
-			if title != None:
-				self.window.set_title("%s - %s" % (title, self.window_title))
+			if self.inbound_port == None or self.outbound_port == None:
+				self.window.destroy()
 			else:
-				records = self.db_operations.retrieve_bookmark_by_address(self.channel_url)
-				if len(records) > 0:
-					self.window.set_title("%s - %s" % (records[0][0], self.window_title))
+				self.sop_stats = listen.SOPStats(self.server, self.outbound_port)
+		
+				print("%s: %s" % ("Inbound Port", self.inbound_port))
+				print("%s: %s" % ("Outbound Port", self.outbound_port))
+			
+				if channel_url != None:
+					self.channel_url = channel_url
+					if title == None:
+						self.window.set_title("%s - %s" % (channel_url, self.window_title))
+			
+				if title != None:
+					self.window.set_title("%s - %s" % (title, self.window_title))
 				else:
-					records = self.db_operations.retrieve_channel_guide_record_by_address(self.channel_url)
+					records = self.db_operations.retrieve_bookmark_by_address(self.channel_url)
 					if len(records) > 0:
 						self.window.set_title("%s - %s" % (records[0][0], self.window_title))
+					else:
+						records = self.db_operations.retrieve_channel_guide_record_by_address(self.channel_url)
+						if len(records) > 0:
+							self.window.set_title("%s - %s" % (records[0][0], self.window_title))
 			
-			self.fork_sop.fork_sop(self.channel_url, str(self.inbound_port), str(self.outbound_port))
+				self.fork_sop.fork_sop(self.channel_url, str(self.inbound_port), str(self.outbound_port))
 		
-			self.menu_add_bookmark.set_sensitive(True)
-			self.toolbar_add_bookmark.set_sensitive(True)
-			self.menu_fullscreen.set_sensitive(True)
-			self.toolbar_fullscreen.set_sensitive(True)
+				self.menu_add_bookmark.set_sensitive(True)
+				self.toolbar_add_bookmark.set_sensitive(True)
+				self.menu_fullscreen.set_sensitive(True)
+				self.toolbar_fullscreen.set_sensitive(True)
 		
-			self.outbound_media_url = "http://%s:%d/tv.asf" % (self.server, self.outbound_port)
-			self.vlc.set_media_url(self.outbound_media_url)
-			self.ui_worker.startup()
+				self.outbound_media_url = "http://%s:%d/tv.asf" % (self.server, self.outbound_port)
+				self.vlc.set_media_url(self.outbound_media_url)
+				self.ui_worker.startup()
 
 	def on_play_button_clicked(self, src, data=None):
 		if self.channel_url != None:
@@ -1306,11 +1330,11 @@ class pySopCast(object):
 		config_manager.write()
 		
 		self.ui_worker.stop()
-		
-		if self.fork_sop.is_running() == True:
-			self.vlc.stop_media()
-			self.vlc.exit_media()
-			self.fork_sop.kill_sop()
+		if self.fork_sop != None:
+			if self.fork_sop.is_running() == True:
+				self.vlc.stop_media()
+				self.vlc.exit_media()
+				self.fork_sop.kill_sop()
 			
 		gtk.main_quit()
 		self = None
@@ -1685,6 +1709,40 @@ class OpenSopAddress(object):
 			self.sop_address.get_text()
 		else:		
 			self.window.destroy()
+		
+	def __getattribute__(self, key):
+		value = None
+		try:
+			value = object.__getattribute__(self, key)
+		except AttributeError:
+			glade_window = object.__getattribute__(self, 'glade_window')
+			value = glade_window.get_widget(key)	
+
+		return value
+
+class OpenSopCastClientMissing(object):
+	def __init__(self, parent):
+		self.window = None
+		self.parent = parent
+		
+	def main(self):
+		gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "../ui/SopCastClientMissing.glade")
+			
+		self.glade_window = gtk.glade.XML(gladefile, "sopcast-client-missing-dialog")
+		self.window = self.glade_window.get_widget("sopcast-client-missing-dialog")
+		self.window.set_modal(True)
+		self.window.set_transient_for(self.parent.window)
+		self.window.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+		
+		dic = { "on_sopcast-client-missing-dialog_destroy" : gtk.main_quit,
+			"on_done_clicked" : self.on_done_clicked }
+			
+		self.glade_window.signal_autoconnect(dic)
+		
+		gtk.main()
+		
+	def on_done_clicked(self, src, data=None):
+		self.window.destroy()
 		
 	def __getattribute__(self, key):
 		value = None

@@ -1,5 +1,5 @@
 Name:          sopcast-player
-Version:       0.2.1
+Version:       0.3.1
 Release:       1%{?dist}
 Group:         Applications/Internet
 Summary:       A GUI front-end to SopCast
@@ -26,7 +26,7 @@ make all INSTALLDIR=%{_libdir}/%{name} %{?_smp_flags}
 
 %install
 rm -fr %{buildroot}
-make install-all INSTALLDIR=%{_libdir}/%{name} DESTDIR=%{buildroot}
+make install INSTALLDIR=%{_libdir}/%{name} DESTDIR=%{buildroot}
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %find_lang %{name}
 
@@ -54,5 +54,5 @@ fi
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 
 %changelog
-* Sun Feb 17 2009 Orcan Ogetbil <oget [DOT] fedora [AT] gmail [DOT] com> - 0.2.1-1
+* Sun Feb 17 2009 Orcan Ogetbil <oget [DOT] fedora [AT] gmail [DOT] com> - 0.3.1-1
 - Initial build
