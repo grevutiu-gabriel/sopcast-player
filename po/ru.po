@@ -8,18 +8,18 @@ msgstr ""
 "Project-Id-Version: sopcast-player\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-01-20 20:24+0100\n"
-"PO-Revision-Date: 2009-02-13 14:39+0000\n"
-"Last-Translator: Vadim Peretokin <vperetokin@gmail.com>\n"
+"PO-Revision-Date: 2009-09-10 11:55+0000\n"
+"Last-Translator: Alexey Kotlyarov <Unknown>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-05-17 19:08+0000\n"
+"X-Launchpad-Export-Date: 2009-11-02 01:20+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:88
 msgid "Retrying channel"
-msgstr "Пытаемся переподключится"
+msgstr "Пытаемся переподключиться"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:99
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:118
@@ -117,11 +117,11 @@ msgstr "Обновляем базу данных"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:733
 msgid "Channel Guide Update Completed"
-msgstr "Возобновлили список каналов"
+msgstr "Обновление списка каналов завершено"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:741
 msgid "Channel Guide Retrieval Failed Due to Network Problems"
-msgstr "Не смогли скачать список каналов из-за проблем с интернетом"
+msgstr "Не удалось скачать список каналов из-за проблем с сетью"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:759
 msgid "Downloading Channel Guide"
@@ -312,7 +312,7 @@ msgid "Preferences"
 msgstr "Настройки"
 
 msgid "Play"
-msgstr "Играть"
+msgstr "Воспроизвести"
 
 msgid "Stop"
 msgstr "Остановить"

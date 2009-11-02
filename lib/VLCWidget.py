@@ -18,36 +18,42 @@ import gtk
 import sys
 import vlc
 
+from gettext import gettext as _
+
+instance=vlc.Instance()
+
 class VLCWidget(gtk.DrawingArea):
 	def __init__(self, *p):
 		gtk.DrawingArea.__init__(self)
-		self.player=vlc.MediaControl([ "--vout-filter", "clone" ], *p)
-		def handle_embed(*p):
+		self.player=instance.mediacontrol_new_from_instance()
+		def handle_embed(*args):
 			if sys.platform == 'win32':
-				xidattr='handle'
+				self.player.set_hwnd(self.window.handle)
 			else:
-				xidattr='xid'
-				self.player.set_visual(getattr(self.window, xidattr))
+				self.player.set_xwindow(self.window.xid)
 			return True
 		self.connect("map-event", handle_embed)
-
+		self.set_size_request(320, 200)
+        
 	def set_media_url(self, url):
 		self.player.set_mrl(url)
 		
 	def play_media(self):
+		self.realize()
+		self.player.set_visual(self.window.xid)
 		self.player.start(0)
 		
 	def resume_media(self):
-		self.player.resume(0)
+		self.player.resume()
 		
 	def stop_media(self):
-		self.player.stop(0)
+		self.player.stop()
 		
 	def pause_media(self):
-		self.player.pause(0)
+		self.player.pause()
 		
 	def exit_media(self):
-		self.player.exit(0)
+		self.player.exit()
 		
 	def display_text(self, text):
 		self.player.display_text("%s" % text, 0, 5000)
@@ -66,3 +72,4 @@ class VLCWidget(gtk.DrawingArea):
 		
 	def screenshot(self):
 		return self.player.snapshot(0)
+

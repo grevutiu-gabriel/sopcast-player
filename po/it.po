@@ -3,13 +3,13 @@ msgstr ""
 "Project-Id-Version: pySopCast 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-01-20 20:24+0100\n"
-"PO-Revision-Date: 2009-02-13 14:32+0000\n"
-"Last-Translator: flyguy97 <Unknown>\n"
+"PO-Revision-Date: 2009-07-26 09:08+0000\n"
+"Last-Translator: Giovanni Scafora <Unknown>\n"
 "Language-Team: flyguy97 <flyguy97@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-05-17 19:08+0000\n"
+"X-Launchpad-Export-Date: 2009-11-02 01:20+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 "X-Poedit-Country: UNITED STATES\n"
 "X-Poedit-Language: English\n"
@@ -25,7 +25,7 @@ msgstr "Riconnessione canale"
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:99
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:118
 msgid "Connecting"
-msgstr "In connessione"
+msgstr "Connessione in corso"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:114
 msgid "Buffering"
@@ -146,19 +146,19 @@ msgstr "Volume:"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "_Fullscreen"
-msgstr "Fullscreen"
+msgstr "_Fullscreen"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "_Help"
-msgstr "Aiuto"
+msgstr "_Aiuto"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "_View"
-msgstr "Visualizza"
+msgstr "_Visualizza"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "_Bookmarks"
-msgstr "Preferiti"
+msgstr "_Preferiti"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "<i>Last Updated: </i>"
@@ -178,7 +178,7 @@ msgstr "<b>Frequenza di auto-aggiornamento guida canali</b>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Channel Guide Language</b>"
-msgstr "<b>Lingua guida canali</b>"
+msgstr "<b>Lingua della guida dei canali</b>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Channel Guide Layout:</b>"
@@ -186,7 +186,7 @@ msgstr "<b>Stile guida canali:</b>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Channel Guide URL</b>"
-msgstr "<b>URL guida canali</b>"
+msgstr "<b>URL della guida dei canali</b>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Channel Timeout</b>"
