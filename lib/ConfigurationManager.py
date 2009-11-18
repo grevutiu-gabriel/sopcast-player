@@ -26,7 +26,7 @@ class ConfigurationManager:
 		self.__sections[section_name] = section
 	
 	def read(self):
-		config = ConfigParser.SafeConfigParser()
+		config = ConfigParser.RawConfigParser()
 		config.read(self.__file_name)
 		
 		for section_name, attributes in self.__sections.iteritems():
@@ -36,15 +36,12 @@ class ConfigurationManager:
 						attributes[attribute_name] = config.get(section_name, attribute_name)
 		
 	def write(self):
-		config = ConfigParser.SafeConfigParser()
+		config = ConfigParser.RawConfigParser()
 		
 		for section_name, attributes in self.__sections.iteritems():
 			config.add_section(section_name)
 			for attribute_name, attribute_value in attributes.iteritems():
-				if isinstance(attribute_value, (int, long, float, complex)):
-					config.set(section_name, attribute_name, str(attribute_value))
-				else:
-					config.set(section_name, attribute_name, self.__escape(str(attribute_value)))
+				config.set(section_name, attribute_name, str(attribute_value))
 			
 		configfile = open(self.__file_name, 'wb')
 		config.write(configfile)
@@ -106,11 +103,3 @@ class ConfigurationManager:
 			
 		s = str(s).strip().lower()
 		return not s in ['false','f','n','0','']
-	
-	def __escape(self, text):
-		html_escape_table = { "%": "%%" }
-		"""Produce entities within text."""
-		L=[]
-		for c in text:
-			L.append(html_escape_table.get(c,c))
-		return "".join(L)

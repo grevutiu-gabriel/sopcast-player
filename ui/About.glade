@@ -11,7 +11,7 @@
     <property name="type_hint">dialog</property>
     <property name="has_separator">False</property>
     <property name="program_name">SopCast Player</property>
-    <property name="version">0.3.1</property>
+    <property name="version">0.3.2</property>
     <property name="copyright" translatable="yes">Copyright &#xA9; 2009 Jason Scheunemann</property>
     <property name="comments" translatable="yes">A GUI front-end for SopCast</property>
     <property name="website">http://code.google.com/p/sopcast-player</property>

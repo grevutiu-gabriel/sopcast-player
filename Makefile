@@ -19,7 +19,7 @@ EDIT ?= sed -e 's|@DATADIR@|$(DATADIR)|g' \
 PYTHON ?= $(BINDIR)/python
 CFLAGS ?= -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions \
           -fstack-protector --param=ssp-buffer-size=4
-VERSION ?= 0.3.1
+VERSION ?= 0.3.2
 
 
 build: language byte-compile desktop

@@ -1,5 +1,5 @@
 Name:          sopcast-player
-Version:       0.3.1
+Version:       0.3.2
 Release:       1%{?dist}
 Group:         Applications/Internet
 Summary:       A GUI front-end to SopCast
@@ -7,9 +7,8 @@ License:       GPLv2+
 URL:           http://code.google.com/p/sopcast-player/
 Source0:       http://sopcast-player.googlecode.com/files/%{name}-%{version}.tar.gz
 Buildroot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-BuildRequires: gettext python-setuptools-devel 
-BuildRequires: vlc-devel >= 0.9.4 desktop-file-utils
-Requires:      python >= 2.4.3 vlc >= 0.9.4 sp-auth >= 3.0.1
+BuildRequires: gettext python-setuptools-devel desktop-file-utils
+Requires:      python >= 2.4.3 vlc >= 0.9.4 vlc-devel >= 0.9.4 sp-auth >= 3.0.1
 Requires:      hicolor-icon-theme pygtk2-libglade
 
 %description
@@ -22,7 +21,7 @@ installed it simply "just works" with no required configuration.
 %setup -q -n %{name}
 
 %build
-make all INSTALLDIR=%{_libdir}/%{name} %{?_smp_flags}
+make INSTALLDIR=%{_libdir}/%{name} %{?_smp_flags}
 
 %install
 rm -fr %{buildroot}
