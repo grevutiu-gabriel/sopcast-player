@@ -739,6 +739,11 @@ class pySopCast(object):
 			
 		label = gtk.Label("%s %s" % (_("Enter Sop Address"), ": "))
 		entry = gtk.Entry()
+		
+		############# Code contribution by Benjamin Kluglein ####################
+		entry.connect("activate", lambda a: dialog.response(gtk.RESPONSE_ACCEPT))
+		#########################################################################
+		
 		hbox.pack_start(label)
 		hbox.pack_start(entry)
 		hbox.set_size_request(-1, 50)

@@ -11,7 +11,7 @@
     <property name="type_hint">dialog</property>
     <property name="has_separator">False</property>
     <property name="program_name">SopCast Player</property>
-    <property name="version">0.3.2</property>
+    <property name="version">0.3.3</property>
     <property name="copyright" translatable="yes">Copyright &#xA9; 2009 Jason Scheunemann</property>
     <property name="comments" translatable="yes">A GUI front-end for SopCast</property>
     <property name="website">http://code.google.com/p/sopcast-player</property>
@@ -23,7 +23,9 @@ SopCast Player is distributed in the hope that it will be useful, but WITHOUT AN
 You should have received a copy of the GNU General Public License along with SopCast Player; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</property>
     <property name="authors">SopCast Player and associated libraries written by Jason Scheunemann &lt;jason.scheunemann@yahoo.com&gt;
 Makefile and supporting files written by Orcan Ogetbil &lt;oget.fedora@gmail.com&gt;
-Special thank you to &#x738B;&#x6CFD;&#x56FD; Wang Zeguo &lt;zak.zeguo.wang@gmail.com&gt; for his tireless efforts</property>
+Special thank you to &#x738B;&#x6CFD;&#x56FD; Wang Zeguo &lt;zak.zeguo.wang@gmail.com&gt; for his tireless efforts
+Code contribution by 	
+Benjamin Kl&#xFC;glein</property>
     <property name="translator_credits" translatable="yes">&#x738B;&#x6CFD;&#x56FD; Wang Zeguo &lt;zak.zeguo.wang@gmail.com&gt;
 &#x6881;&#x7A57;&#x9686; Liang Suilong &lt;liangsuilong@gmail.com&gt;
 &#x5F35;&#x5146;&#x67CF; Paul Chang &lt;chunchengch@gmail.com&gt;
@@ -58,7 +60,6 @@ Dan Telecan &lt;telecan_dan@yahoo.com&gt;
 Vilson Gjeci &lt;vilsongjeci@gmail.com&gt;
 
 </property>
-    <property name="artists"></property>
     <property name="wrap_license">True</property>
     <child internal-child="vbox">
       <widget class="GtkVBox" id="dialog-vbox1">
