@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <glade-interface>
   <!-- interface-requires gtk+ 2.16 -->
   <!-- interface-naming-policy toplevel-contextual -->
@@ -9,10 +9,9 @@
     <property name="window_position">center-on-parent</property>
     <property name="icon">sopcast-player.svg</property>
     <property name="type_hint">dialog</property>
-    <property name="has_separator">False</property>
     <property name="program_name">SopCast Player</property>
-    <property name="version">0.3.3</property>
-    <property name="copyright" translatable="yes">Copyright &#xA9; 2009 Jason Scheunemann</property>
+    <property name="version">0.4.1</property>
+    <property name="copyright" translatable="yes">Copyright © 2009-2010 Jason Scheunemann</property>
     <property name="comments" translatable="yes">A GUI front-end for SopCast</property>
     <property name="website">http://code.google.com/p/sopcast-player</property>
     <property name="website_label" translatable="yes">http://code.google.com/p/sopcast-player</property>
@@ -23,14 +22,13 @@ SopCast Player is distributed in the hope that it will be useful, but WITHOUT AN
 You should have received a copy of the GNU General Public License along with SopCast Player; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</property>
     <property name="authors">SopCast Player and associated libraries written by Jason Scheunemann &lt;jason.scheunemann@yahoo.com&gt;
 Makefile and supporting files written by Orcan Ogetbil &lt;oget.fedora@gmail.com&gt;
-Special thank you to &#x738B;&#x6CFD;&#x56FD; Wang Zeguo &lt;zak.zeguo.wang@gmail.com&gt; for his tireless efforts
-Code contribution by 	
-Benjamin Kl&#xFC;glein</property>
-    <property name="translator_credits" translatable="yes">&#x738B;&#x6CFD;&#x56FD; Wang Zeguo &lt;zak.zeguo.wang@gmail.com&gt;
-&#x6881;&#x7A57;&#x9686; Liang Suilong &lt;liangsuilong@gmail.com&gt;
-&#x5F35;&#x5146;&#x67CF; Paul Chang &lt;chunchengch@gmail.com&gt;
+Special thank you to 王泽国 Wang Zeguo &lt;zak.zeguo.wang@gmail.com&gt; for his tireless efforts
+Code contribution by Benjamin Klüglein</property>
+    <property name="translator_credits" translatable="yes">王泽国 Wang Zeguo &lt;zak.zeguo.wang@gmail.com&gt;
+梁穗隆 Liang Suilong &lt;liangsuilong@gmail.com&gt;
+張兆柏 Paul Chang &lt;chunchengch@gmail.com&gt;
 jjgomera
-&#xD8;yvind Munthe
+Øyvind Munthe
 Vadim Peretokin &lt;vperetokin@gmail.com&gt;
 oriolsbd &lt;oriolsbd@yahoo.es&gt;
 Martin S. Weber
@@ -54,12 +52,16 @@ svv &lt;skrypnychuk@gmail.com&gt;
 Lodberg
 thifx &lt;thifx@o2.pl&gt;
 NaSH
-Istv&#xE1;n Papp
+István Papp
 Phoenix.bg
 Dan Telecan &lt;telecan_dan@yahoo.com&gt;
 Vilson Gjeci &lt;vilsongjeci@gmail.com&gt;
-
-</property>
+keko &lt;keko.gl@gmail.com&gt;
+Ragz
+Mantas Kriaučiūnas &lt;mantas@akl.lt&gt;
+zeugma
+keko &lt;keko.gl@gmail.com&gt;
+Josu Orbe</property>
     <property name="wrap_license">True</property>
     <child internal-child="vbox">
       <widget class="GtkVBox" id="dialog-vbox1">

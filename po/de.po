@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: sopcast-player\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-01-20 20:24+0100\n"
-"PO-Revision-Date: 2009-02-16 15:20+0000\n"
-"Last-Translator: Martin S. Weber <Unknown>\n"
+"PO-Revision-Date: 2010-02-14 11:32+0000\n"
+"Last-Translator: CowWheel <Unknown>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-11-02 01:20+0000\n"
+"X-Launchpad-Export-Date: 2010-11-14 13:12+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:88
@@ -24,11 +24,11 @@ msgstr "Versuche Sender erneut"
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:99
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:118
 msgid "Connecting"
-msgstr "Verbinde"
+msgstr "Verbindung wird hergestellt"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:114
 msgid "Buffering"
-msgstr "Puffere"
+msgstr "Puffervorgang"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:124
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:131
@@ -73,12 +73,12 @@ msgstr "Sendergruppe"
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:470
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:865
 msgid "Classification"
-msgstr "Klassifizierung"
+msgstr "Einstufung"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:470
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:865
 msgid "Stream Format"
-msgstr "Stream Format"
+msgstr "Übertragungsformat"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:470
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:865
@@ -121,7 +121,9 @@ msgstr "Programmführeraktualisierung abgeschlossen"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:741
 msgid "Channel Guide Retrieval Failed Due to Network Problems"
-msgstr "Programmführer konnte wegen Netzwerkproblemen nicht abgerufen werden"
+msgstr ""
+"Programmführerdaten konnten auf Grund von Netzwerkproblemen nicht abgerufen "
+"werden"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:759
 msgid "Downloading Channel Guide"
@@ -137,7 +139,7 @@ msgstr "> Programmführer"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "Bookmark this Channel"
-msgstr "Sender als Lesezeichen speichern"
+msgstr "Lesezeichen für diesen Sender setzen"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "Volume:"
@@ -161,15 +163,15 @@ msgstr "_Lesezeichen"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "<i>Last Updated: </i>"
-msgstr "<i>zuletzt aktualisiert: </i>"
+msgstr "<i>Letzte Aktualisierung: </i>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "Last Updated: "
-msgstr "zuletzt aktualisiert: "
+msgstr "Letzte Aktualisierung: "
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "Never"
-msgstr "Nie"
+msgstr "Niemals"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Channel Guide Auto-Update Frequency</b>"
@@ -249,7 +251,7 @@ msgstr "Nutze externen Player"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Completed"
-msgstr "Abgeschlossen"
+msgstr "Fertig"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Server Down"
@@ -257,7 +259,7 @@ msgstr "Server nicht verfügbar"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Downloading"
-msgstr "lädt herunter"
+msgstr "Lädt herunter"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Static Ports Unavailable"
@@ -289,7 +291,7 @@ msgid "<i>Never</i>"
 msgstr "<i>Niemals</i>"
 
 msgid "Screenshot"
-msgstr "Bildschirmfoto"
+msgstr "Schnappschuss"
 
 msgid "Name:"
 msgstr "Name:"

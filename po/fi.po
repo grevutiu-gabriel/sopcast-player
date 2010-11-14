@@ -8,18 +8,18 @@ msgstr ""
 "Project-Id-Version: sopcast-player\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-01-20 20:24+0100\n"
-"PO-Revision-Date: 2009-05-01 16:21+0000\n"
-"Last-Translator: Jani Kuhno <j.kuhno@gmail.com>\n"
+"PO-Revision-Date: 2010-05-24 07:07+0000\n"
+"Last-Translator: Jiri Grönroos <Unknown>\n"
 "Language-Team: Finnish <fi@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-11-02 01:20+0000\n"
+"X-Launchpad-Export-Date: 2010-11-14 13:12+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:88
 msgid "Retrying channel"
-msgstr "Koitetaan kanavaa uudelleen"
+msgstr "Koetetaan kanavaa uudelleen"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:99
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:118
@@ -105,11 +105,11 @@ msgstr "Kanavat"
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:579
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:608
 msgid "Press Esc to exit fullscreen"
-msgstr "Paina Esc poistuaksesi kokoruututilasta"
+msgstr "Paina Esc-näppäintä poistuaksesi kokoruututilasta"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:677
 msgid "Contacting Server"
-msgstr "Otetaan yhteys palvelimeen"
+msgstr "Yhdistetään palvelimeen"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:685
 msgid "Updating Database"
@@ -121,7 +121,7 @@ msgstr "Kanavaoppaan päivitys valmis"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:741
 msgid "Channel Guide Retrieval Failed Due to Network Problems"
-msgstr "Kanavaoppaan haku epäonnistui verkko ongelmien takia"
+msgstr "Kanavaoppaan haku epäonnistui verkko-ongelmien takia"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:759
 msgid "Downloading Channel Guide"
@@ -273,11 +273,11 @@ msgstr ""
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:754
 msgid "<i>3 Seconds</i>"
-msgstr "<i>3 sekunttia</i>"
+msgstr "<i>3 sekuntia</i>"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:755
 msgid "<i>30 Seconds</i>"
-msgstr "<i>30 sekunttia</i>"
+msgstr "<i>30 sekuntia</i>"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:756
 msgid "<i>5 Minutes</i>"
@@ -319,7 +319,7 @@ msgid "Stop"
 msgstr "Pysäytä"
 
 msgid "Always On Top"
-msgstr "Aina päälimmäisenä"
+msgstr "Aina päällimmäisenä"
 
 msgid "Show Controls"
 msgstr "Näytä säätimet"

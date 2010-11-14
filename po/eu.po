@@ -1,16 +1,16 @@
-# Arabic translation for sopcast-player
-# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
+# Basque translation for sopcast-player
+# Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
 # This file is distributed under the same license as the sopcast-player package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: sopcast-player\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-01-20 20:24+0100\n"
-"PO-Revision-Date: 2009-09-16 22:07+0000\n"
-"Last-Translator: أبو همام <xx1429xx@hotmail.com>\n"
-"Language-Team: Arabic <ar@li.org>\n"
+"PO-Revision-Date: 2010-06-19 19:33+0000\n"
+"Last-Translator: Josu Orbe <Unknown>\n"
+"Language-Team: Basque <eu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,66 +19,66 @@ msgstr ""
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:88
 msgid "Retrying channel"
-msgstr "إعادة محاولة الإتصال بالقناة"
+msgstr "Kanalarekin berriro konektatzen"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:99
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:118
 msgid "Connecting"
-msgstr "جاري الاتصال..."
+msgstr "Konektatzen"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:114
 msgid "Buffering"
-msgstr "التخزين المؤقت"
+msgstr "Bufferra betetzen"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:124
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:131
 msgid "Buffer"
-msgstr "متصل"
+msgstr "Bufferra"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:213
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:813
 msgid "Channel Guide Last Updated"
-msgstr "آخر تحديث لدليل القنوات"
+msgstr "Kanal Zerrendaren azken eguneraketa"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:231
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:240
 msgid "SopCast Player"
-msgstr "مشغل سوب كاست"
+msgstr "SopCast Player"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:289
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Channel Guide"
-msgstr "دليل القنوات"
+msgstr "Kanal Zerrenda"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:419
 msgid "Open Sop Address"
-msgstr "أفتح وصلة sop"
+msgstr "Ireki Sop Helbidea"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:428
 msgid "Enter Sop Address"
-msgstr "أدخل عنوان الوصلة"
+msgstr "Sartu Sop Helbidea"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:470
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:475
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:865
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:872
 msgid "Name"
-msgstr "الاسم"
+msgstr "Izena"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:470
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:865
 msgid "Channel Group"
-msgstr "مجموعة القناة"
+msgstr "Kanalen Taldea"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:470
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:865
 msgid "Classification"
-msgstr "التصنيف"
+msgstr "Sailkapena"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:470
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:865
 msgid "Stream Format"
-msgstr "حجم التدفق"
+msgstr "Korrontearen Formatua"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:470
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:865
@@ -95,101 +95,102 @@ msgstr "QS"
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:865
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:872
 msgid "Description"
-msgstr "الوصف"
+msgstr "Deskribapena"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:475
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:872
 msgid "Channels"
-msgstr "القنوات"
+msgstr "Kanalak"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:579
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:608
 msgid "Press Esc to exit fullscreen"
-msgstr "إضغط Esc(مفتاح الهروب) للخروج من وضع ملء الشاشة"
+msgstr "Sakatu Esc Pantaila Osoko bistatik irtetzeko"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:677
 msgid "Contacting Server"
-msgstr "سيرفر الإتصال"
+msgstr "Zerbitzariarekin Konektatzen"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:685
 msgid "Updating Database"
-msgstr "تحديث قاعدة البيانات"
+msgstr "Datubasea Eguneratzen"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:733
 msgid "Channel Guide Update Completed"
-msgstr "تحديث دليل القنوات قد أكتمل"
+msgstr "Kanal Zerrendaren Eguneraketa Osatuta"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:741
 msgid "Channel Guide Retrieval Failed Due to Network Problems"
-msgstr "إسترجاع دليل القنوات قد فشل بسبب مشاكل الشبكة"
+msgstr ""
+"Sareko Arazoak Direla eta Kanalen zerrendaren karga ezin izan da osatu"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:759
 msgid "Downloading Channel Guide"
-msgstr "تحميل دليل القنوات"
+msgstr "Kanalen Zerrenda Deskargatzen"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "_File"
-msgstr "_ملف"
+msgstr "_Fitxategia"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "> Channel Guide"
-msgstr "> دليل القنوات"
+msgstr "> Kanalen Zerrenda"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "Bookmark this Channel"
-msgstr "إحفظ هذه القناة"
+msgstr "Kanal honen Laster-marka Egin"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "Volume:"
-msgstr "حجم الصوت"
+msgstr "Bolumena:"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "_Fullscreen"
-msgstr "_ملء الشاشة"
+msgstr "_Pantaila osoa"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "_Help"
-msgstr "_مساعدة"
+msgstr "_Laguntza"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "_View"
-msgstr "_عرض"
+msgstr "_Ikusi"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "_Bookmarks"
-msgstr "_القنوات المحفوظة"
+msgstr "_Laster-markak"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "<i>Last Updated: </i>"
-msgstr "<i>آخر تحديث: </i>"
+msgstr "<i>Azken Eguneraketa: </i>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "Last Updated: "
-msgstr "آخر تحديث: "
+msgstr "Azken Eguneraketa: "
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "Never"
-msgstr "لا مطلقا"
+msgstr "Inoiz ez"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Channel Guide Auto-Update Frequency</b>"
-msgstr "<b>تردد التحديث التلقائي لدليل القنوات</b>"
+msgstr "<b>Kanalen Zerrenda Auto-Eguneraketaren Maiztasuna</b>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Channel Guide Language</b>"
-msgstr "<b>لغة دليل القنوات</b>"
+msgstr "<b>Kanalen Zerrendaren Hizkuntza</b>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Channel Guide Layout:</b>"
-msgstr "<b>نسق دليل القنوات:</b>"
+msgstr "<b>Kanalen Zerrendaren Diseinua:</b>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Channel Guide URL</b>"
-msgstr "<b>عنوان دليل القنوات</b>"
+msgstr "<b>Kanalen Zerrendaren URL-a</b>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Channel Timeout</b>"
-msgstr "<b>مهلة القناة</b>"
+msgstr "<b>Kanalren Denbora-muga</b>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Media Player</b>"
@@ -197,154 +198,154 @@ msgstr "<b>Media Player</b>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Ports</b>"
-msgstr "<b>المنفذ</b>"
+msgstr "<b>Atakak</b>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Classic (Separate windows)"
-msgstr "كلاسيكي (نوافذ مستقلة)"
+msgstr "Klasikoa (Leiho desberdinetan)"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Command: "
-msgstr "أمر: "
+msgstr "Komandoa: "
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Frequency"
-msgstr "تردد"
+msgstr "Maiztasuna"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "In-bound Port: "
-msgstr "منفذ محدد للدخول: "
+msgstr "Sarrera Ataka: "
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Language"
-msgstr "اللغة"
+msgstr "Hizkuntza"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Out-bound Port: "
-msgstr "منفذ محدد للخروج: "
+msgstr "Irteera Ataka: "
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Player"
-msgstr "المشغل"
+msgstr "Erreproduzigailua"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Static Ports"
-msgstr "منفذ ساكن"
+msgstr "Ataka Estatikoak"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Timeout"
-msgstr "انتهى /انقضى الوقت"
+msgstr "Denbora-muga"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "URL: "
-msgstr "العنوان: "
+msgstr "URL-a: "
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Unity (Single-window)"
-msgstr "الإنسجام (نافذة واحدة)"
+msgstr "Bakarra (Leiho batean)"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Use External Player"
-msgstr "إستخدام مشغل خارجي"
+msgstr "Erabili Kanpoko Erreproduzigailua"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Completed"
-msgstr "تمّ"
+msgstr "Osatuta"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Server Down"
-msgstr "خطأ في السيرفر"
+msgstr "Zerbitzaria ez dabil"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Downloading"
-msgstr "جاري التنزيل"
+msgstr "Deskargatzen"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Static Ports Unavailable"
-msgstr "المنافذ الساكنة غير متوفرة"
+msgstr "Ataka Estatikoak Eskuraezinak"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid ""
 "Static ports unavailable, do you wish to continue using dynamic ports?"
-msgstr "المنافذ الساكنة متوفرة،، هل كنت ترغب في مواصلة إستخدام منافذ حيوية؟"
+msgstr "Ataka Estatikoak eskuraezinak, atakadinamikoak erabili nahi dituzu?"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:754
 msgid "<i>3 Seconds</i>"
-msgstr "<i/>ثلاث ثوان <i>"
+msgstr "<i>3 segundu</i>"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:755
 msgid "<i>30 Seconds</i>"
-msgstr "<i/> ثلاثون ثانية <i>"
+msgstr "<i>3 segundu</i>"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:756
 msgid "<i>5 Minutes</i>"
-msgstr "<i/>خمس دقائق<i>"
+msgstr "<i>5 Minutu</i>"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:757
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<i>Never</i>"
-msgstr "<i/>لا مطلقااً<i>"
+msgstr "<i>Inoiz ez</i>"
 
 msgid "Screenshot"
-msgstr "صوّر الشاشة"
+msgstr "Pantaila-argazkia"
 
 msgid "Name:"
-msgstr "الاسم:"
+msgstr "Izena:"
 
 msgid "Format:"
-msgstr "الصيغة"
+msgstr "Formatua:"
 
 msgid "Bitrate:"
-msgstr "معدّل البايتات:"
+msgstr "Bit-tasa:"
 
 msgid "Channel Group:"
-msgstr "فريق القناة"
+msgstr "Kanalen zerrenda:"
 
 msgid "Classification:"
-msgstr "التصنيف:"
+msgstr "Sailkapena:"
 
 msgid "Description:"
-msgstr "الوصف:"
+msgstr "Deskribapena:"
 
 msgid "Preferences"
-msgstr "التفضيلات"
+msgstr "Hobespenak"
 
 msgid "Play"
-msgstr "تشغيل"
+msgstr "Erreproduzitu"
 
 msgid "Stop"
-msgstr "إيقاف"
+msgstr "Gelditu"
 
 msgid "Always On Top"
-msgstr "دائما في الأعلى"
+msgstr "Beti gainean"
 
 msgid "Show Controls"
-msgstr "إظهار عناصر التحكم"
+msgstr "Kontrolak erakutsi"
 
 msgid "Chinese"
-msgstr "صيني"
+msgstr "Txinera"
 
 msgid "English"
-msgstr "إنجليزي"
+msgstr "Ingelera"
 
 msgid "<i>Daily</i>"
-msgstr "<i/>يوميا<i>"
+msgstr "<i>Egunero</i>"
 
 msgid "<i>Program Start</i>"
-msgstr "<i/>بداية البرنامج<i>"
+msgstr "<i>Programa Abiarazi</i>"
 
 msgid "<big><b>Channel Bookmark</b></big>"
-msgstr "<big><b>علم القنوات</b></big>"
+msgstr ""
 
 msgid "_Edit"
-msgstr "_تعديل"
+msgstr "_Editatu"
 
 msgid "Properties"
-msgstr "الخصائص"
+msgstr "Ezaugarriak"
 
 msgid "Bookmark"
-msgstr "العلامات"
+msgstr "Laster-marka"
 
 msgid "Show Toolbar"
-msgstr "إظهار شريط الأدوات"
+msgstr "Erakutsi tresna-barra"

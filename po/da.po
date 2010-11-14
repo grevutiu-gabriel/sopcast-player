@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: sopcast-player\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-01-20 20:24+0100\n"
-"PO-Revision-Date: 2009-05-24 11:40+0000\n"
-"Last-Translator: Lodberg <Unknown>\n"
+"PO-Revision-Date: 2010-01-03 18:49+0000\n"
+"Last-Translator: nanker <Unknown>\n"
 "Language-Team: Danish <da@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-11-02 01:20+0000\n"
+"X-Launchpad-Export-Date: 2010-11-14 13:12+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:88
@@ -83,12 +83,12 @@ msgstr "Stream Format"
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:470
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:865
 msgid "QC"
-msgstr ""
+msgstr "QC"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:470
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:865
 msgid "QS"
-msgstr ""
+msgstr "QS"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:470
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:475
@@ -121,230 +121,232 @@ msgstr "Opdatering af kanalguide færdig"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:741
 msgid "Channel Guide Retrieval Failed Due to Network Problems"
-msgstr ""
+msgstr "Hentning af kanalguide fejlede på grund af netværksproblemer"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:759
 msgid "Downloading Channel Guide"
-msgstr ""
+msgstr "Downloader kanalguide"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "_File"
-msgstr ""
+msgstr "_Fil"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "> Channel Guide"
-msgstr ""
+msgstr "> Kanalguide"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "Bookmark this Channel"
-msgstr ""
+msgstr "Bogmærk denne kanal"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "Volume:"
-msgstr ""
+msgstr "Volumen:"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "_Fullscreen"
-msgstr ""
+msgstr "_Fuldskærm"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "_Help"
-msgstr ""
+msgstr "_Hjælp"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "_View"
-msgstr ""
+msgstr "V_is"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "_Bookmarks"
-msgstr ""
+msgstr "_Bogmærker"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "<i>Last Updated: </i>"
-msgstr ""
+msgstr "<i>Sidst opdateret: </i>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "Last Updated: "
-msgstr ""
+msgstr "Sidst opdateret: "
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "Never"
-msgstr ""
+msgstr "Aldrig"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Channel Guide Auto-Update Frequency</b>"
-msgstr ""
+msgstr "<b>Kanalguide autoopdaterer frekvens</b>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Channel Guide Language</b>"
-msgstr ""
+msgstr "<b>Kanalguide sprog</b>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Channel Guide Layout:</b>"
-msgstr ""
+msgstr "<b>Kanalguide opsætning:</b>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Channel Guide URL</b>"
-msgstr ""
+msgstr "<b>Kanalguide URL</b>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Channel Timeout</b>"
-msgstr ""
+msgstr "<b>Kanal timeout<b>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Media Player</b>"
-msgstr ""
+msgstr "<b>Medieafspiller</b>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Ports</b>"
-msgstr ""
+msgstr "<b>Porte</b>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Classic (Separate windows)"
-msgstr ""
+msgstr "Klassisk (Adskilte vinduer)"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Command: "
-msgstr ""
+msgstr "Kommando: "
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Frequency"
-msgstr ""
+msgstr "Frekvens"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "In-bound Port: "
-msgstr ""
+msgstr "Indgående port: "
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Language"
-msgstr ""
+msgstr "Sprog"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Out-bound Port: "
-msgstr ""
+msgstr "Udgående port: "
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Player"
-msgstr ""
+msgstr "Afspiller"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Static Ports"
-msgstr ""
+msgstr "Statisk port"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Timeout"
-msgstr ""
+msgstr "Tidsudløb"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "URL: "
-msgstr ""
+msgstr "URL: "
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Unity (Single-window)"
-msgstr ""
+msgstr "Enhed (enkelt vindue)"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Use External Player"
-msgstr ""
+msgstr "Anvend ekstern afspiller"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Completed"
-msgstr ""
+msgstr "Gennemført"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Server Down"
-msgstr ""
+msgstr "Server nede"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Downloading"
-msgstr ""
+msgstr "Downloader"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Static Ports Unavailable"
-msgstr ""
+msgstr "Statisk port ikke tilgængelig"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid ""
 "Static ports unavailable, do you wish to continue using dynamic ports?"
 msgstr ""
+"Statisk port ikke tilgængelig, ønsker du at fortsætte ved brug af dynamiske "
+"porte?"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:754
 msgid "<i>3 Seconds</i>"
-msgstr ""
+msgstr "<i>3 sekunder</i>"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:755
 msgid "<i>30 Seconds</i>"
-msgstr ""
+msgstr "<i>30 sekunder</i>"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:756
 msgid "<i>5 Minutes</i>"
-msgstr ""
+msgstr "<i>5 minuter</i>"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:757
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<i>Never</i>"
-msgstr ""
+msgstr "<i>Aldrig</i>"
 
 msgid "Screenshot"
-msgstr ""
+msgstr "Skærmbillede"
 
 msgid "Name:"
-msgstr ""
+msgstr "Navn:"
 
 msgid "Format:"
-msgstr ""
+msgstr "Format:"
 
 msgid "Bitrate:"
-msgstr ""
+msgstr "Bithastighed:"
 
 msgid "Channel Group:"
-msgstr ""
+msgstr "Kanal gruppe:"
 
 msgid "Classification:"
-msgstr ""
+msgstr "Klassifikation:"
 
 msgid "Description:"
-msgstr ""
+msgstr "Beskrivelse:"
 
 msgid "Preferences"
-msgstr ""
+msgstr "Indstillinger"
 
 msgid "Play"
-msgstr ""
+msgstr "Afspil"
 
 msgid "Stop"
-msgstr ""
+msgstr "Stop"
 
 msgid "Always On Top"
-msgstr ""
+msgstr "Altid øverst"
 
 msgid "Show Controls"
-msgstr ""
+msgstr "Vis kontroller"
 
 msgid "Chinese"
-msgstr ""
+msgstr "Kinesisk"
 
 msgid "English"
-msgstr ""
+msgstr "Engelsk"
 
 msgid "<i>Daily</i>"
-msgstr ""
+msgstr "<i>Dagligt</i>"
 
 msgid "<i>Program Start</i>"
-msgstr ""
+msgstr "<i>Program start</i>"
 
 msgid "<big><b>Channel Bookmark</b></big>"
-msgstr ""
+msgstr "<big><b>Kanal bogmærke</big></b>"
 
 msgid "_Edit"
-msgstr ""
+msgstr "_Redigér"
 
 msgid "Properties"
-msgstr ""
+msgstr "Egenskaber"
 
 msgid "Bookmark"
-msgstr ""
+msgstr "Bogmærke"
 
 msgid "Show Toolbar"
-msgstr ""
+msgstr "Vis værktøjslinie"

@@ -30,7 +30,7 @@ class DynamicPorts:
 	def __get_available_port(self):
 		port = self.__randomize()
 		while self.__check_available(port) == False:
-			self.__randomize()
+			port = self.__randomize()
 		
 		return port
 		

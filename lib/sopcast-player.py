@@ -301,6 +301,14 @@ class UpdateChannelGuideThread(threading.Thread):
 			config_manager = pySopCastConfigurationManager.pySopCastConfigurationManager()
 			config_manager.set("ChannelGuide", "last_updated", time.mktime(t.timetuple()))
 			config_manager.write()
+			
+			time.sleep(5)
+			gtk.gdk.threads_enter()
+			if self.parent.update_channel_guide_progress != None:
+				self.parent.update_channel_guide_progress.hide()
+				self.parent.channel_guide_label.show()
+			gtk.gdk.threads_leave()
+					
 			self.updated = True
 		except(Exception):
 			gtk.gdk.threads_enter()
@@ -317,12 +325,7 @@ class UpdateChannelGuideThread(threading.Thread):
 			self.parent.treeview_selection.handler_unblock(self.parent.treeview_selection_changed_handler)
 			gtk.gdk.threads_leave()
 		
-		time.sleep(5)
-		gtk.gdk.threads_enter()
-		if self.parent.update_channel_guide_progress != None:
-			self.parent.update_channel_guide_progress.hide()
-			self.parent.channel_guide_label.show()
-		gtk.gdk.threads_leave()
+
 		
 		self.running = False
 		
@@ -1310,7 +1313,7 @@ class pySopCast(object):
 	def on_fullscreen_activate(self, src, data=None):
 		if self.ui_worker.play_stream == True:
 			self.vlc.fullscreen()
-			self.vlc.display_text("         %s" % "Press Esc to exit fullscreen")
+			#self.vlc.display_text("         %s" % "Press Esc to exit fullscreen")
 			
 	def on_exit(self, widget, data=None):
 		rect = self.window.get_allocation()

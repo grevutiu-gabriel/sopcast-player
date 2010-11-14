@@ -5,6 +5,7 @@ PREFIX ?= /usr
 DATADIR ?= $(PREFIX)/share
 INSTALLDIR ?= $(DATADIR)/$(NAME)
 BINDIR ?= $(PREFIX)/bin
+EXECUTABLE ?= $(BINDIR)/$(NAME)
 LOCALE ?= locale
 LOCALEDIR ?= $(DATADIR)/$(LOCALE)
 ICONDIR ?= $(DATADIR)/icons/hicolor/scalable/apps
@@ -15,20 +16,24 @@ EDIT ?= sed -e 's|@DATADIR@|$(DATADIR)|g' \
 	    -e 's|@PYTHON@|$(PYTHON)|g' \
 	    -e 's|@INSTALLDIR@|$(INSTALLDIR)|g' \
 	    -e 's|@ICONDIR@|$(ICONDIR)|g' \
-	    -e 's|@DESTDIR@|$(DESTDIR)|g'
+	    -e 's|@DESTDIR@|$(DESTDIR)|g' \
+	    -e 's|@EXECUTABLE@|$(EXECUTABLE)|g'
 PYTHON ?= $(BINDIR)/python
 CFLAGS ?= -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions \
           -fstack-protector --param=ssp-buffer-size=4
 VERSION ?= 0.3.2
 
 
-build: language byte-compile desktop
+build: language byte-compile desktop schema
 
 desktop:
 	$(EDIT) $(NAME).in > $(NAME)
 
+schema:
+	$(EDIT) $(NAME).schemas.in > $(NAME).schemas
+
 byte-compile:
-	$(PYTHON) -c 'import compileall; compileall.compile_dir("lib", force=1)'
+	$(PYTHON) -c 'import compileall; compileall.compile_dir("lib", rx=re.compile("/[.]svn"), force=1)'
 
 language:
 	@echo "Generating language files..."

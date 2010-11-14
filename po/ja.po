@@ -3,13 +3,13 @@ msgstr ""
 "Project-Id-Version: pySopCast 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-01-20 20:24+0100\n"
-"PO-Revision-Date: 2009-03-26 02:45+0000\n"
-"Last-Translator: yngd <Unknown>\n"
+"PO-Revision-Date: 2009-11-06 10:06+0000\n"
+"Last-Translator: mE <Unknown>\n"
 "Language-Team: flyguy97 <flyguy97@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-11-02 01:20+0000\n"
+"X-Launchpad-Export-Date: 2010-11-14 13:12+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 "X-Poedit-Country: UNITED STATES\n"
 "X-Poedit-Language: English\n"
@@ -29,7 +29,7 @@ msgstr "接続中"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:114
 msgid "Buffering"
-msgstr ""
+msgstr "バッファリング"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:124
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:131
