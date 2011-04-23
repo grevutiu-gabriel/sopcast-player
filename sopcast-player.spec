@@ -1,5 +1,5 @@
 Name:          sopcast-player
-Version:       0.3.3
+Version:       0.5.0
 Release:       1%{?dist}
 Group:         Applications/Internet
 Summary:       A GUI front-end to SopCast

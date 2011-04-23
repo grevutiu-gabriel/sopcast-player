@@ -504,7 +504,13 @@ class pySopCast(object):
 		
 		self.window.show()
 		
-
+		self.vlc.add_events(gtk.gdk.BUTTON_PRESS_MASK)
+		self.vlc.connect("button_press_event", self.button_clicked)
+		
+		self.window.add_events(gtk.gdk.KEY_PRESS_MASK)
+		self.window.connect("key_press_event", self.key_pressed)
+		
+		self.fullscreen = False
 		
 		gtk.gdk.threads_enter()
 		if not self.sopcast_client_installed:
@@ -514,6 +520,29 @@ class pySopCast(object):
 		
 		if self.fork_sop != None:
 			self.fork_sop.kill_sop()
+			
+	def button_clicked(self, widget, event):
+		if event.type == gtk.gdk._2BUTTON_PRESS:
+			if self.vlc.is_playing():
+				self.toggle_fullscreen()
+		else:
+			return True
+			
+	def key_pressed(self, widget, event):
+		if event.keyval == gtk.keysyms.Escape:
+			if self.fullscreen:
+				self.toggle_fullscreen()
+			return True
+		return False
+	
+	def toggle_fullscreen(self):
+		if not self.fullscreen:
+			if self.vlc.media_loaded():
+				self.vlc.fullscreen()
+				self.fullscreen = not self.fullscreen
+		else:
+			self.vlc.unfullscreen()
+			self.fullscreen = not self.fullscreen
 		
 	def __getattribute__(self, key):
 		value = None
@@ -1312,7 +1341,7 @@ class pySopCast(object):
 	
 	def on_fullscreen_activate(self, src, data=None):
 		if self.ui_worker.play_stream == True:
-			self.vlc.fullscreen()
+			self.toggle_fullscreen()
 			#self.vlc.display_text("         %s" % "Press Esc to exit fullscreen")
 			
 	def on_exit(self, widget, data=None):
@@ -1351,7 +1380,7 @@ class pySopCast(object):
 		
 		if self.eb.is_focus() == True:
 			if key == 70 or key == 102:
-				self.vlc.fullscreen()
+				self.toggle_fullscreen()
 				self.vlc.display_text("         %s" % "Press Esc to exit fullscreen")
 		
 		return False
