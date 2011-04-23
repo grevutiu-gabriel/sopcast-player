@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: sopcast-player\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-01-20 20:24+0100\n"
-"PO-Revision-Date: 2010-07-29 18:39+0000\n"
-"Last-Translator: Amade Nyirak <Unknown>\n"
+"PO-Revision-Date: 2011-04-07 15:09+0000\n"
+"Last-Translator: Richard Somlói <level@somloirichard.hu>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-11-14 13:12+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-04-23 21:32+0000\n"
+"X-Generator: Launchpad (build 12883)\n"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:88
 msgid "Retrying channel"
@@ -24,7 +24,7 @@ msgstr "Csatorna újrapróbálása"
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:99
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:118
 msgid "Connecting"
-msgstr "Kapcsolódás"
+msgstr "Csatlakozás"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:114
 msgid "Buffering"
@@ -43,7 +43,7 @@ msgstr "A csatornalista utolsó frissítése"
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:231
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:240
 msgid "SopCast Player"
-msgstr "SopCast Lejászó"
+msgstr "SopCast lejátszó"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:289
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
@@ -73,12 +73,12 @@ msgstr "Csatorna csoport"
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:470
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:865
 msgid "Classification"
-msgstr "Minősítés"
+msgstr "Besorolás"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:470
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:865
 msgid "Stream Format"
-msgstr "Folyam formátum"
+msgstr "Adatfolyam formátuma"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:470
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:865
@@ -105,7 +105,7 @@ msgstr "Csatornák"
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:579
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:608
 msgid "Press Esc to exit fullscreen"
-msgstr "Nyomja meg az Esc-et a teljes képernyős módból való kilépéshez"
+msgstr "A teljes képernyős mód az Esc billentyű lenyomásával hagyható el"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:677
 msgid "Contacting Server"
@@ -145,7 +145,7 @@ msgstr "Hangerő:"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "_Fullscreen"
-msgstr "_Teljes képernyős üzemmód"
+msgstr "_Teljes képernyő"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "_Help"
@@ -181,7 +181,7 @@ msgstr "<b>A csatornalista nyelve</b>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Channel Guide Layout:</b>"
-msgstr "<b>A csatornalista elrendezése:</>"
+msgstr "<b>A csatornalista elrendezése:</b>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Channel Guide URL</b>"
@@ -225,7 +225,7 @@ msgstr "Kimenő port: "
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Player"
-msgstr "Lejászó"
+msgstr "Lejátszó"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Static Ports"
@@ -253,21 +253,21 @@ msgstr "Befejeződött"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Server Down"
-msgstr "Lekapcsolódás a szerverről"
+msgstr "A kiszolgáló nem válaszol"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Downloading"
-msgstr "Letöltése"
+msgstr "Letöltés"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Static Ports Unavailable"
-msgstr "A statikus portok nem érhetőek el"
+msgstr "A statikus portok nem elérhetőek"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid ""
 "Static ports unavailable, do you wish to continue using dynamic ports?"
 msgstr ""
-"A statikus portok nem érhetőek el, folytatni akarja dinamiks portok "
+"A statikus portok nem elérhetőek, folytatni kívánja dinamikus portok "
 "használatával?"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
@@ -298,13 +298,13 @@ msgid "Format:"
 msgstr "Formátum:"
 
 msgid "Bitrate:"
-msgstr "Bitsebesség:"
+msgstr "Bitráta:"
 
 msgid "Channel Group:"
 msgstr "Csatorna csoport:"
 
 msgid "Classification:"
-msgstr "Minősítés:"
+msgstr "Besorolás:"
 
 msgid "Description:"
 msgstr "Leírás:"
@@ -340,7 +340,7 @@ msgid "<big><b>Channel Bookmark</b></big>"
 msgstr "<big><b>Csatorna könyvjelző</b><big>"
 
 msgid "_Edit"
-msgstr "Sz_erkesztés"
+msgstr "S_zerkesztés"
 
 msgid "Properties"
 msgstr "Tulajdonságok"

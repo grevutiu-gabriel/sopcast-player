@@ -8,23 +8,23 @@ msgstr ""
 "Project-Id-Version: sopcast-player\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-01-20 20:24+0100\n"
-"PO-Revision-Date: 2010-05-23 14:39+0000\n"
-"Last-Translator: Kirani <Unknown>\n"
+"PO-Revision-Date: 2011-03-14 17:39+0000\n"
+"Last-Translator: Vadim Peretokin <vperetokin@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-11-14 13:12+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-04-23 21:32+0000\n"
+"X-Generator: Launchpad (build 12883)\n"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:88
 msgid "Retrying channel"
-msgstr "Пытаемся переподключиться"
+msgstr "Повторное обращение к каналу"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:99
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:118
 msgid "Connecting"
-msgstr "Подключаюсь"
+msgstr "Подключение"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:114
 msgid "Buffering"
@@ -38,7 +38,7 @@ msgstr "Буфер"
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:213
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:813
 msgid "Channel Guide Last Updated"
-msgstr "Последнее обновление списка каналов"
+msgstr "Последнее обновление списков каналов"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:231
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:240
@@ -48,15 +48,15 @@ msgstr "SopCast Player"
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:289
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Channel Guide"
-msgstr "Путеводитель по каналам"
+msgstr "Списки каналов"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:419
 msgid "Open Sop Address"
-msgstr "Открыть адрес"
+msgstr "Открыть Sop адрес"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:428
 msgid "Enter Sop Address"
-msgstr "Введите адрес"
+msgstr "Введите Sop адрес"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:470
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:475
@@ -78,7 +78,7 @@ msgstr "Классификация"
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:470
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:865
 msgid "Stream Format"
-msgstr "Формат канала"
+msgstr "Формат потока"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:470
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:865
@@ -109,35 +109,35 @@ msgstr "Нажмите Esc для выхода из полноэкранного
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:677
 msgid "Contacting Server"
-msgstr "Подключаемся к серверу"
+msgstr "Подключение к серверу"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:685
 msgid "Updating Database"
-msgstr "Обновляем базу данных"
+msgstr "Обновление базы данных"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:733
 msgid "Channel Guide Update Completed"
-msgstr "Обновление списка каналов завершено"
+msgstr "Обновление списков каналов завершено"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:741
 msgid "Channel Guide Retrieval Failed Due to Network Problems"
-msgstr "Не удалось скачать список каналов из-за проблем с сетью"
+msgstr "Не удалось получить списки каналов из-за проблем с подключением"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:759
 msgid "Downloading Channel Guide"
-msgstr "Скачиваем путеводитель по каналам"
+msgstr "Получение списков каналов"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "_File"
-msgstr "_Файл"
+msgstr "Ф_айл"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "> Channel Guide"
-msgstr "> Список каналов"
+msgstr "Списки каналов"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "Bookmark this Channel"
-msgstr "Добавить этот канал в закладки"
+msgstr "Добавить канал в закладки"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "Volume:"
@@ -145,7 +145,7 @@ msgstr "Громкость:"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "_Fullscreen"
-msgstr "Во весь _экран"
+msgstr "Полноэкр_анный режим"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "_Help"
@@ -157,15 +157,15 @@ msgstr "_Вид"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "_Bookmarks"
-msgstr "_Закладки"
+msgstr "За_кладки"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "<i>Last Updated: </i>"
-msgstr "<i>Обновили в: </i>"
+msgstr "<i>Последнее обновление </i>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "Last Updated: "
-msgstr "Обновили в: "
+msgstr "Последнее обновление: "
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "Never"
@@ -173,23 +173,23 @@ msgstr "Никогда"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Channel Guide Auto-Update Frequency</b>"
-msgstr "<b>Интервал автоматического обновления списка каналов</b>"
+msgstr "<b>Интервал автоматического обновления списков каналов</b>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Channel Guide Language</b>"
-msgstr "<b>Язык списка каналов</b>"
+msgstr "<b>Язык списков каналов</b>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Channel Guide Layout:</b>"
-msgstr "<b>Расположение списка каналов</b>"
+msgstr "<b>Расположение списков каналов</b>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Channel Guide URL</b>"
-msgstr "<b>Список адресов</b>"
+msgstr "<b>URL списков каналов</b>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Channel Timeout</b>"
-msgstr "<b>Время ожидания установления соединения с каналом истекло</b>"
+msgstr "<b>Время ожидания подключения к каналу</b>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Media Player</b>"
@@ -233,7 +233,7 @@ msgstr "Статические порты"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Timeout"
-msgstr "Время соединения истекло"
+msgstr "Таймаут"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "URL: "
@@ -241,11 +241,11 @@ msgstr "URL: "
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Unity (Single-window)"
-msgstr "Объединить с главным"
+msgstr "В главном окне"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Use External Player"
-msgstr "Использовать внешний проигрыватель"
+msgstr "Другой проигрыватель"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Completed"
@@ -253,11 +253,11 @@ msgstr "Завершено"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Server Down"
-msgstr "Сервер не работает"
+msgstr "Сервер недоступен"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Downloading"
-msgstr "Скачиваем"
+msgstr "Загрузка"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Static Ports Unavailable"
@@ -285,7 +285,7 @@ msgstr "<i>5 минут</i>"
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:757
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<i>Never</i>"
-msgstr "<i>никогда</i>"
+msgstr "<i>Никогда</i>"
 
 msgid "Screenshot"
 msgstr "Сделать снимок экрана"
@@ -318,7 +318,7 @@ msgid "Stop"
 msgstr "Остановить"
 
 msgid "Always On Top"
-msgstr "Всегда сверху"
+msgstr "Поверх других окон"
 
 msgid "Show Controls"
 msgstr "Показывать кнопки"
@@ -336,10 +336,10 @@ msgid "<i>Program Start</i>"
 msgstr "<i>При запуске программы</i>"
 
 msgid "<big><b>Channel Bookmark</b></big>"
-msgstr "<big><b>Закладка канала</b></big>"
+msgstr "<big><b>Добавление закладки</b></big>"
 
 msgid "_Edit"
-msgstr "_Изменить"
+msgstr "_Правка"
 
 msgid "Properties"
 msgstr "Свойства"

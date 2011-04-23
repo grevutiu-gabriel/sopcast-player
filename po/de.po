@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: sopcast-player\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-01-20 20:24+0100\n"
-"PO-Revision-Date: 2010-02-14 11:32+0000\n"
-"Last-Translator: CowWheel <Unknown>\n"
+"PO-Revision-Date: 2010-12-11 19:06+0000\n"
+"Last-Translator: Atalanttore <atalanttore@googlemail.com>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-11-14 13:12+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-04-23 21:32+0000\n"
+"X-Generator: Launchpad (build 12883)\n"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:88
 msgid "Retrying channel"
@@ -105,7 +105,7 @@ msgstr "Sender"
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:579
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:608
 msgid "Press Esc to exit fullscreen"
-msgstr "Drücken Sie ESC um den Vollbildmodus zu verlassen"
+msgstr "Drücken Sie ESC, um den Vollbildmodus zu verlassen"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:677
 msgid "Contacting Server"
@@ -247,7 +247,7 @@ msgstr "Einheitlich (gemeinsames Fenster)"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Use External Player"
-msgstr "Nutze externen Player"
+msgstr "Externes Abspielprogramm verwenden"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Completed"
@@ -291,7 +291,7 @@ msgid "<i>Never</i>"
 msgstr "<i>Niemals</i>"
 
 msgid "Screenshot"
-msgstr "Schnappschuss"
+msgstr "Bildschirmfoto"
 
 msgid "Name:"
 msgstr "Name:"

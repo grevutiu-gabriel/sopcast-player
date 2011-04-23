@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: sopcast-player\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-01-20 20:24+0100\n"
-"PO-Revision-Date: 2009-03-29 14:07+0000\n"
-"Last-Translator: joni_meri <Unknown>\n"
+"PO-Revision-Date: 2011-01-02 11:33+0000\n"
+"Last-Translator: Almufadado <Unknown>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-11-14 13:12+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-04-23 21:32+0000\n"
+"X-Generator: Launchpad (build 12883)\n"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:88
 msgid "Retrying channel"
@@ -257,7 +257,7 @@ msgstr "Servidor desligado"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Downloading"
-msgstr "A baixar"
+msgstr "A transferir"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Static Ports Unavailable"
@@ -287,7 +287,7 @@ msgid "<i>Never</i>"
 msgstr "<i>Nunca</i>"
 
 msgid "Screenshot"
-msgstr "Imagem do ecrã"
+msgstr "Captura de ecrã"
 
 msgid "Name:"
 msgstr "Nome:"
