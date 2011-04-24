@@ -8,7 +8,8 @@ BINDIR ?= $(PREFIX)/bin
 EXECUTABLE ?= $(BINDIR)/$(NAME)
 LOCALE ?= locale
 LOCALEDIR ?= $(DATADIR)/$(LOCALE)
-ICONDIR ?= $(DATADIR)/icons/hicolor/scalable/apps
+ICONBASEDIR ?= $(DATADIR)/icons/hicolor
+ICONDIR ?= $(ICONBASEDIR)/scalable/apps
 DESKDIR ?= $(DATADIR)/applications
 INSTALL ?= install -p
 EDIT ?= sed -e 's|@DATADIR@|$(DATADIR)|g' \
@@ -23,6 +24,8 @@ CFLAGS ?= -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions \
           -fstack-protector --param=ssp-buffer-size=4
 VERSION ?= 0.5.0
 
+gtk_update_icon_cache = gtk-update-icon-cache -f -t $(ICONBASEDIR)
+
 build: language byte-compile desktop schema
 
 desktop:
@@ -32,7 +35,7 @@ schema:
 	$(EDIT) $(NAME).schemas.in > $(NAME).schemas
 
 byte-compile:
-	$(PYTHON) -c 'import compileall; compileall.compile_dir("lib", rx=re.compile("/[.]svn"), force=1)'
+	$(PYTHON) -c 'import compileall, re; compileall.compile_dir("lib", rx=re.compile("/[.]svn"), force=1)'
 
 language:
 	@echo "Generating language files..."
@@ -67,6 +70,7 @@ install:
 	done
 	$(INSTALL) -m 0644 $(NAME).desktop $(DESTDIR)$(DESKDIR)
 	$(INSTALL) -m 0644 $(NAME).svg $(DESTDIR)$(ICONDIR)
+	$(gtk_update_icon_cache)
 
 uninstall:
 	rm -fr $(DESTDIR)$(INSTALLDIR)
