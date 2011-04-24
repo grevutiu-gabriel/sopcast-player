@@ -427,6 +427,12 @@ class pySopCast(object):
 			"on_channel_treeview_button_press_event" : self.on_channel_treeview_button_press_event,
 			"on_menu_show_toolbar_toggled" : self.on_menu_show_toolbar_toggled,
 			"on_toolbar_channel_guide_clicked" : self.on_toolbar_channel_guide_clicked }
+			
+		self.vlc.add_events(gtk.gdk.BUTTON_PRESS_MASK)
+		self.vlc.connect("button_press_event", self.button_clicked)
+		
+		self.window.add_events(gtk.gdk.KEY_PRESS_MASK)
+		self.window.connect("key-press-event", self.key_pressed)
 		
 		self.glade_window.signal_autoconnect(window_signals)
 		
@@ -503,12 +509,6 @@ class pySopCast(object):
 			self.play_channel()
 		
 		self.window.show()
-		
-		self.vlc.add_events(gtk.gdk.BUTTON_PRESS_MASK)
-		self.vlc.connect("button_press_event", self.button_clicked)
-		
-		self.window.add_events(gtk.gdk.KEY_PRESS_MASK)
-		self.window.connect("key_press_event", self.key_pressed)
 		
 		self.fullscreen = False
 		
