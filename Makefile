@@ -22,7 +22,7 @@ EDIT ?= sed -e 's|@DATADIR@|$(DATADIR)|g' \
 PYTHON ?= $(BINDIR)/python
 CFLAGS ?= -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions \
           -fstack-protector --param=ssp-buffer-size=4
-VERSION ?= 0.5.0
+VERSION ?= 0.5.1
 
 gtk_update_icon_cache = gtk-update-icon-cache -f -t $(ICONBASEDIR)
 
