@@ -22,12 +22,20 @@ EDIT ?= sed -e 's|@DATADIR@|$(DATADIR)|g' \
 PYTHON ?= $(BINDIR)/python
 CFLAGS ?= -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions \
           -fstack-protector --param=ssp-buffer-size=4
+VLC_BINDINGS_DIR ?= pyvlc_bindings
+VLC_BINDINGS_GENERATE_DIR ?= $(VLC_BINDINGS_DIR)/generated
 VERSION ?= 0.5.1
 
 gtk_update_icon_cache = gtk-update-icon-cache -f -t $(ICONBASEDIR)
 
-build: language byte-compile desktop schema
+build: language desktop schema vlc byte-compile
 
+vlc:
+	@echo "Generating vlc python bindings..."
+	cd $(VLC_BINDINGS_DIR); \
+	make; \
+	cd ..
+	
 desktop:
 	$(EDIT) $(NAME).in > $(NAME)
 
@@ -35,6 +43,7 @@ schema:
 	$(EDIT) $(NAME).schemas.in > $(NAME).schemas
 
 byte-compile:
+	$(INSTALL) -m 0644 $(VLC_BINDINGS_GENERATE_DIR)/* ./lib;
 	$(PYTHON) -c 'import compileall, re; compileall.compile_dir("lib", rx=re.compile("/[.]svn"), force=1)'
 
 language:
@@ -52,6 +61,13 @@ clean:
 	done
 	rm -fr $(LOCALE) || :
 	rm -f $(NAME) || :
+	
+	rm -r lib/vlc.py
+	
+	@echo "Generating vlc python bindings..."
+	cd $(VLC_BINDINGS_DIR); \
+	make clean; \
+	cd ..
 
 install:
 	$(INSTALL) -dm 0755 $(DESTDIR)$(INSTALLDIR)/lib
@@ -70,7 +86,13 @@ install:
 	done
 	$(INSTALL) -m 0644 $(NAME).desktop $(DESTDIR)$(DESKDIR)
 	$(INSTALL) -m 0644 $(NAME).svg $(DESTDIR)$(ICONDIR)
-	$(gtk_update_icon_cache)
+	if test -z "$(DESTDIR)"; then \
+		echo "Updating GTK icon cache."; \
+		$(gtk_update_icon_cache); \
+	else \
+		echo "*** Icon cache not updated.  After install, run this:"; \
+		echo "***   $(gtk_update_icon_cache)"; \
+	fi
 
 uninstall:
 	rm -fr $(DESTDIR)$(INSTALLDIR)
