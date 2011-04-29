@@ -85,7 +85,8 @@ Francesco Marzaro
 nanker
 Мирослав Николић &lt;miroslavnikolic@rocketmail.com&gt;
 CrabMan
-أبو همام &lt;xx1429xx@hotmail.com&gt;</property>
+أبو همام &lt;xx1429xx@hotmail.com&gt;
+Josu Orbe</property>
     <property name="wrap_license">True</property>
     <child internal-child="vbox">
       <widget class="GtkVBox" id="dialog-vbox1">

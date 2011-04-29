@@ -20,6 +20,19 @@ import math
 import sys
 import os
 import pySopCastConfigurationManager
+import locale
+import gettext
+
+cur_locale = locale.setlocale(locale.LC_ALL, "")
+
+gtk.glade.bindtextdomain("sopcast-player")
+gtk.glade.textdomain("sopcast-player")
+
+gettext.bindtextdomain("sopcast-player")
+gettext.textdomain("sopcast-player")
+
+lang = gettext.translation("sopcast-player", languages=[cur_locale], fallback=True)
+lang.install('sopcast-player')
 
 def is_chinese():
 	return not locale.setlocale(locale.LC_ALL, "")[:len("zh".lower())] != "zh".lower()

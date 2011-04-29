@@ -15,12 +15,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-
 import gobject
-import gettext
 import gtk
 import gtk.glade
-import locale
 import math
 import sys
 import threading
@@ -41,6 +38,8 @@ from SopcastPlayerWorkerThread import UpdateUIThread
 from AddBookmark import AddBookmark
 from ChannelGuideWorkerThread import UpdateChannelGuideThread
 from OpenSopAddress import OpenSopAddress
+import locale
+import gettext
 
 cur_locale = locale.setlocale(locale.LC_ALL, "")
 

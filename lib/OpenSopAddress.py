@@ -17,6 +17,19 @@
 import sys
 import os
 import gtk
+import locale
+import gettext
+
+cur_locale = locale.setlocale(locale.LC_ALL, "")
+
+gtk.glade.bindtextdomain("sopcast-player")
+gtk.glade.textdomain("sopcast-player")
+
+gettext.bindtextdomain("sopcast-player")
+gettext.textdomain("sopcast-player")
+
+lang = gettext.translation("sopcast-player", languages=[cur_locale], fallback=True)
+lang.install('sopcast-player')
 
 class OpenSopAddress(object):
 	def __init__(self, parent):
