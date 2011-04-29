@@ -22,11 +22,17 @@ class MakeFullscreen:
 	def __init__(self, fs_widget):
 		self.fs_widget = fs_widget
 		self.hidden_widgets = []
+		self.is_fullscreen = False
+		self.is_fullwindow = False
 	
-	def fullscreen(self):
+	def fullscreen(self, fs=True):
 		self.hidden_widgets = []
+		
 		self.hide_stuff(self.fs_widget)
-		self.fs_widget.get_toplevel().fullscreen()
+		
+		if fs == True:
+			self.fs_widget.get_toplevel().fullscreen()
+			self.is_fullscreen = True
 		
 	def hide_stuff(self, vis_widget):
 		parent = vis_widget.get_parent()
@@ -42,9 +48,23 @@ class MakeFullscreen:
 			return
 	
 	def unfullscreen(self):
-		self.fs_widget.get_toplevel().unfullscreen()
-		for w in self.hidden_widgets:
-			w.show()
+		if self.is_fullscreen:
+			self.fs_widget.get_toplevel().unfullscreen()
+			self.is_fullscreen = False
+			
+		if self.is_fullwindow == False:
+			for w in self.hidden_widgets:
+				w.show()
+			
+	def fullwindow(self):
+		self.is_fullwindow = True
+		self.fullscreen(fs=False)
+		
+		
+	def unfullwindow(self):
+		self.is_fullwindow = False
+		self.unfullscreen()
+		
 
 # Create a single vlc.Instance() to be share by (possible) multiple players.
 instance=vlc.Instance()
@@ -93,7 +113,6 @@ class VLCWidget(gtk.DrawingArea):
 		
 	def exit_media(self):
 		exit = True
-		#self.player.exit()
 		
 	def display_text(self, text):
 		self.player.display_text("%s" % text, 0, 5000)
