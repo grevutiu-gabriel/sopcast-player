@@ -1,5 +1,22 @@
 #! /usr/bin/python
 
+#! /usr/bin/python
+# Copyright (C) 2009-2011 Jason Scheunemann <jason.scheunemann@yahoo.com>.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
 """VLC Widget classes.
 
 This module provides two helper classes, to ease the embedding of a
@@ -16,55 +33,9 @@ import gtk
 import sys
 import vlc
 
-from gettext import gettext as _
+from WindowingTransformations import WindowingTransformations
 
-class MakeFullscreen:
-	def __init__(self, fs_widget):
-		self.fs_widget = fs_widget
-		self.hidden_widgets = []
-		self.is_fullscreen = False
-		self.is_fullwindow = False
-	
-	def fullscreen(self, fs=True):
-		self.hidden_widgets = []
-		
-		self.hide_stuff(self.fs_widget)
-		
-		if fs == True:
-			self.fs_widget.get_toplevel().fullscreen()
-			self.is_fullscreen = True
-		
-	def hide_stuff(self, vis_widget):
-		parent = vis_widget.get_parent()
-		
-		if parent is not parent.get_toplevel():
-			for w in parent.get_children():
-				if w is not vis_widget:
-					if w.get_property("visible"):
-						self.hidden_widgets.append(w)
-						w.hide()
-			self.hide_stuff(parent)
-		else:
-			return
-	
-	def unfullscreen(self):
-		if self.is_fullscreen:
-			self.fs_widget.get_toplevel().unfullscreen()
-			self.is_fullscreen = False
-			
-		if self.is_fullwindow == False:
-			for w in self.hidden_widgets:
-				w.show()
-			
-	def fullwindow(self):
-		self.is_fullwindow = True
-		self.fullscreen(fs=False)
-		
-		
-	def unfullwindow(self):
-		self.is_fullwindow = False
-		self.unfullscreen()
-		
+from gettext import gettext as _
 
 # Create a single vlc.Instance() to be share by (possible) multiple players.
 instance=vlc.Instance()
@@ -87,7 +58,7 @@ class VLCWidget(gtk.DrawingArea):
 		self.connect("map", handle_embed)
 		self.modify_bg(gtk.STATE_NORMAL, self.get_colormap().alloc_color("black"))
 		self.set_size_request(320, 200)
-		self.mkfs = MakeFullscreen(self)
+		self.wt = WindowingTransformations(self)
 
 	def set_media_url(self, url):
 		self.player.set_mrl(url)
@@ -121,10 +92,16 @@ class VLCWidget(gtk.DrawingArea):
 		return False
 		
 	def fullscreen(self):
-		self.mkfs.fullscreen()
+		self.wt.fullscreen()
 	
 	def unfullscreen(self):
-		self.mkfs.unfullscreen()
+		self.wt.unfullscreen()
+		
+	def fullwindow(self):
+		self.wt.fullwindow()
+	
+	def unfullwindow(self):
+		self.wt.unfullwindow()
 	
 	def set_volume(self, level):
 		self.player.audio_set_volume(level)

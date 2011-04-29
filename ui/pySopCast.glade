@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <glade-interface>
   <!-- interface-requires gtk+ 2.16 -->
   <!-- interface-naming-policy toplevel-contextual -->
@@ -12,7 +12,6 @@
     <child>
       <widget class="GtkVBox" id="vbox1">
         <property name="visible">True</property>
-        <property name="orientation">vertical</property>
         <child>
           <widget class="GtkMenuBar" id="menubar1">
             <property name="visible">True</property>
@@ -133,6 +132,7 @@
                         <property name="visible">True</property>
                         <property name="label" translatable="yes">Show Controls</property>
                         <property name="use_underline">True</property>
+                        <property name="active">True</property>
                         <signal name="toggled" handler="on_menu_show_controls_toggled"/>
                       </widget>
                     </child>
@@ -182,62 +182,6 @@
             <child>
               <widget class="GtkVBox" id="media_box">
                 <property name="visible">True</property>
-                <property name="orientation">vertical</property>
-                <child>
-                  <widget class="GtkToolbar" id="player_toolbar">
-                    <child>
-                      <widget class="GtkToolButton" id="toolbar_channel_guide">
-                        <property name="visible">True</property>
-                        <property name="label" translatable="yes">Channel Guide</property>
-                        <property name="use_underline">True</property>
-                        <property name="stock_id">gtk-open</property>
-                        <signal name="clicked" handler="on_toolbar_channel_guide_clicked"/>
-                      </widget>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="homogeneous">True</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <widget class="GtkSeparatorToolItem" id="toolbutton1">
-                        <property name="visible">True</property>
-                      </widget>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="homogeneous">True</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <widget class="GtkToolButton" id="toolbar_add_bookmark">
-                        <property name="visible">True</property>
-                        <property name="label" translatable="yes">Bookmark</property>
-                        <property name="use_underline">True</property>
-                        <property name="stock_id">gtk-add</property>
-                        <signal name="clicked" handler="on_toolbar_add_bookmark_clicked"/>
-                      </widget>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="homogeneous">True</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <widget class="GtkToolButton" id="toolbar_fullscreen">
-                        <property name="visible">True</property>
-                        <property name="use_underline">True</property>
-                        <property name="stock_id">gtk-fullscreen</property>
-                        <signal name="clicked" handler="on_toolbar_fullscreen_clicked"/>
-                      </widget>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="homogeneous">True</property>
-                      </packing>
-                    </child>
-                  </widget>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
                 <child>
                   <widget class="GtkEventBox" id="eb">
                     <property name="visible">True</property>
@@ -246,7 +190,7 @@
                     </child>
                   </widget>
                   <packing>
-                    <property name="position">1</property>
+                    <property name="position">0</property>
                   </packing>
                 </child>
                 <child>
@@ -351,7 +295,7 @@
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">False</property>
-                    <property name="position">2</property>
+                    <property name="position">1</property>
                   </packing>
                 </child>
               </widget>
@@ -363,7 +307,6 @@
             <child>
               <widget class="GtkVBox" id="channel_guide_pane">
                 <property name="visible">True</property>
-                <property name="orientation">vertical</property>
                 <child>
                   <widget class="GtkHPaned" id="channel_guide_hpane">
                     <property name="visible">True</property>
@@ -371,7 +314,6 @@
                     <child>
                       <widget class="GtkVBox" id="channel_selection_pane">
                         <property name="visible">True</property>
-                        <property name="orientation">vertical</property>
                         <child>
                           <widget class="GtkHBox" id="hbox1">
                             <property name="visible">True</property>
@@ -452,7 +394,6 @@
                     </child>
                     <child>
                       <widget class="GtkVBox" id="channel_properties_pane">
-                        <property name="orientation">vertical</property>
                         <child>
                           <widget class="GtkScrolledWindow" id="scrolledwindow2">
                             <property name="visible">True</property>
@@ -466,7 +407,6 @@
                                 <child>
                                   <widget class="GtkVBox" id="vbox3">
                                     <property name="visible">True</property>
-                                    <property name="orientation">vertical</property>
                                     <child>
                                       <widget class="GtkHBox" id="hbox_name">
                                         <property name="visible">True</property>
