@@ -1,5 +1,5 @@
 # pySopCast implementation of ConfigurationManager
-# Copyright (C) 2009 Jason Scheunemann <jason.scheunemann@yahoo.com>.
+# Copyright (C) 2009-2011 Jason Scheunemann <jason.scheunemann@yahoo.com>.
 
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public

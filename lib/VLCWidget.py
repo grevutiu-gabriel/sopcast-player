@@ -1,6 +1,4 @@
 #! /usr/bin/python
-
-#! /usr/bin/python
 # Copyright (C) 2009-2011 Jason Scheunemann <jason.scheunemann@yahoo.com>.
 #
 # This program is free software; you can redistribute it and/or modify
