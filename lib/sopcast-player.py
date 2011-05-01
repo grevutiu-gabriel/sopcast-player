@@ -15,22 +15,24 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+
+# Begining 2011 review of code, started 30 April 2011
+
+import gettext
 import gobject
 import gtk
 import gtk.glade
+import locale
 import math
 import sys
-import threading
-import time
 import os
-import DatabaseOperations
-import dynamic_ports
-import fork
-import listen
+
+from DatabaseOperations import DatabaseOperations
+from dynamic_ports import DynamicPorts
+from fork import ForkSOP
+from listen import SOPStats
 import pySocket
-import pySopCastConfigurationManager
-import signal
-import vlc
+from pySopCastConfigurationManager import pySopCastConfigurationManager
 import VLCWidget
 from OptionsDialog import OptionsDialog
 from WindowingTransformations import WindowingTransformations
@@ -38,8 +40,7 @@ from SopcastPlayerWorkerThread import UpdateUIThread
 from AddBookmark import AddBookmark
 from ChannelGuideWorkerThread import UpdateChannelGuideThread
 from OpenSopAddress import OpenSopAddress
-import locale
-import gettext
+
 
 cur_locale = locale.setlocale(locale.LC_ALL, "")
 
@@ -56,37 +57,31 @@ def is_chinese():
 	return not cur_locale[:len("zh".lower())] != "zh".lower()
 
 class pySopCast(object):
-	def __init__(self, channel_url=None, inbound_port=None, outbound_port=None, *p):
+	def __init__(self, channel_url=None, inbound_port=None, outbound_port=None):
 		gtk.gdk.threads_init()
-		self.vlc = VLCWidget.VLCWidget(*p)
-		self.player = self.vlc.player
+		self.vlc= None
 		self.ui_worker = None
-		self.last_update = 0
 		self.status_bar_text = None
-		self.status_bar_text_changed = False
-		self.db_operations = DatabaseOperations.DatabaseOperations()
+		self.db_operations = DatabaseOperations()
 		self.channel_url = channel_url
 		self.static_ports = False
-		self.server = self.get_server()
 		self.inbound_port = inbound_port
 		self.outbound_port = outbound_port
 		self.sop_stats = None
-		self.display_message_from_main_thread = False
-		self.start_display_time = None
-		self.display_message_time = 5
 		self.treeview_selection = None
 		self.channel_guide_worker = None
 		self.channel_guide_url = None
 		self.window_title = "SopCast Player"
-		self.hide_controls_size = None
-		self.show_controls = True
 		self.external_player_command = None
+		self.config_manager = None
+		
+		#used by external player
 		self.outbound_media_url = None
 		self.channel_guide_language = None
 		self.sopcast_client_installed = True
-		self.fullwidndow = False
+		
 		try:
-			self.fork_sop = fork.ForkSOP()
+			self.fork_sop = ForkSOP()
 		except:
 			self.sopcast_client_installed = False
 		
@@ -115,9 +110,7 @@ class pySopCast(object):
 			"on_window_key_press_event" : self.on_window_key_press_event,
 			"on_channel_treeview_button_press_event" : self.on_channel_treeview_button_press_event }
 			
-		self.vlc.add_events(gtk.gdk.BUTTON_PRESS_MASK)
-		self.vlc.connect("button_press_event", self.button_clicked)
-		
+
 		self.glade_window.signal_autoconnect(window_signals)
 		
 		context_menu_signals = { "on_context_menu_play_activate" : self.on_context_menu_play_activate,
@@ -125,31 +118,27 @@ class pySopCast(object):
 		
 		glade_context_menu.signal_autoconnect(context_menu_signals)
 
-		config_manager = pySopCastConfigurationManager.pySopCastConfigurationManager()
-		config_manager.read()
-		self.player_volume = config_manager.getint("player", "volume")
+		self.config_manager = pySopCastConfigurationManager()
+		self.player_volume = self.config_manager.player_volume()
 		self.volume.set_value(self.player_volume)
 			
-		self.window.set_default_size(config_manager.getint("player", "width"), config_manager.getint("player", "height"))
-		self.display_pane.set_position(config_manager.getint("player", "div_position"))
-		show_channel_guide_pane = config_manager.getboolean("player", "show_channel_guide")
-		channel_timeout = config_manager.getint("player", "channel_timeout")
-		self.window.set_keep_above(config_manager.getboolean("player", "stay_on_top"))
-		self.menu_stay_on_top.set_active(config_manager.getboolean("player", "stay_on_top"))
+		self.window.set_default_size(self.config_manager.player_width(), self.config_manager.player_height())
+		self.display_pane.set_position(self.config_manager.display_pane_position())
+		show_channel_guide_pane = self.config_manager.show_channel_guide()
+		channel_timeout = self.config_manager.channel_timeout()
+		self.window.set_keep_above(self.config_manager.stay_on_top())
+		self.menu_stay_on_top.set_active(self.config_manager.stay_on_top())
 		
-		#self.window.connect('event-after', gtk.main_quit)
-		
-		if config_manager.getboolean("player", "external_player") == True:
+		if self.config_manager.use_external_player() == True:
 			self.set_media_player_visible(False)
-			self.external_player_command = config_manager.get("player", "external_player_command")
+			self.external_player_command = self.config_manager.external_player_command()
 			show_channel_guide_pane = True
 		
-		last_updated = config_manager.get("ChannelGuide", "last_updated")
-		self.channel_guide_url = config_manager.get("ChannelGuide", "url")
-		self.channel_guide_hpane.set_position(config_manager.getint("ChannelGuide", "div_position"))
+		self.channel_guide_url = self.config_manager.channel_guide_url()
+		self.channel_guide_hpane.set_position(self.config_manager.channel_guide_pane_position())
 		
 		
-		self.channel_guide_language = config_manager.get("ChannelGuide", "channel_guide_language")
+		self.channel_guide_language = self.config_manager.channel_guide_language()
 
 		textrenderer = gtk.CellRendererText()
 		
@@ -165,7 +154,8 @@ class pySopCast(object):
 			self.channel_guide_pane.hide()
 
 		self.eb.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("black"))
-		self.wt = WindowingTransformations(self.eb)
+		self.vlc = VLCWidget.VLCWidget(self.eb)
+		self.player = self.vlc.player
 		
 		self.ui_worker = UpdateUIThread(self, channel_timeout)
 		self.ui_worker.start()		
@@ -187,8 +177,6 @@ class pySopCast(object):
 		
 		self.window.show()
 		
-		self.fullscreen = False
-		
 		gtk.gdk.threads_enter()
 		if not self.sopcast_client_installed:
 			self.show_missing_sopcast_client_dialog()		
@@ -197,26 +185,9 @@ class pySopCast(object):
 		
 		if self.fork_sop != None:
 			self.fork_sop.kill_sop()
-			
-	def button_clicked(self, widget, event):
-		if event.type == gtk.gdk._2BUTTON_PRESS:
-			if self.vlc.is_playing():
-				self.toggle_fullscreen()
-		else:
-			return True
 	
 	def on_fullscreen_activate(self, src, data=None):
-		self.toggle_fullscreen()
-	
-	def toggle_fullscreen(self):
-		if not self.fullscreen:
-			if self.vlc.media_loaded():
-				self.vlc.fullscreen()
-				#self.vlc.display_text("         %s" % "Press Esc to exit fullscreen")
-				self.fullscreen = not self.fullscreen
-		else:
-			self.vlc.unfullscreen()
-			self.fullscreen = not self.fullscreen
+		self.vlc.toggle_fullscreen()
 		
 	def __getattribute__(self, key):
 		value = None
@@ -237,42 +208,25 @@ class pySopCast(object):
 		dialog.set_transient_for(self.window)
 		
 		dialog.run()
-		
-		
-		# Post-response action area
 		dialog.destroy()
-
-	def media_player_size(self, screen, width_ratio, player_ratio):
-		width = int(screen.get_width() * width_ratio)
-		height = int(width * player_ratio)
-		return (width, height)
-	
-	def get_server(self):
-		config_manager = pySopCastConfigurationManager.pySopCastConfigurationManager()
-		config_manager.read()
-		return config_manager.get("player", "server")
 	
 	def get_ports(self):
 		inbound_port = None
 		outbound_port = None
 		exit = False
 		
-		config_manager = pySopCastConfigurationManager.pySopCastConfigurationManager()
-		config_manager.read()
-		if config_manager.getboolean("player", "static_ports") == True:
-			inbound_port = config_manager.getint("player", "inbound_port")
-			outbound_port = config_manager.getint("player", "outbound_port")
+		if self.config_manager.use_static_ports() == True:
+			inbound_port = self.config_manager.inbound_static_port()
+			outbound_port = self.config_manager.outbound_static_port()
 			self.static_ports = True
 			s = pySocket.pySocket()
-			if not s.is_available(self.server, inbound_port) or not s.is_available(self.server, outbound_port):
+			if not s.is_available(self.config_manager.server(), inbound_port) or not s.is_available(self.config_manager.server(), outbound_port):
 
 				dialog = gtk.Dialog(_("Static Ports Unavailable"),
 					self.window,
 					gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
 					(gtk.STOCK_NO, gtk.RESPONSE_REJECT,
 					gtk.STOCK_YES, gtk.RESPONSE_ACCEPT))
-				
-				#dialog.set_has_separator(False)
 			
 				hbox = gtk.HBox()
 		
@@ -289,11 +243,11 @@ class pySopCast(object):
 				
 				dialog.destroy()
 
-				dyn = dynamic_ports.DynamicPorts()
+				dyn = DynamicPorts()
 				inbound_port, outbound_port = dyn.get_ports()
 				self.static_ports = False
 		else:
-			dyn = dynamic_ports.DynamicPorts()
+			dyn = DynamicPorts()
 			inbound_port, outbound_port = dyn.get_ports()
 		
 		if exit == True:
@@ -333,9 +287,6 @@ class pySopCast(object):
 
 	def set_media_player_visible(self, visible):
 		if visible == True:
-			config_manager = pySopCastConfigurationManager.pySopCastConfigurationManager()
-			config_manager.read()
-			
 			if self.show_channel_guide.get_active() == False:
 				self.channel_guide_pane.hide()
 					
@@ -377,7 +328,7 @@ class pySopCast(object):
 		
 	def on_stop_clicked(self, src, data=None):
 		self.menu_fullscreen.set_sensitive(False)
-		self.stop_vlc()
+		self.vlc.stop_media()
 		
 		self.ui_worker.shutdown()
 		if self.fork_sop.is_running() == True:
@@ -433,17 +384,12 @@ class pySopCast(object):
 		handle_width = self.display_pane.style_get_property("handle-size")
 		
 		if src.get_active() == True:
-			config_manager = pySopCastConfigurationManager.pySopCastConfigurationManager()
-			config_manager.read()
-			self.window.resize(window_width + config_manager.getint("player", "channel_guide_width"), window_height)
+			self.window.resize(window_width + self.config_manager.channel_guide_width(), window_height)
 			self.channel_guide_pane.show()
 			
 		else:
 			pane2_width = self.display_pane.get_child2().get_allocation()[2]
-			config_manager = pySopCastConfigurationManager.pySopCastConfigurationManager()
-			config_manager.read()
-			config_manager.set("player", "channel_guide_width", pane2_width + handle_width)
-			config_manager.write()
+			self.config_manager.channel_guide_width(pane2_width + handle_width)
 			
 			self.channel_guide_pane.hide()
 			self.window.resize(self.display_pane.get_child1().get_allocation()[2], window_height)
@@ -515,25 +461,22 @@ class pySopCast(object):
 	
 	def on_menu_stay_on_top_toggled(self, src, data=None):
 		self.window.set_keep_above(src.get_active())
-		config_manager = pySopCastConfigurationManager.pySopCastConfigurationManager()
-		config_manager.read()
-		config_manager.set("player", "stay_on_top", src.get_active())
-		config_manager.write()
+		self.config_manager.stay_on_top()
 	
 	def on_menu_show_controls_toggled(self, src, data=None):
 		self.toggle_menu_controls()
 		
 	def toggle_menu_controls(self):
 		if self.fullwindow:
-			self.wt.unfullwindow()
+			self.vlc.unfullwindow()
 		else:
-			self.wt.fullwindow()
+			self.vlc.fullwindow()
 		
 		self.fullwindow = not self.fullwindow
 
 	def on_window_key_press_event(self, src, event, data=None):
 		if gtk.gdk.keyval_name(event.keyval) in ["h", "H"]:
-			if not self.fullscreen:
+			if not self.vlc.is_fullscreen():
 				self.toggle_menu_controls()
 		elif gtk.gdk.keyval_name(event.keyval) in ["t", "T"]:
 			self.menu_stay_on_top.set_active(not self.menu_stay_on_top.get_active())
@@ -543,8 +486,6 @@ class pySopCast(object):
 			self.open_sop_address.activate()
 		elif gtk.gdk.keyval_name(event.keyval) in ["d", "D"]:
 			self.menu_add_bookmark.activate()
-		elif gtk.gdk.keyval_name(event.keyval) in ["f", "F"]:
-			self.menu_fullscreen.activate()
 		
 		return True
 	
@@ -608,30 +549,17 @@ class pySopCast(object):
 	def update_status_bar_text(self, txt):
 		if self.status_bar != None:
 			self.status_bar_text = txt
-			self.status_bar_text_changed = True
 	
 	def set_volume(self, volume):
 		self.vlc.set_volume(volume)
 		
 	def start_vlc(self):
-		if self.vlc.get_parent() == None:
-			self.eb.add(self.vlc)
-			self.eb.show_all()
-			return False
-		
-		if self.vlc.get_parent() == self.eb:
-			self.vlc.play_media()
-			self.vlc.set_volume(self.player_volume)
-			return True
-		else:
-			return False
+		self.vlc.play_media()
+		self.vlc.set_volume(self.player_volume)
+		return True
 			
 	def stop_vlc(self):
 		self.vlc.stop_media()
-		if self.vlc.get_parent() == self.eb:
-			self.eb.remove(self.vlc)
-			if self.window != None:
-				self.eb.show_all()
 		
 	def play_channel(self, channel_url=None, title=None):
 		if self.fork_sop != None:
@@ -639,16 +567,13 @@ class pySopCast(object):
 				self.fork_sop.kill_sop()
 		
 			s = pySocket.pySocket()
-			if (self.inbound_port == None or self.outbound_port == None) or (not s.is_available(self.server, self.inbound_port) or not s.is_available(self.server, self.outbound_port)):
+			if (self.inbound_port == None or self.outbound_port == None) or (not s.is_available(self.config_manager.server(), self.inbound_port) or not s.is_available(self.config_manager.server(), self.outbound_port)):
 				self.inbound_port, self.outbound_port = self.get_ports()
 			
 			if self.inbound_port == None or self.outbound_port == None:
 				self.window.destroy()
 			else:
-				self.sop_stats = listen.SOPStats(self.server, self.outbound_port)
-		
-				print("%s: %s" % ("Inbound Port", self.inbound_port))
-				print("%s: %s" % ("Outbound Port", self.outbound_port))
+				self.sop_stats = SOPStats(self.config_manager.server(), self.outbound_port)
 			
 				if channel_url != None:
 					self.channel_url = channel_url
@@ -671,7 +596,7 @@ class pySopCast(object):
 				self.menu_add_bookmark.set_sensitive(True)
 				self.menu_fullscreen.set_sensitive(True)
 		
-				self.outbound_media_url = "http://%s:%d/tv.asf" % (self.server, self.outbound_port)
+				self.outbound_media_url = "http://%s:%d/tv.asf" % (self.config_manager.server(), self.outbound_port)
 				self.vlc.set_media_url(self.outbound_media_url)
 				self.ui_worker.startup()
 
@@ -696,25 +621,17 @@ class pySopCast(object):
 				self.play_channel(records[0][2], title)
 			
 	def on_exit(self, widget, data=None):
-		rect = self.window.get_allocation()
-		config_manager = pySopCastConfigurationManager.pySopCastConfigurationManager()
-		config_manager.read()
-		config_manager.set("player", "width", rect[2])
-		
-		if self.show_controls == True:
-			config_manager.set("player", "height", rect[3])
-		else:
-			config_manager.set("player", "height", rect[3] + self.hide_controls_size)
+		self.config_manager.player_width(self.window.get_allocation()[2])
+		self.config_manager.player_height(self.window.get_allocation()[3])
 		
 		if self.channel_selection_pane.get_property("visible") == True and self.media_box.get_property("visible") == True:	
-			config_manager.set("player", "div_position", self.display_pane.get_position())
+			self.config_manager.display_pane_position(self.display_pane.get_position())
 		
 		if self.channel_properties_pane.get_property("visible") == True and self.media_box.get_property("visible") == False:
-			config_manager.set("ChannelGuide", "div_position", self.channel_guide_hpane.get_position())
+			self.config_manager.channel_guide_pane_position(self.channel_guide_hpane.get_position())
 			
-		config_manager.set("player", "show_channel_guide", self.show_channel_guide.get_active())
-		config_manager.set("player", "volume", int(self.volume.get_value()))
-		config_manager.write()
+		self.config_manager.show_channel_guide(self.show_channel_guide.get_active())
+		self.config_manager.player_volume(int(self.volume.get_value()))
 		
 		self.ui_worker.stop()
 		if self.fork_sop != None:
@@ -736,20 +653,9 @@ class pySopCast(object):
 		if url == self.channel_url:
 			self.window.set_title("%s - %s" % (channel_name, self.window_title))
 	
-	def update_statusbar(self, text, display_time=None):
-		if display_time != None:
+	def update_statusbar(self, text):
+		if self.status_bar != None:
 			self.status_bar.push(1, text)
-			self.display_message_from_main_thread = True
-			self.display_message_time = display_time
-			self.start_display_time = time.time()
-		
-		if self.display_message_from_main_thread == True and self.start_display_time != None:
-			if time.time() - self.start_display_time > self.display_message_time:
-				self.display_message_from_main_thread = False
-				self.start_display_time = None
-		else:
-			if self.status_bar != None:
-				self.status_bar.push(1, text)
 		
 	def set_title(self, title="pySopCast"):
 		self.window.set_title(title)

@@ -40,10 +40,9 @@ class WindowingTransformations:
 		
 		if parent is not parent.get_toplevel():
 			for w in parent.get_children():
-				if w is not vis_widget:
-					if w.get_property("visible"):
-						self.hidden_widgets.append(w)
-						w.hide()
+				if w is not vis_widget and w.get_property("visible"):
+					self.hidden_widgets.append(w)
+					w.hide()
 			self.hide_stuff(parent)
 		else:
 			return

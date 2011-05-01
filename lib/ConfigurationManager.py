@@ -17,7 +17,7 @@
 
 import ConfigParser
 
-class ConfigurationManager:
+class ConfigurationManager(object):
 	def __init__(self, file_name):
 		self.__file_name = file_name
 		self.__sections = { }
