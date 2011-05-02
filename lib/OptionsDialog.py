@@ -53,16 +53,15 @@ class OptionsDialog:
 			
 		# Default retrieval
 		config_manager = pySopCastConfigurationManager.pySopCastConfigurationManager()
-		config_manager.read()
-		static_ports_default = config_manager.getboolean("player", "static_ports")
-		inbound_port_default = config_manager.getint("player", "inbound_port")
-		outbound_port_default = config_manager.getint("player", "outbound_port")
+		static_ports_default = config_manager.use_static_ports()
+		inbound_port_default = inbound_static_port()
+		outbound_port_default = outbound_static_port()
 	
-		external_player_default = config_manager.getboolean("player", "external_player")
-		external_player_command_default = config_manager.get("player", "external_player_command")
+		external_player_default = config_manager.use_external_player()
+		external_player_command_default = config_manager.external_player_command()
 	
-		channel_guide_url_default = config_manager.get("ChannelGuide", "url")
-		language_combobox_default = config_manager.get("ChannelGuide", "channel_guide_language")
+		channel_guide_url_default = config_manager.channel_guide_url()
+		language_combobox_default = config_manager.channel_guide_language()
 
 		# Widget variables
 		static_ports = tree.get_widget("static_ports")
@@ -85,7 +84,7 @@ class OptionsDialog:
 	
 		def on_static_ports_toggled(src, data=None):
 			set_widgets_sensitive(static_ports_children, src.get_active())
-			config_manager.set("player", "static_ports", src.get_active())
+			config_manager.use_static_ports(src.get_active())
 			config_manager.write()
 			self.parent.static_ports = src.get_active()
 		
@@ -100,7 +99,7 @@ class OptionsDialog:
 			if src.get_value() == outbound_port.get_value():
 				src.set_value(src.get_value() + 1)
 			else:
-				config_manager.set("player", "inbound_port", int(src.get_value()))
+				config_manager.inbound_static_port(int(src.get_value()))
 				config_manager.write()
 				self.parent.inbound_port = int(src.get_value())
 		
@@ -108,13 +107,13 @@ class OptionsDialog:
 			if src.get_value() == inbound_port.get_value():
 				src.set_value(src.get_value() + 1)
 			else:
-				config_manager.set("player", "outbound_port", int(src.get_value()))
+				config_manager.outbound_static_port(int(src.get_value()))
 				config_manager.write()
 				self.parent.outbound_port = int(src.get_value())
 	
 		def on_external_player_toggled(src, data=None):
 			external_player_command.set_sensitive(src.get_active())
-			config_manager.set("player", "external_player", src.get_active())
+			config_manager.use_external_playe(src.get_active())
 			config_manager.write()
 		
 			if src.get_active() == True:
@@ -127,7 +126,7 @@ class OptionsDialog:
 	
 		def on_external_player_command_focus_out_event(src, event, data=None):
 			if external_player_command.get_text() != external_player_command_default:
-				config_manager.set("player", "external_player_command", src.get_text())
+				config_manager.external_player_command(src.get_text())
 				config_manager.write()
 			
 				self.parent.external_player_command = external_player_command.get_text()
@@ -135,13 +134,13 @@ class OptionsDialog:
 	
 		def on_channel_guide_url_focus_out_event(src, event, data=None):
 			if src.get_text() != channel_guide_url_default:
-				config_manager.set("ChannelGuide", "url", src.get_text())
+				config_manager.channel_guide_url(src.get_text())
 				config_manager.write()
 				self.parent.channel_guide_url = src.get_text()
 	
 		def on_language_combobox_changed(src, data=None):
 			chinese = False
-			config_manager.set("ChannelGuide", "channel_guide_language", src.get_active_text())
+			config_manager.channel_guide_language(src.get_active_text())
 			config_manager.write()
 		
 			if src.get_active_text() == _("Chinese"):

@@ -64,87 +64,87 @@ class UpdateChannelGuideThread(threading.Thread):
 		self.parent.refresh_channel_guide.set_sensitive(False)
 		gtk.gdk.threads_leave()
 		
-		#try:
-		self.downloader = FileDownload.FileDownload()
-		self.downloader.download_file(self.parent.channel_guide_url, os.path.expanduser('~/.pySopCast/channel_guide.xml'), self.report_progress)
-		self.downloader = None
+		try:
+			self.downloader = FileDownload.FileDownload()
+			self.downloader.download_file(self.parent.channel_guide_url, os.path.expanduser('~/.pySopCast/channel_guide.xml'), self.report_progress)
+			self.downloader = None
 	
-		gtk.gdk.threads_enter()
-		self.parent.update_channel_guide_progress.set_text(_("Updating Database"))
-		gtk.gdk.threads_leave()
-		
-		self.guide_import = ImportChannelGuide.ImportChannelGuide()
-		self.guide_import.update_database(os.path.expanduser('~/.pySopCast/channel_guide.xml'))
-		self.guide_import = None
-	
-		gtk.gdk.threads_enter()
-		self.parent.treeview_selection.handler_block(self.parent.treeview_selection_changed_handler)
-		gtk.gdk.threads_leave()
-	
-		handler_blocked = True
-	
-		gtk.gdk.threads_enter()
-		self.parent.channel_treeview.set_model()
-		gtk.gdk.threads_leave()
-	
-		gtk.gdk.threads_enter()
-		self.parent.channel_treeview.get_selection().unselect_all()
-		gtk.gdk.threads_leave()
-	
-		gtk.gdk.threads_enter()
-		self.parent.channel_treeview_model.clear()
-		gtk.gdk.threads_leave()
-		
-		self.db_operations = DatabaseOperations.DatabaseOperations()	
-		if self.parent.channel_guide_language == _("English"):
-			channel_groups = self.db_operations.retrieve_channel_groups()
-		else:
-			channel_groups = self.db_operations.retrieve_channel_groups_cn()
-
-		for channel_group in channel_groups:
 			gtk.gdk.threads_enter()
-			channel_group_iter = self.parent.channel_treeview_model.append(None, self.parent.prepare_row_for_channel_treeview_model(channel_group))
+			self.parent.update_channel_guide_progress.set_text(_("Updating Database"))
 			gtk.gdk.threads_leave()
 		
+			self.guide_import = ImportChannelGuide.ImportChannelGuide()
+			self.guide_import.update_database(os.path.expanduser('~/.pySopCast/channel_guide.xml'))
+			self.guide_import = None
+	
+			gtk.gdk.threads_enter()
+			self.parent.treeview_selection.handler_block(self.parent.treeview_selection_changed_handler)
+			gtk.gdk.threads_leave()
+	
+			handler_blocked = True
+	
+			gtk.gdk.threads_enter()
+			self.parent.channel_treeview.set_model()
+			gtk.gdk.threads_leave()
+	
+			gtk.gdk.threads_enter()
+			self.parent.channel_treeview.get_selection().unselect_all()
+			gtk.gdk.threads_leave()
+	
+			gtk.gdk.threads_enter()
+			self.parent.channel_treeview_model.clear()
+			gtk.gdk.threads_leave()
+		
+			self.db_operations = DatabaseOperations.DatabaseOperations()	
 			if self.parent.channel_guide_language == _("English"):
-				channels = self.db_operations.retrieve_channels_by_channel_group_id(channel_group[0])
+				channel_groups = self.db_operations.retrieve_channel_groups()
 			else:
-				channels = self.db_operations.retrieve_channels_by_channel_group_id_cn(channel_group[0])
+				channel_groups = self.db_operations.retrieve_channel_groups_cn()
 
-			for channel in channels:
+			for channel_group in channel_groups:
 				gtk.gdk.threads_enter()
-				self.parent.channel_treeview_model.append(channel_group_iter, self.parent.prepare_row_for_channel_treeview_model(channel))
+				channel_group_iter = self.parent.channel_treeview_model.append(None, self.parent.prepare_row_for_channel_treeview_model(channel_group))
 				gtk.gdk.threads_leave()
 		
-		self.db_operations = None
-	
-		gtk.gdk.threads_enter()
-		self.parent.channel_treeview.set_model(self.parent.channel_treeview_model)
-		gtk.gdk.threads_leave()
-	
-		gtk.gdk.threads_enter()
-		self.parent.update_channel_guide_progress.set_text(_("Completed"))
-		gtk.gdk.threads_leave()
-	
-		t = datetime.datetime.now()
+				if self.parent.channel_guide_language == _("English"):
+					channels = self.db_operations.retrieve_channels_by_channel_group_id(channel_group[0])
+				else:
+					channels = self.db_operations.retrieve_channels_by_channel_group_id_cn(channel_group[0])
 
-		config_manager = pySopCastConfigurationManager.pySopCastConfigurationManager()
-		config_manager.set("ChannelGuide", "last_updated", time.mktime(t.timetuple()))
-		config_manager.write()
+				for channel in channels:
+					gtk.gdk.threads_enter()
+					self.parent.channel_treeview_model.append(channel_group_iter, self.parent.prepare_row_for_channel_treeview_model(channel))
+					gtk.gdk.threads_leave()
+		
+			self.db_operations = None
 	
-		time.sleep(1.5)
-		gtk.gdk.threads_enter()
-		if self.parent.update_channel_guide_progress != None:
-			self.parent.update_channel_guide_progress.hide()
-			self.parent.channel_guide_label.show()
-		gtk.gdk.threads_leave()
+			gtk.gdk.threads_enter()
+			self.parent.channel_treeview.set_model(self.parent.channel_treeview_model)
+			gtk.gdk.threads_leave()
+	
+			gtk.gdk.threads_enter()
+			self.parent.update_channel_guide_progress.set_text(_("Completed"))
+			gtk.gdk.threads_leave()
+	
+			t = datetime.datetime.now()
+
+			config_manager = pySopCastConfigurationManager.pySopCastConfigurationManager()
+			config_manager.set("ChannelGuide", "last_updated", time.mktime(t.timetuple()))
+			config_manager.write()
+	
+			time.sleep(1.5)
+			gtk.gdk.threads_enter()
+			if self.parent.update_channel_guide_progress != None:
+				self.parent.update_channel_guide_progress.hide()
+				self.parent.channel_guide_label.show()
+			gtk.gdk.threads_leave()
 			
-		self.updated = True
-		#except(Exception):
-		#	gtk.gdk.threads_enter()
-		#	if self.parent.update_channel_guide_progress != None:
-		#		self.parent.update_channel_guide_progress.set_text(_("Server Down"))
-		#	gtk.gdk.threads_leave()
+			self.updated = True
+		except(Exception):
+			gtk.gdk.threads_enter()
+			if self.parent.update_channel_guide_progress != None:
+				self.parent.update_channel_guide_progress.set_text(_("Server Down"))
+			gtk.gdk.threads_leave()
 			
 		gtk.gdk.threads_enter()
 		self.parent.refresh_channel_guide.set_sensitive(True)
