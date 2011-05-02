@@ -17,7 +17,7 @@
 import os
 import sqlite3
 
-class DatabaseOperations:
+class DatabaseOperations(object):
 	def __init__(self):
 		create_tables = False
 		if os.path.isdir(os.path.expanduser(r'~/.pySopCast/')) == False:
@@ -43,6 +43,9 @@ class DatabaseOperations:
 			conn.commit()	
 			conn.close()
 			
+		self.conn = None
+		self.cursor = None
+			
 	def db_connect(self):			
 		return sqlite3.connect(os.path.expanduser('~/.pySopCast/pySopCast.db'))
 			
@@ -54,30 +57,34 @@ class DatabaseOperations:
 		conn.commit()
 		conn.close()
 		
-	def insert_channel_group(self, row, is_other_channel=None):
-		conn = self.db_connect()
-		cursor = conn.cursor()
-		if is_other_channel == None:
-			cursor.execute('INSERT INTO channel_groups VALUES (?, ?, ?, ?, ?, ?)', row)
-		else:
-			cursor.execute('INSERT INTO channel_groups VALUES (null, ?, ?, ?, ?, ?)', row)
-		conn.commit()
-		conn.close()
+	def insert_channel_group(self, row):
+		if not self.conn:
+			self.conn = self.db_connect()
+			self.cursor = self.conn.cursor()
+			
+		self.cursor.execute('INSERT INTO channel_groups VALUES (?, ?, ?, ?, ?, ?)', row)
+	
+	def commit_channel_guide(self):
+		self.cursor.execute('VACUUM')
+		self.conn.commit()
+		self.conn.close()
+		self.conn = None
+		self.cursor = None
+
 		
 	def insert_channel(self, row):
-		conn = self.db_connect()
-		cursor = conn.cursor()
-		cursor.execute('INSERT INTO channels VALUES (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', row)
-		conn.commit()
-		conn.close()
+		if not self.conn:
+			self.conn = self.db_connect()
+			self.cursor = self.conn.cursor()
+		
+		self.cursor.execute('INSERT INTO channels VALUES (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', row)
 		
 	def truncate_channels(self):
-		conn = self.db_connect()
-		cursor = conn.cursor()
-		cursor.execute('DELETE FROM channels')
-		cursor.execute('VACUUM')
-		conn.commit()
-		conn.close()
+		if not self.conn:
+			self.conn = self.db_connect()
+			self.cursor = self.conn.cursor()
+			
+		self.cursor.execute('DELETE FROM channels')
 		
 	def retrieve_other_channel_group_id(self):
 		conn = self.db_connect()
@@ -88,12 +95,10 @@ class DatabaseOperations:
 		return data
 		
 	def truncate_channel_groups(self):
-		conn = self.db_connect()
-		cursor = conn.cursor()
-		cursor.execute('DELETE FROM channel_groups')
-		cursor.execute('VACUUM')
-		conn.commit()
-		conn.close()
+		if not self.conn:
+			self.conn = self.db_connect()
+			self.cursor = self.conn.cursor()
+		self.cursor.execute('DELETE FROM channel_groups')
 		
 	def retrieve_bookmark_by_channel_name(self, channel_name):
 		conn = self.db_connect()

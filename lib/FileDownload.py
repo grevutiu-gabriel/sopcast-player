@@ -49,6 +49,8 @@ class FileDownload:
 		except IOError, e:
 			raise e
 		
+		file = None
+		
 		socket.setdefaulttimeout(old_socket_timeout)
 		
 	def destroy(self):

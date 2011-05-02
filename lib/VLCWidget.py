@@ -55,28 +55,33 @@ class VLCWidget(gtk.DrawingArea):
 				self.player.set_xwindow(self.window.xid)
 			return True
 		self.connect("map", handle_embed)
+		self.container.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("black"))
 		self.modify_bg(gtk.STATE_NORMAL, self.get_colormap().alloc_color("black"))
 		self.set_size_request(320, 200)
 		self.wt = WindowingTransformations(self.container)
+		
 		self.is_fs = False
+		self.is_fw = False
 		
 		self.add_events(gtk.gdk.BUTTON_PRESS_MASK)
-		self.connect("button_press_event", self.on_mouse_click)
+		self.connect("button_press_event", self.on_mouse_button_clicked)
 		
-		self.get_toplevel().connect("key-press-event", self.on_key_press)
+		self.container.get_toplevel().add_events(gtk.gdk.KEY_PRESS_MASK)
+		self.container.get_toplevel().connect("key-press-event", self.on_key_press)
 
 	def on_key_press(self, widget, event, data=None):
-		"key pressed"
-		if event.keyval == gtk.keysyms.escape:
-			if self.is_fullscreen():
+		if event.keyval == gtk.keysyms.Escape:
+			if self.is_fs:
 				self.toggle_fullscreen()
-			return True
 		elif gtk.gdk.keyval_name(event.keyval) in ["f", "F"]:
-			print "f pressed"
-			self.toggle_fullscreen()
+			if self.is_playing():
+				self.toggle_fullscreen()
+		elif gtk.gdk.keyval_name(event.keyval) in ["h", "H"]:
+			if not self.is_fs:
+				self.toggle_fullwindow()
 		return False
 		
-	def on_mouse_click(self, widget, event):
+	def on_mouse_button_clicked(self, widget, event):
 		if event.type == gtk.gdk._2BUTTON_PRESS:
 			if self.is_playing():
 				self.toggle_fullscreen()
@@ -89,6 +94,12 @@ class VLCWidget(gtk.DrawingArea):
 		else:
 			self.fullscreen()
 
+	def toggle_fullwindow(self):
+		if self.is_fw:
+			self.unfullwindow()
+		else:
+			self.fullwindow()
+
 	def set_media_url(self, url):
 		self.player.set_mrl(url)
 		
@@ -96,6 +107,7 @@ class VLCWidget(gtk.DrawingArea):
 		self.player.play()
 		if len(self.container.get_children()) == 0:
 			self.container.add(self)
+			
 		self.show()
 
 	def is_playing(self):
@@ -132,9 +144,11 @@ class VLCWidget(gtk.DrawingArea):
 		
 	def fullwindow(self):
 		self.wt.fullwindow()
+		self.is_fw = True
 	
 	def unfullwindow(self):
 		self.wt.unfullwindow()
+		self.is_fw = False
 	
 	def set_volume(self, level):
 		self.player.audio_set_volume(level)

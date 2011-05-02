@@ -130,8 +130,8 @@ class pySopCastConfigurationManager(ConfigurationManager):
 	def __getter_setter(self, function, section, parameter, value=None):
 		if not value:
 			return getattr(super(pySopCastConfigurationManager, self), function)(section, parameter)
-			self.write()
 		else:
 			self.set(section, parameter, value)
+			self.write()
 			return
 	

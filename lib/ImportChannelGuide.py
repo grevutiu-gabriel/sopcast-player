@@ -17,24 +17,16 @@
 import DatabaseOperations
 import os
 import sys
-import urllib
-from urllib import urlopen
-from urllib import quote
-from xml.dom import minidom, Node
-
+from xml.dom.minidom import parse
 
 class Language:
 	ENGLISH = 0
 	CHINESE = 1
 
 
-class ImportChannelGuide:
+class ImportChannelGuide(object):
 	def __init__(self):
 		self.db_operations = DatabaseOperations.DatabaseOperations()
-		self.url = os.path.expanduser('~/.pySopCast/channel_guide.xml')
-		
-	def retrieveResultsSet(self, url):
-		return urlopen(url).read()
 	
 	def getText(self, nodelist):
 		rc = ""
@@ -208,12 +200,13 @@ class ImportChannelGuide:
 			channel_group_id]
 			
 		return info
-	
 
 	def update_database(self, url):
-		doc = minidom.parseString(self.retrieveResultsSet(url))
 		self.db_operations.truncate_channel_groups()
 		self.db_operations.truncate_channels()
+		
+		with open(url) as f:
+			doc = parse(f)
 
 		for channel_group in doc.getElementsByTagName("group"):			
 			channels = channel_group.getElementsByTagName("channel")			
@@ -223,14 +216,22 @@ class ImportChannelGuide:
 				self.db_operations.insert_channel_group(channel_group_info)	
 				for channel in channels:
 					self.db_operations.insert_channel(self.get_channel_info(channel, channel_group_info[0]))
+				channels = None
+		channel_group = None
 		
-		self.db_operations.insert_channel_group([0, 'Other', 'Other', 'Other', 'Channel group to catch all un-categorized channels'], True)
-		other_channel_group_id = self.db_operations.retrieve_other_channel_group_id()[0][0]
+		self.db_operations.insert_channel_group([sys.maxint, 0, 'Other', 'Other', 'Other', 'Channel group to catch all un-categorized channels'])
 		
 		for channel_group in doc.getElementsByTagName("group"):	
 			channels = channel_group.getElementsByTagName("channel")
 			if len(channels) == 1:
 				for channel in channels:
-					self.db_operations.insert_channel(self.get_channel_info(channel, other_channel_group_id))
-
-
+					self.db_operations.insert_channel(self.get_channel_info(channel, sys.maxint))
+					
+		self.db_operations.commit_channel_guide()
+		doc = None
+		
+if __name__ == '__main__':
+	i = ImportChannelGuide()
+	i.update_database()
+	
+	while 1: i =1

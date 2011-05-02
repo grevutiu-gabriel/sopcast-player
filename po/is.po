@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: sopcast-player\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-01-20 20:24+0100\n"
-"PO-Revision-Date: 2010-06-10 09:38+0000\n"
-"Last-Translator: Ragz <Unknown>\n"
+"PO-Revision-Date: 2011-04-30 17:32+0000\n"
+"Last-Translator: Tómas Guðmundsson <wildrabbit@gmail.com>\n"
 "Language-Team: Icelandic <is@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-04-23 21:32+0000\n"
-"X-Generator: Launchpad (build 12883)\n"
+"X-Launchpad-Export-Date: 2011-05-02 15:08+0000\n"
+"X-Generator: Launchpad (build 12915)\n"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:88
 msgid "Retrying channel"
@@ -121,11 +121,11 @@ msgstr "Uppfærsla stöðvalista lokið"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:741
 msgid "Channel Guide Retrieval Failed Due to Network Problems"
-msgstr ""
+msgstr "Niðurhal stöðvalista misheppnaðist vegna vandamála í net-tengingu"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:759
 msgid "Downloading Channel Guide"
-msgstr ""
+msgstr "Sæki stöðvalista"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "_File"
@@ -133,63 +133,63 @@ msgstr ""
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "> Channel Guide"
-msgstr ""
+msgstr "> Stöðvalisti"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "Bookmark this Channel"
-msgstr ""
+msgstr "Bókamerkja þessa stöð"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "Volume:"
-msgstr ""
+msgstr "Hljóðstyrkur:"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "_Fullscreen"
-msgstr ""
+msgstr "_Heilskjár"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "_Help"
-msgstr ""
+msgstr "_Hjálp"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "_View"
-msgstr ""
+msgstr "_Sýn"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "_Bookmarks"
-msgstr ""
+msgstr "_Bókamerki"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "<i>Last Updated: </i>"
-msgstr ""
+msgstr "<i> Síðast uppfært </i>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "Last Updated: "
-msgstr ""
+msgstr "Síðast uppfært "
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "Never"
-msgstr ""
+msgstr "Aldrei"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Channel Guide Auto-Update Frequency</b>"
-msgstr ""
+msgstr "<b>Tíðni sjálf-uppfærslu á stöðvalista</b>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Channel Guide Language</b>"
-msgstr ""
+msgstr "<b>Tungumál stöðvalista</b>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Channel Guide Layout:</b>"
-msgstr ""
+msgstr "<b>Uppstilling stöðvalista:</b>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Channel Guide URL</b>"
-msgstr ""
+msgstr "<b>Tengill stöðvalista</B>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Channel Timeout</b>"
-msgstr ""
+msgstr "<b>Tímamörk stöðvar</b>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Media Player</b>"

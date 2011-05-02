@@ -18,22 +18,13 @@ class WindowingTransformations:
 	def __init__(self, fs_widget):
 		self.fs_widget = fs_widget
 		self.hidden_widgets = []
-		self.is_fullscreen = False
-		self.is_fullwindow = False
+		self.is_fw = False
 	
 	def fullscreen(self, fs=True):
-		if self.is_fullwindow == False:
-			self.hidden_widgets = []
-		
 		self.hide_stuff(self.fs_widget)
 		
 		if fs == True:
 			self.fs_widget.get_toplevel().fullscreen()
-			self.is_fullscreen = True
-		else:
-			self.is_fullwindow = True
-		
-		self.is_fullscreen = True
 		
 	def hide_stuff(self, vis_widget):
 		parent = vis_widget.get_parent()
@@ -48,15 +39,13 @@ class WindowingTransformations:
 			return
 	
 	def unfullscreen(self, fs=True):
-		if self.is_fullscreen:
+		if fs:
 			self.fs_widget.get_toplevel().unfullscreen()
-			self.is_fullscreen = False
-			
-		if not fs:
-			self.is_fullwindow = False
-			
-		for w in self.hidden_widgets:
-			w.show()
+		
+		if (fs and not self.is_fw) or not fs:	
+			for w in self.hidden_widgets:
+				w.show()
+				self.hidden_widgets = []
 			
 	def fullwindow(self):
 		w_width = self.fs_widget.get_toplevel().get_allocation()[2]
@@ -65,10 +54,12 @@ class WindowingTransformations:
 		self.prev_height = w_height - self.fs_widget.get_allocation()[3]
 		self.fs_widget.get_toplevel().resize(self.fs_widget.get_allocation()[2], self.fs_widget.get_allocation()[3])
 		self.fullscreen(fs=False)
+		self.is_fw = True
 		
 	def unfullwindow(self):
 		width = self.fs_widget.get_allocation()[2] + self.prev_width
 		height = self.fs_widget.get_allocation()[3] + self.prev_height
 		self.fs_widget.get_toplevel().resize(width, height)
 		self.unfullscreen(fs=False)
+		self.is_fw = False
 		
