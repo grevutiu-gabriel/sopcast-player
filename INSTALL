@@ -1,30 +1,28 @@
-There are two ways of building and installing sopcast-player.
+Build Dependencies:
+-libvlc-dev
+-python
+-gettext
+-python-setuptools
 
-- If you have vlc python bindings already installed in your computer, do simply:
+Runtime Dependencies:
+-python
+-vlc 1.1.x
+-libvlc-dev
+-sp-auth
+-hicolor-icon-theme
+-python-glade2
+-python-gobject
+-python-gtk2
 
-     make
+To install SopCast Player use the follow incantations (for system-wide installation be sure to do make install with root priveldges):
+make
+make install
 
-to build, and (as root)
 
-     make install PREFIX=/usr/local
 
-to install sopcast-player. The default PREFIX is /usr.
-sopcast-player can be installed inside a different destination directory (other than /) via
-
-     make install PREFIX=/usr/local DESTDIR=my_destination_dir
-
-- If you do *not* have vlc python bindings installed in your computer, do:
-
-     make all
-
-to build both sopcast-player and vlc python bindings, and (as root)
-
-     make install-all PREFIX=/usr/local
-
-to install sopcast-player. The default PREFIX is "/usr".
-sopcast-player can be installed inside a different destination directory (other than /) via
-
-     make install-all PREFIX=/usr/local DESTDIR=my_destination_dir
+An alternative to using the default directories would be as follows
+make
+ make install PREFIX=/usr/local DESTDIR=my_destination_dir
 
 
 To uninstall sopcast-player, do:
