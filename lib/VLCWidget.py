@@ -64,8 +64,6 @@ class VLCWidget(gtk.DrawingArea):
 			except(Exception):
 				self.player=instance.mediacontrol_new_from_instance()
 				
-		print self.parent_cls.config_manager.uses_new_bindings()
-				
 		if self.parent_cls.config_manager.uses_new_bindings():
 			def handle_embed(*args):
 				if sys.platform == 'win32':
@@ -83,7 +81,6 @@ class VLCWidget(gtk.DrawingArea):
 	
 			self.container.get_toplevel().add_events(gtk.gdk.KEY_PRESS_MASK)
 			self.container.get_toplevel().connect("key-press-event", self.on_key_press)
-			print "connected events"
 		else:
 			self.wt = WindowingTransformations(self, self.parent_cls)
 			self.media_playing = False
