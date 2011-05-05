@@ -73,6 +73,7 @@ class pySopCast(object):
 		self.channel_guide_worker = None
 		self.channel_guide_url = None		
 		self.external_player_command = None
+		self.fullwindow = False
 		try:
 			self.fork_sop = ForkSOP()
 		except:
@@ -122,7 +123,7 @@ class pySopCast(object):
 		
 		#*****************Sopcast specific code*******************
 		self.config_manager = pySopCastConfigurationManager()
-		self.vlc = VLCWidget(self.eb, self)		
+		self.vlc = VLCWidget(self.eb, self)
 		self.player_volume = self.config_manager.player_volume()
 		self.volume.set_value(self.player_volume)
 		self.ui_worker = UpdateUIThread(self, self.config_manager.channel_timeout())
@@ -162,7 +163,8 @@ class pySopCast(object):
 		
 		if show_channel_guide_pane == False:
 			self.channel_guide_pane.hide()
-
+		
+		self.wt = WindowingTransformations(self.eb, self)
 		self.show_channel_guide.set_active(show_channel_guide_pane)
 		self.show_channel_guide.connect("toggled", self.on_show_channel_guide_toggled)
 	
@@ -486,8 +488,11 @@ class pySopCast(object):
 		self.config_manager.stay_on_top()
 	
 	def on_menu_show_controls_toggled(self, src, data=None):
+		self.toggle_menu_controls()
+		
+	def toggle_menu_controls(self):
 		if self.config_manager.uses_new_bindings():
-			self.toggle_menu_controls()
+			self.vlc.toggle_fullwindow()
 		else:
 			if self.fullwindow:
 				self.wt.unfullwindow()
@@ -495,12 +500,9 @@ class pySopCast(object):
 				self.wt.fullwindow()
 		
 			self.fullwindow = not self.fullwindow
-		
-	def toggle_menu_controls(self):
-		self.vlc.toggle_fullwindow()
 
 	def on_window_key_press_event(self, src, event, data=None):
-		if self.config_manager.uses_new_bindings():
+		if not self.config_manager.uses_new_bindings():
 			if gtk.gdk.keyval_name(event.keyval) in ["h", "H"]:
 				if not self.fullscreen:
 					self.toggle_menu_controls()
@@ -516,7 +518,7 @@ class pySopCast(object):
 		elif gtk.gdk.keyval_name(event.keyval) in ["d", "D"]:
 			self.menu_add_bookmark.activate()
 		
-		return True
+		return False
 	
 	def on_channel_treeview_button_press_event(self, src, event, data=None):
 		if event.button == 3:

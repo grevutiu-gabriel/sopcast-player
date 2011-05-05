@@ -49,21 +49,24 @@ class VLCWidget(gtk.DrawingArea):
 		self.parent_cls = parent
 		self.container = container
 		
-		if self.parent_cls.config_manager.uses_new_bindings():
+		media_control = False
+		
+		try:
+			self.player=instance.mediacontrol_new_from_instance()
+			media_control = True
+			self.parent_cls.config_manager.uses_new_bindings(False)
+		except(Exception):
+			self.parent_cls.config_manager.uses_new_bindings(True)
+		
+		if not media_control:
 			try:
 				self.player=instance.media_player_new()
 			except(Exception):
-				self.parent_cls.config_manager.uses_new_bindings(False)
 				self.player=instance.mediacontrol_new_from_instance()
-		else:
-			try:
-				self.player=instance.mediacontrol_new_from_instance()
-			except(Exception):
-				self.parent_cls.config_manager.uses_new_bindings(True)
-				self.player=instance.media_player_new()
+				
+		print self.parent_cls.config_manager.uses_new_bindings()
 				
 		if self.parent_cls.config_manager.uses_new_bindings():
-			
 			def handle_embed(*args):
 				if sys.platform == 'win32':
 					self.player.set_hwnd(self.window.handle)
@@ -78,11 +81,9 @@ class VLCWidget(gtk.DrawingArea):
 			
 			self.wt = WindowingTransformations(self.container, self.parent_cls)
 	
-			self.is_fs = False
-			self.is_fw = False
-	
 			self.container.get_toplevel().add_events(gtk.gdk.KEY_PRESS_MASK)
 			self.container.get_toplevel().connect("key-press-event", self.on_key_press)
+			print "connected events"
 		else:
 			self.wt = WindowingTransformations(self, self.parent_cls)
 			self.media_playing = False
@@ -90,7 +91,8 @@ class VLCWidget(gtk.DrawingArea):
 		self.set_size_request(320, 200)		
 		self.modify_bg(gtk.STATE_NORMAL, self.get_colormap().alloc_color("black"))		
 		self.container.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("black"))
-		
+		self.is_fs = False
+		self.is_fw = False
 		
 		
 
