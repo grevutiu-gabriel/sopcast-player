@@ -94,7 +94,7 @@ class pySopCast(object):
 		glade_context_menu = gtk.glade.XML(gladefile, "context_menu", "sopcast-player")
 		self.context_menu = glade_context_menu.get_widget("context_menu")
 		
-		self.vlc = VLCWidget(self.eb)
+
 		
 		window_signals = { "on_mainWindow_destroy" : self.on_exit,
 			"on_play_button_clicked" : self.on_play_button_clicked,
@@ -122,6 +122,7 @@ class pySopCast(object):
 		
 		#*****************Sopcast specific code*******************
 		self.config_manager = pySopCastConfigurationManager()
+		self.vlc = VLCWidget(self.eb, self)		
 		self.player_volume = self.config_manager.player_volume()
 		self.volume.set_value(self.player_volume)
 		self.ui_worker = UpdateUIThread(self, self.config_manager.channel_timeout())
@@ -174,6 +175,16 @@ class pySopCast(object):
 		
 		if self.fork_sop != None:
 			self.fork_sop.kill_sop()
+			
+	def toggle_fullscreen(self):
+		if not self.fullscreen:
+			if self.vlc.media_loaded():
+				self.vlc.fullscreen()
+				#self.vlc.display_text("         %s" % "Press Esc to exit fullscreen")
+				self.fullscreen = not self.fullscreen
+		else:
+			self.vlc.unfullscreen()
+			self.fullscreen = not self.fullscreen
 	
 	#code for context menu
 	def on_context_menu_play_activate(self, src, data=None):
@@ -208,7 +219,10 @@ class pySopCast(object):
 	#end
 	
 	def on_fullscreen_activate(self, src, data=None):
-		self.vlc.toggle_fullscreen()
+		if self.config_manager.uses_new_bindings():
+			self.vlc.toggle_fullscreen()
+		else:
+			self.toggle_fullscreen()
 		
 	def __getattribute__(self, key):
 		value = None
@@ -472,12 +486,27 @@ class pySopCast(object):
 		self.config_manager.stay_on_top()
 	
 	def on_menu_show_controls_toggled(self, src, data=None):
-		self.toggle_menu_controls()
+		if self.config_manager.uses_new_bindings():
+			self.toggle_menu_controls()
+		else:
+			if self.fullwindow:
+				self.wt.unfullwindow()
+			else:
+				self.wt.fullwindow()
+		
+			self.fullwindow = not self.fullwindow
 		
 	def toggle_menu_controls(self):
 		self.vlc.toggle_fullwindow()
 
 	def on_window_key_press_event(self, src, event, data=None):
+		if self.config_manager.uses_new_bindings():
+			if gtk.gdk.keyval_name(event.keyval) in ["h", "H"]:
+				if not self.fullscreen:
+					self.toggle_menu_controls()
+			elif gtk.gdk.keyval_name(event.keyval) in ["f", "F"]:
+				self.menu_fullscreen.activate()
+		
 		if gtk.gdk.keyval_name(event.keyval) in ["t", "T"]:
 			self.menu_stay_on_top.set_active(not self.menu_stay_on_top.get_active())
 		elif gtk.gdk.keyval_name(event.keyval) in ["q", "Q"]:
@@ -522,9 +551,22 @@ class pySopCast(object):
 		self.vlc.set_volume(volume)
 		
 	def start_vlc(self):
-		self.vlc.play_media()
-		self.vlc.set_volume(self.player_volume)
-		return True
+		if self.config_manager.uses_new_bindings():
+			self.vlc.play_media()
+			self.vlc.set_volume(self.player_volume)
+			return True
+		else:
+			if self.vlc.get_parent() == None:
+				self.eb.add(self.vlc)
+				self.eb.show_all()
+				return False
+		
+			if self.vlc.get_parent() == self.eb:
+				self.vlc.play_media()
+				self.vlc.set_volume(self.player_volume)
+				return True
+			else:
+				return False
 			
 	def stop_vlc(self):
 		self.vlc.stop_media()

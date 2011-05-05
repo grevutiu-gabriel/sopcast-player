@@ -44,30 +44,55 @@ class VLCWidget(gtk.DrawingArea):
 	Its player can be controlled through the 'player' attribute, which
 	is a vlc.MediaPlayer() instance.
 	"""
-	def __init__(self, container):
+	def __init__(self, container, parent):
 		gtk.DrawingArea.__init__(self)
-		self.player=instance.media_player_new()
+		self.parent_cls = parent
 		self.container = container
-		def handle_embed(*args):
-			if sys.platform == 'win32':
-				self.player.set_hwnd(self.window.handle)
-			else:
-				self.player.set_xwindow(self.window.xid)
-			return True
-		self.connect("map", handle_embed)
+		
+		if self.parent_cls.config_manager.uses_new_bindings():
+			try:
+				self.player=instance.media_player_new()
+			except(Exception):
+				self.parent_cls.config_manager.uses_new_bindings(False)
+				self.player=instance.mediacontrol_new_from_instance()
+		else:
+			try:
+				self.player=instance.mediacontrol_new_from_instance()
+			except(Exception):
+				self.parent_cls.config_manager.uses_new_bindings(True)
+				self.player=instance.media_player_new()
+				
+		if self.parent_cls.config_manager.uses_new_bindings():
+			
+			def handle_embed(*args):
+				if sys.platform == 'win32':
+					self.player.set_hwnd(self.window.handle)
+				else:
+					self.player.set_xwindow(self.window.xid)
+				return True
+				
+			self.add_events(gtk.gdk.BUTTON_PRESS_MASK)
+			self.connect("button_press_event", self.on_mouse_button_clicked)				
+				
+			self.connect("map", handle_embed)
+			
+			self.wt = WindowingTransformations(self.container, self.parent_cls)
+	
+			self.is_fs = False
+			self.is_fw = False
+	
+			self.container.get_toplevel().add_events(gtk.gdk.KEY_PRESS_MASK)
+			self.container.get_toplevel().connect("key-press-event", self.on_key_press)
+		else:
+			self.wt = WindowingTransformations(self, self.parent_cls)
+			self.media_playing = False
+		
+		self.set_size_request(320, 200)		
+		self.modify_bg(gtk.STATE_NORMAL, self.get_colormap().alloc_color("black"))		
 		self.container.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("black"))
-		self.modify_bg(gtk.STATE_NORMAL, self.get_colormap().alloc_color("black"))
-		self.set_size_request(320, 200)
-		self.wt = WindowingTransformations(self.container)
 		
-		self.is_fs = False
-		self.is_fw = False
 		
-		self.add_events(gtk.gdk.BUTTON_PRESS_MASK)
-		self.connect("button_press_event", self.on_mouse_button_clicked)
 		
-		self.container.get_toplevel().add_events(gtk.gdk.KEY_PRESS_MASK)
-		self.container.get_toplevel().connect("key-press-event", self.on_key_press)
 
 	def on_key_press(self, widget, event, data=None):
 		if event.keyval == gtk.keysyms.Escape:
@@ -104,14 +129,23 @@ class VLCWidget(gtk.DrawingArea):
 		self.player.set_mrl(url)
 		
 	def play_media(self):
-		self.player.play()
-		if len(self.container.get_children()) == 0:
-			self.container.add(self)
+		if self.parent_cls.config_manager.uses_new_bindings():
+			self.player.play()
+			if len(self.container.get_children()) == 0:
+				self.container.add(self)
 			
-		self.show()
+			self.show()
+		else:
+			self.realize()
+			self.player.set_visual(self.window.xid)
+			self.player.start(0)
+			self.media_playing = True	
 
 	def is_playing(self):
-		return self.player.is_playing()
+		if self.parent_cls.config_manager.uses_new_bindings():
+			return self.player.is_playing()
+		else:
+			return self.media_playing
 		
 	def media_loaded(self):
 		return self.is_playing()
@@ -136,22 +170,32 @@ class VLCWidget(gtk.DrawingArea):
 		
 	def fullscreen(self):
 		self.wt.fullscreen()
-		self.is_fs = True
+		
+		if self.parent_cls.config_manager.uses_new_bindings():
+			self.is_fs = True
 	
 	def unfullscreen(self):
 		self.wt.unfullscreen()
-		self.is_fs = False
+		if self.parent_cls.config_manager.uses_new_bindings():
+			self.is_fs = False
 		
 	def fullwindow(self):
 		self.wt.fullwindow()
-		self.is_fw = True
+		
+		if self.parent_cls.config_manager.uses_new_bindings():
+			self.is_fw = True
 	
 	def unfullwindow(self):
 		self.wt.unfullwindow()
-		self.is_fw = False
+		
+		if self.parent_cls.config_manager.uses_new_bindings():
+			self.is_fw = False
 	
 	def set_volume(self, level):
-		self.player.audio_set_volume(level)
+		if self.parent_cls.config_manager.uses_new_bindings():
+			self.player.audio_set_volume(level)
+		else:
+			self.player.sound_set_volume(level)
 		
 	def screenshot(self):
 		return self.player.snapshot(0)

@@ -47,6 +47,7 @@ class ConfigurationManager(object):
 		config.write(configfile)
 		
 	def set(self, section, attribute, value):
+		#print value
 		self.__retrieve_attribute(section, attribute, value)
 		
 	def get(self, section, attribute):
@@ -98,8 +99,5 @@ class ConfigurationManager(object):
 			raise ConfigParser.NoSectionError
 			
 	def __parse_bool(self, s):
-		if s is True or s is False:
-			return s
-			
-		s = str(s).strip().lower()
-		return not s in ['false','f','n','0','']
+		return not s in [False, 'False', 'false', 'f', 'n', '0', '']
+

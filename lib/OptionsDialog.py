@@ -41,6 +41,7 @@ class OptionsDialog:
 	def __init__(self, parent):
 		self.parent = parent
 		self.run()
+		
 	
 	def run(self):	
 		gladefile = "%s/%s" % (os.path.realpath(os.path.dirname(sys.argv[0])), "../ui/Options.glade")
@@ -52,16 +53,15 @@ class OptionsDialog:
 		dialog.set_transient_for(self.parent.window)
 			
 		# Default retrieval
-		config_manager = pySopCastConfigurationManager.pySopCastConfigurationManager()
-		static_ports_default = config_manager.use_static_ports()
-		inbound_port_default = inbound_static_port()
-		outbound_port_default = outbound_static_port()
+		static_ports_default = self.parent.config_manager.use_static_ports()
+		inbound_port_default = self.parent.config_manager.inbound_static_port()
+		outbound_port_default = self.parent.config_manager.outbound_static_port()
 	
-		external_player_default = config_manager.use_external_player()
-		external_player_command_default = config_manager.external_player_command()
+		external_player_default = self.parent.config_manager.use_external_player()
+		external_player_command_default = self.parent.config_manager.external_player_command()
 	
-		channel_guide_url_default = config_manager.channel_guide_url()
-		language_combobox_default = config_manager.channel_guide_language()
+		channel_guide_url_default = self.parent.config_manager.channel_guide_url()
+		language_combobox_default = self.parent.config_manager.channel_guide_language()
 
 		# Widget variables
 		static_ports = tree.get_widget("static_ports")
@@ -84,8 +84,7 @@ class OptionsDialog:
 	
 		def on_static_ports_toggled(src, data=None):
 			set_widgets_sensitive(static_ports_children, src.get_active())
-			config_manager.use_static_ports(src.get_active())
-			config_manager.write()
+			self.parent.config_manager.use_static_ports(src.get_active())
 			self.parent.static_ports = src.get_active()
 		
 			if self.parent.static_ports == False:
@@ -99,24 +98,22 @@ class OptionsDialog:
 			if src.get_value() == outbound_port.get_value():
 				src.set_value(src.get_value() + 1)
 			else:
-				config_manager.inbound_static_port(int(src.get_value()))
-				config_manager.write()
+				self.parent.config_manager.inbound_static_port(int(src.get_value()))
 				self.parent.inbound_port = int(src.get_value())
 		
 		def on_outbound_port_value_changed(src, data=None):
 			if src.get_value() == inbound_port.get_value():
 				src.set_value(src.get_value() + 1)
 			else:
-				config_manager.outbound_static_port(int(src.get_value()))
-				config_manager.write()
+				self.parent.config_manager.outbound_static_port(int(src.get_value()))
 				self.parent.outbound_port = int(src.get_value())
 	
 		def on_external_player_toggled(src, data=None):
 			external_player_command.set_sensitive(src.get_active())
-			config_manager.use_external_playe(src.get_active())
-			config_manager.write()
+			#print src.get_active()
+			self.parent.config_manager.use_external_player(src.get_active())
 		
-			if src.get_active() == True:
+			if src.get_active():
 				self.parent.external_player_command = external_player_command.get_text()
 				self.parent.set_media_player_visible(False)
 			else:
@@ -126,22 +123,19 @@ class OptionsDialog:
 	
 		def on_external_player_command_focus_out_event(src, event, data=None):
 			if external_player_command.get_text() != external_player_command_default:
-				config_manager.external_player_command(src.get_text())
-				config_manager.write()
+				self.parent.config_manager.external_player_command(src.get_text())
 			
 				self.parent.external_player_command = external_player_command.get_text()
 				#TODO: Mashup the player window to only show channel guide and set ui_worker to launch external command
 	
 		def on_channel_guide_url_focus_out_event(src, event, data=None):
 			if src.get_text() != channel_guide_url_default:
-				config_manager.channel_guide_url(src.get_text())
-				config_manager.write()
+				self.parent.config_manager.channel_guide_url(src.get_text())
 				self.parent.channel_guide_url = src.get_text()
 	
 		def on_language_combobox_changed(src, data=None):
 			chinese = False
-			config_manager.channel_guide_language(src.get_active_text())
-			config_manager.write()
+			self.parent.config_manager.channel_guide_language(src.get_active_text())
 		
 			if src.get_active_text() == _("Chinese"):
 				chinese = True

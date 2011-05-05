@@ -15,16 +15,27 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 class WindowingTransformations:
-	def __init__(self, fs_widget):
+	def __init__(self, fs_widget, parent):
+		self.parent = parent
 		self.fs_widget = fs_widget
 		self.hidden_widgets = []
 		self.is_fw = False
+		self.is_fs = False
 	
 	def fullscreen(self, fs=True):
+		if not self.parent.config_manager.uses_new_bindings():
+			if self.is_fw == False:
+				self.hidden_widgets = []
+				
 		self.hide_stuff(self.fs_widget)
 		
 		if fs == True:
 			self.fs_widget.get_toplevel().fullscreen()
+			self.is_fs = True
+		else:
+			self.is_fw = True
+		
+		self.is_fs = True
 		
 	def hide_stuff(self, vis_widget):
 		parent = vis_widget.get_parent()
@@ -39,8 +50,12 @@ class WindowingTransformations:
 			return
 	
 	def unfullscreen(self, fs=True):
-		if fs:
+		if self.is_fs:
 			self.fs_widget.get_toplevel().unfullscreen()
+			self.is_fs = False
+		
+		if not fs:
+			self.is_fw = False
 		
 		if (fs and not self.is_fw) or not fs:	
 			for w in self.hidden_widgets:

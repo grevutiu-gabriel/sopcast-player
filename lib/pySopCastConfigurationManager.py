@@ -64,6 +64,7 @@ class pySopCastConfigurationManager(ConfigurationManager):
 					     "channel_timeout" : 3,
 					     "stay_on_top" : False,
 					     "show_channel_guide_toolbar_item" : True,
+					     "new_bindings" : True,
 					     "layout" : ChannelGuideLayout.UNITY })
 						  
 		self.add_section("ChannelGuide", {  "width" : 600,
@@ -75,6 +76,9 @@ class pySopCastConfigurationManager(ConfigurationManager):
 						    "url" : channel_guide,
 						    "div_position" : 200 })
 		self.read()
+	
+	def uses_new_bindings(self, value=None):
+		return self.__getter_setter("getboolean", "player", "new_bindings", value)
 	
 	def player_width(self, value=None):
 		return self.__getter_setter("getint", "player", "width", value)
@@ -128,10 +132,11 @@ class pySopCastConfigurationManager(ConfigurationManager):
 		return self.__getter_setter("getint", "player", "channel_timeout", value)
 	
 	def __getter_setter(self, function, section, parameter, value=None):
-		if not value:
+		if value is None:
 			return getattr(super(pySopCastConfigurationManager, self), function)(section, parameter)
 		else:
 			self.set(section, parameter, value)
 			self.write()
+			
 			return
 	
