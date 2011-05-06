@@ -164,6 +164,10 @@ class pySopCast(object):
 		if show_channel_guide_pane == False:
 			self.channel_guide_pane.hide()
 		
+		if not self.config_manager.uses_new_bindings():
+			self.eb.add_events(gtk.gdk.BUTTON_PRESS_MASK)
+			self.eb.connect("button_press_event", self.on_mouse_button_clicked)
+		
 		self.wt = WindowingTransformations(self.eb, self)
 		self.show_channel_guide.set_active(show_channel_guide_pane)
 		self.show_channel_guide.connect("toggled", self.on_show_channel_guide_toggled)
@@ -177,6 +181,13 @@ class pySopCast(object):
 		
 		if self.fork_sop != None:
 			self.fork_sop.kill_sop()
+			
+	def on_mouse_button_clicked(self, widget, event):
+		if event.type == gtk.gdk._2BUTTON_PRESS:
+			if self.is_playing():
+				self.toggle_fullscreen()
+		else:
+			return True
 			
 	def toggle_fullscreen(self):
 		if not self.fullscreen:
@@ -506,6 +517,9 @@ class pySopCast(object):
 			if gtk.gdk.keyval_name(event.keyval) in ["h", "H"]:
 				if not self.fullscreen:
 					self.toggle_menu_controls()
+			elif event.keyval == gtk.keysyms.Escape:
+				if self.fullscreen:
+					self.toggle_fullscreen()
 			elif gtk.gdk.keyval_name(event.keyval) in ["f", "F"]:
 				self.menu_fullscreen.activate()
 		
