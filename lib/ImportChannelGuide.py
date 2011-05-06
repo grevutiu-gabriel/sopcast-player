@@ -205,8 +205,9 @@ class ImportChannelGuide(object):
 		self.db_operations.truncate_channel_groups()
 		self.db_operations.truncate_channels()
 		
-		with open(url) as f:
-			doc = parse(f)
+		f = open(url)
+		doc = parse(f)
+		f.close()
 
 		for channel_group in doc.getElementsByTagName("group"):			
 			channels = channel_group.getElementsByTagName("channel")			
