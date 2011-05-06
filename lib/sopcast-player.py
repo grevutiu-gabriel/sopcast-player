@@ -360,8 +360,34 @@ class pySopCast(object):
 		self.play_channel(channel_info[2])
 		
 	def on_add_bookmark(self, src, data=None):
-		add_bookmark_dialog = AddBookmark(self)			
-		add_bookmark_dialog.main()
+		dialog = gtk.Dialog(_("Channel Bookmark"),
+			self.window,
+			gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+			(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
+			gtk.STOCK_OK, gtk.RESPONSE_ACCEPT))
+			
+		hbox = gtk.HBox()
+			
+		label = gtk.Label("%s %s" % (_("Name"), ": "))
+		entry = gtk.Entry()
+		
+		entry.connect("activate", lambda a: dialog.response(gtk.RESPONSE_ACCEPT))
+		
+		if self.selection != None:
+			if len(entry.get_text()) > 0:
+				entry.set_text(self.selection[1])
+		
+		hbox.pack_start(label)
+		hbox.pack_start(entry)
+		hbox.set_size_request(-1, 50)
+		hbox.show_all()
+		dialog.set_default_response(gtk.RESPONSE_ACCEPT)
+		dialog.vbox.pack_start(hbox)
+		
+		if dialog.run() == gtk.RESPONSE_ACCEPT:
+			self.add_bookmark(entry.get_text(), self.url)
+			
+		dialog.destroy()
 		
 	def on_stop_clicked(self, src, data=None):
 		self.menu_fullscreen.set_sensitive(False)
