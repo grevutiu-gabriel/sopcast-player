@@ -37,7 +37,6 @@ from VLCWidget import VLCWidget
 from OptionsDialog import OptionsDialog
 from WindowingTransformations import WindowingTransformations
 from SopcastPlayerWorkerThread import UpdateUIThread
-from AddBookmark import AddBookmark
 from ChannelGuideWorkerThread import UpdateChannelGuideThread
 from OpenSopAddress import OpenSopAddress
 
@@ -377,6 +376,9 @@ class pySopCast(object):
 			if len(entry.get_text()) > 0:
 				entry.set_text(self.selection[1])
 		
+		if self.selection:
+			entry.set_text(self.selection[1])
+		
 		hbox.pack_start(label)
 		hbox.pack_start(entry)
 		hbox.set_size_request(-1, 50)
@@ -385,7 +387,8 @@ class pySopCast(object):
 		dialog.vbox.pack_start(hbox)
 		
 		if dialog.run() == gtk.RESPONSE_ACCEPT:
-			self.add_bookmark(entry.get_text(), self.url)
+			if len(entry.get_text()) > 0:
+				self.add_bookmark(entry.get_text(), self.url)
 			
 		dialog.destroy()
 		
@@ -522,7 +525,6 @@ class pySopCast(object):
 	
 	def on_menu_stay_on_top_toggled(self, src, data=None):
 		self.window.set_keep_above(src.get_active())
-		self.config_manager.stay_on_top()
 	
 	def on_menu_show_controls_toggled(self, src, data=None):
 		self.toggle_menu_controls()
@@ -543,20 +545,28 @@ class pySopCast(object):
 			if gtk.gdk.keyval_name(event.keyval) in ["h", "H"]:
 				if not self.fullscreen:
 					self.toggle_menu_controls()
+				return True
 			elif event.keyval == gtk.keysyms.Escape:
 				if self.fullscreen:
 					self.toggle_fullscreen()
+				return True
 			elif gtk.gdk.keyval_name(event.keyval) in ["f", "F"]:
 				self.menu_fullscreen.activate()
+				return True
 		
 		if gtk.gdk.keyval_name(event.keyval) in ["t", "T"]:
-			self.menu_stay_on_top.set_active(not self.menu_stay_on_top.get_active())
+			active = not self.menu_stay_on_top.get_active()
+			self.menu_stay_on_top.set_active(active)
+			return True
 		elif gtk.gdk.keyval_name(event.keyval) in ["q", "Q"]:
 			self.menu_quit.activate()
+			return True
 		elif gtk.gdk.keyval_name(event.keyval) in ["o", "O"]:
 			self.open_sop_address.activate()
+			return True
 		elif gtk.gdk.keyval_name(event.keyval) in ["d", "D"]:
 			self.menu_add_bookmark.activate()
+			return True
 		
 		return False
 	

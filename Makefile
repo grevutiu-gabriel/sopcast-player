@@ -45,13 +45,7 @@ VERSION ?= 0.6.0
 
 gtk_update_icon_cache = gtk-update-icon-cache -f -t $(ICONBASEDIR)
 
-build: language desktop schema vlc byte-compile
-
-vlc:
-	@echo "Generating vlc python bindings..."
-	cd $(VLC_BINDINGS_DIR); \
-	make; \
-	cd ..
+build: language desktop schema byte-compile
 	
 desktop:
 	$(EDIT) $(NAME).in > $(NAME)
@@ -60,7 +54,6 @@ schema:
 	$(EDIT) $(NAME).schemas.in > $(NAME).schemas
 
 byte-compile:
-	$(INSTALL) -m 0644 $(VLC_BINDINGS_GENERATE_DIR)/* ./lib;
 	$(PYTHON) -c 'import compileall, re; compileall.compile_dir("lib", rx=re.compile("/[.]svn"), force=1)'
 
 language:
@@ -79,14 +72,8 @@ clean:
 	rm -fr $(LOCALE) || :
 	rm -f $(NAME) || :
 	
-	rm -rf lib/vlc.py
 	rm -rf sopcast-player.schemas
 	
-	@echo "Generating vlc python bindings..."
-	cd $(VLC_BINDINGS_DIR); \
-	make clean; \
-	cd ..
-
 install:
 	$(INSTALL) -dm 0755 $(DESTDIR)$(INSTALLDIR)/lib
 	$(INSTALL) -dm 0755 $(DESTDIR)$(INSTALLDIR)/ui
