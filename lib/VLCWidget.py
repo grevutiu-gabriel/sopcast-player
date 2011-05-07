@@ -29,14 +29,12 @@ $Id$
 
 import gtk
 import sys
-import vlc
+import vlc_1_0_x
+import vlc_1_1_x
 
 from WindowingTransformations import WindowingTransformations
 
 from gettext import gettext as _
-
-# Create a single vlc.Instance() to be share by (possible) multiple players.
-instance=vlc.Instance()
 
 class VLCWidget(gtk.DrawingArea):
 	"""Simple VLC widget.
@@ -49,20 +47,14 @@ class VLCWidget(gtk.DrawingArea):
 		self.parent_cls = parent
 		self.container = container
 		
-		media_control = False
-		
 		try:
+			instance=vlc_1_0_x.Instance()
 			self.player=instance.mediacontrol_new_from_instance()
-			media_control = True
 			self.parent_cls.config_manager.uses_new_bindings(False)
 		except(Exception):
+			instance = vlc_1_1_x.Instance()
+			self.player=instance.media_player_new()
 			self.parent_cls.config_manager.uses_new_bindings(True)
-		
-		if not media_control:
-			try:
-				self.player=instance.media_player_new()
-			except(Exception):
-				self.player=instance.mediacontrol_new_from_instance()
 				
 		if self.parent_cls.config_manager.uses_new_bindings():
 			def handle_embed(*args):
