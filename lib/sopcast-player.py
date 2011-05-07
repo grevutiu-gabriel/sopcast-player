@@ -91,8 +91,12 @@ class pySopCast(object):
 			
 		self.glade_window = gtk.glade.XML(gladefile, "window", "sopcast-player")
 		self.window = self.glade_window.get_widget("window")
+		
 		glade_context_menu = gtk.glade.XML(gladefile, "context_menu", "sopcast-player")
 		self.context_menu = glade_context_menu.get_widget("context_menu")
+		
+		glade_context_menu = gtk.glade.XML(gladefile, "bookmarks_context_menu", "sopcast-player")
+		self.bookmarks_context_menu = glade_context_menu.get_widget("bookmarks_context_menu")
 		
 
 		
@@ -117,8 +121,10 @@ class pySopCast(object):
 		
 		context_menu_signals = { "on_context_menu_play_activate" : self.on_context_menu_play_activate,
 					 "on_context_menu_properties_activate" : self.on_context_menu_properties_activate }
-		
 		glade_context_menu.signal_autoconnect(context_menu_signals)
+		
+		bookmarks_context_menu_signals = { "on_bookmarks_context_delete_activate" : self.on_bookmarks_context_delete_activate, }
+		glade_context_menu.signal_autoconnect(bookmarks_context_menu_signals)
 		
 		#*****************Sopcast specific code*******************
 		self.config_manager = pySopCastConfigurationManager()
@@ -291,12 +297,27 @@ class pySopCast(object):
 			outbound_port = None
 			
 		return inbound_port, outbound_port
+	
+	
+	###################################
+	def on_bookmarks_button_pressed(self, src, event, bookmark):
+		if event.button == 3:
+			self.selected_bookmark = bookmark
+			self.bookmarks_context_menu.popup(None, None, None, event.button, event.time)
+		
+	def on_bookmarks_context_delete_activate(self, src, data=None):
+		self.db_operations.delete_bookmark(self.selected_bookmark[0])
+		self.bookmarks_menu.popdown()
+		self.main_menu.cancel()
+		self.populate_bookmarks()
+		print self.selected_bookmark[1]
 		
 	def populate_bookmarks(self):
 		self.clear_bookmarks()
 		for bookmark in self.db_operations.retrieve_bookmarks():
 			menu_item = gtk.MenuItem(bookmark[1])
 			menu_item.connect("activate", self.on_menu_bookmark_channel_activate, bookmark)
+			menu_item.connect("button_press_event", self.on_bookmarks_button_pressed, bookmark)
 			self.menu_bookmarks.get_submenu().append(menu_item)
 			self.menu_bookmarks.get_submenu().show_all()
 	
@@ -565,8 +586,9 @@ class pySopCast(object):
 			self.open_sop_address.activate()
 			return True
 		elif gtk.gdk.keyval_name(event.keyval) in ["d", "D"]:
-			self.menu_add_bookmark.activate()
-			return True
+			if self.menu_add_bookmark.get_sensitive():
+				self.menu_add_bookmark.activate()
+				return True
 		
 		return False
 	
@@ -624,6 +646,7 @@ class pySopCast(object):
 		self.vlc.stop_media()
 		
 	def play_channel(self, channel_url=None, title=None):
+		self.menu_add_bookmark.set_sensitive(True)
 		if self.fork_sop != None:
 			if self.fork_sop.is_running() == True:
 				self.fork_sop.kill_sop()

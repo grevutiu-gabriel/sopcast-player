@@ -13,7 +13,7 @@
       <widget class="GtkVBox" id="vbox1">
         <property name="visible">True</property>
         <child>
-          <widget class="GtkMenuBar" id="menubar1">
+          <widget class="GtkMenuBar" id="main_menu">
             <property name="visible">True</property>
             <child>
               <widget class="GtkMenuItem" id="menu_file">
@@ -21,7 +21,7 @@
                 <property name="label" translatable="yes">_File</property>
                 <property name="use_underline">True</property>
                 <child>
-                  <widget class="GtkMenu" id="menu1">
+                  <widget class="GtkMenu" id="file_subemnu">
                     <property name="visible">True</property>
                     <child>
                       <widget class="GtkImageMenuItem" id="open_sop_address">
@@ -76,11 +76,12 @@
                 <property name="label" translatable="yes">_Bookmarks</property>
                 <property name="use_underline">True</property>
                 <child>
-                  <widget class="GtkMenu" id="menu4">
+                  <widget class="GtkMenu" id="bookmarks_menu">
                     <property name="visible">True</property>
                     <child>
                       <widget class="GtkMenuItem" id="menu_add_bookmark">
                         <property name="visible">True</property>
+                        <property name="sensitive">False</property>
                         <property name="label" translatable="yes">Bookmark this Channel</property>
                         <property name="use_underline">True</property>
                         <signal name="activate" handler="on_menu_add_bookmark_activate"/>
@@ -138,7 +139,6 @@
                     </child>
                     <child>
                       <widget class="GtkMenuItem" id="menu_url">
-                        <property name="visible">True</property>
                         <property name="sensitive">False</property>
                         <property name="label" translatable="yes">URL</property>
                         <property name="use_underline">True</property>
@@ -707,6 +707,19 @@
         <property name="label" translatable="yes">Properties</property>
         <property name="use_underline">True</property>
         <signal name="activate" handler="on_context_menu_properties_activate"/>
+      </widget>
+    </child>
+  </widget>
+  <widget class="GtkMenu" id="bookmarks_context_menu">
+    <property name="visible">True</property>
+    <property name="ubuntu_local">True</property>
+    <child>
+      <widget class="GtkImageMenuItem" id="bookmarks_context_delete">
+        <property name="label">gtk-delete</property>
+        <property name="visible">True</property>
+        <property name="use_underline">True</property>
+        <property name="use_stock">True</property>
+        <signal name="activate" handler="on_bookmarks_context_delete_activate"/>
       </widget>
     </child>
   </widget>
