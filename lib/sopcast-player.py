@@ -409,7 +409,7 @@ class pySopCast(object):
 		
 		if dialog.run() == gtk.RESPONSE_ACCEPT:
 			if len(entry.get_text()) > 0:
-				self.add_bookmark(entry.get_text(), self.url)
+				self.add_bookmark(unicode(entry.get_text()), self.url)
 			
 		dialog.destroy()
 		

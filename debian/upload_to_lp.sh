@@ -1,7 +1,6 @@
 #!/bin/bash
 
 distros='
-hardy
 intrepid
 jaunty
 karmic

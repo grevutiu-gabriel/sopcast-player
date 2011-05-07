@@ -1,5 +1,8 @@
-sopcast-player (0.7.0~ppa1~oneiric1) oneiric; urgency=low
+sopcast-player (0.7.1~ppa1~hardy1) hardy; urgency=low
 
+   * 0.7.1
+     -Fixed unicode issue with adding bookmarks
+     
    * 0.7.0
      -VLCWidget now deals with the different versions of bindings automatically in a fail-back manner
      -Added ability to delete bookmarks
