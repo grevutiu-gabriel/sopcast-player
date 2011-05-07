@@ -132,18 +132,18 @@ class UpdateChannelGuideThread(threading.Thread):
 			config_manager.set("ChannelGuide", "last_updated", time.mktime(t.timetuple()))
 			config_manager.write()
 	
-			time.sleep(1.5)
-			gtk.gdk.threads_enter()
-			if self.parent.update_channel_guide_progress != None:
-				self.parent.update_channel_guide_progress.hide()
-				self.parent.channel_guide_label.show()
-			gtk.gdk.threads_leave()
-			
 			self.updated = True
 		except(Exception):
 			gtk.gdk.threads_enter()
 			if self.parent.update_channel_guide_progress != None:
 				self.parent.update_channel_guide_progress.set_text(_("Server Down"))
+			gtk.gdk.threads_leave()
+		finally:
+			time.sleep(1.5)
+			gtk.gdk.threads_enter()
+			if self.parent.update_channel_guide_progress != None:
+				self.parent.update_channel_guide_progress.hide()
+				self.parent.channel_guide_label.show()
 			gtk.gdk.threads_leave()
 			
 		gtk.gdk.threads_enter()
