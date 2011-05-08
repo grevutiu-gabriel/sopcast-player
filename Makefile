@@ -29,6 +29,7 @@ ICONBASEDIR ?= $(DATADIR)/icons/hicolor
 ICONDIR ?= $(ICONBASEDIR)/scalable/apps
 DESKDIR ?= $(DATADIR)/applications
 INSTALL ?= install -p
+GCONF_TOOL_EXEC ?= gconftool-2
 EDIT ?= sed -e 's|@DATADIR@|$(DATADIR)|g' \
 	    -e 's|@NAME@|$(NAME)|g' \
 	    -e 's|@PYTHON@|$(PYTHON)|g' \
@@ -75,6 +76,7 @@ clean:
 	rm -rf sopcast-player.schemas
 	
 install:
+	$(INSTALL) -dm 0755 $(DESTDIR)$(INSTALLDIR)/resources
 	$(INSTALL) -dm 0755 $(DESTDIR)$(INSTALLDIR)/lib
 	$(INSTALL) -dm 0755 $(DESTDIR)$(INSTALLDIR)/ui
 	$(INSTALL) -dm 0755 $(DESTDIR)$(BINDIR)
@@ -83,6 +85,7 @@ install:
 	$(INSTALL) -dm 0755 $(DESTDIR)$(DESKDIR)
 	$(INSTALL) -m 0644 lib/* $(DESTDIR)$(INSTALLDIR)/lib
 	$(INSTALL) -m 0644 ui/* $(DESTDIR)$(INSTALLDIR)/ui
+	$(INSTALL) -m 0644 $(NAME).schemas $(DESTDIR)$(INSTALLDIR)/resources
 	$(INSTALL) -m 0755 $(NAME) $(DESTDIR)$(BINDIR)
 	@for trln in $(LOCALE)/* ; do \
 	   lang=`basename $$trln` ; \
@@ -91,6 +94,7 @@ install:
 	done
 	$(INSTALL) -m 0644 $(NAME).desktop $(DESTDIR)$(DESKDIR)
 	$(INSTALL) -m 0644 $(NAME).svg $(DESTDIR)$(ICONDIR)
+	$(GCONF_TOOL_EXEC) --install-file=$(DESTDIR)$(INSTALLDIR)/resources/$(NAME).schemas
 	if test -z "$(DESTDIR)"; then \
 		echo "Updating GTK icon cache."; \
 		$(gtk_update_icon_cache); \

@@ -95,7 +95,7 @@ class pySopCast(object):
 		glade_context_menu = gtk.glade.XML(gladefile, "context_menu", "sopcast-player")
 		self.context_menu = glade_context_menu.get_widget("context_menu")
 		
-		glade_context_menu = gtk.glade.XML(gladefile, "bookmarks_context_menu", "sopcast-player")
+		glade_bookmarks_context_menu = gtk.glade.XML(gladefile, "bookmarks_context_menu", "sopcast-player")
 		self.bookmarks_context_menu = glade_context_menu.get_widget("bookmarks_context_menu")
 		
 
@@ -124,7 +124,7 @@ class pySopCast(object):
 		glade_context_menu.signal_autoconnect(context_menu_signals)
 		
 		bookmarks_context_menu_signals = { "on_bookmarks_context_delete_activate" : self.on_bookmarks_context_delete_activate, }
-		glade_context_menu.signal_autoconnect(bookmarks_context_menu_signals)
+		glade_bookmarks_context_menu.signal_autoconnect(bookmarks_context_menu_signals)
 		
 		#*****************Sopcast specific code*******************
 		self.config_manager = pySopCastConfigurationManager()
@@ -206,7 +206,7 @@ class pySopCast(object):
 	
 	#code for context menu
 	def on_context_menu_play_activate(self, src, data=None):
-		self.play_channel(self.channel_treeview_model[self.channel_treeview.get_cursor()[0]][9], self.channel_treeview_model[path][1])
+		self.play_channel(self.channel_treeview_model[self.channel_treeview.get_cursor()[0]][9])
 	
 	def on_context_menu_properties_activate(self, src, data=None):
 		path, column = self.channel_treeview.get_cursor()
@@ -447,6 +447,11 @@ class pySopCast(object):
 			
 		label = gtk.Label("%s %s" % (_("Enter Sop Address"), ": "))
 		entry = gtk.Entry()
+		
+		clipboard = gtk.clipboard_get().wait_for_text()
+		
+		if clipboard[0:6].lower() == "sop://":
+			entry.set_text(clipboard)
 		
 		############# Code contribution by Benjamin Kluglein ####################
 		entry.connect("activate", lambda a: dialog.response(gtk.RESPONSE_ACCEPT))
