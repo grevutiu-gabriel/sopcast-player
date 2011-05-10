@@ -1,5 +1,8 @@
-sopcast-player (0.7.1~ppa1~hardy1) hardy; urgency=low
+sopcast-player (0.7.2~ppa4~oneiric5) oneiric; urgency=low
 
+   * 0.7.2
+     -Fixed issue later vlc versions, code contribution by Manuel Luitz <manuel.luitz@gmail.com>
+     
    * 0.7.1
      -Fixed unicode issue with adding bookmarks
      

@@ -29,7 +29,7 @@ ICONBASEDIR ?= $(DATADIR)/icons/hicolor
 ICONDIR ?= $(ICONBASEDIR)/scalable/apps
 DESKDIR ?= $(DATADIR)/applications
 INSTALL ?= install -p
-GCONF_TOOL_EXEC ?= gconftool-2
+#GCONF_TOOL_EXEC ?= gconftool-2
 EDIT ?= sed -e 's|@DATADIR@|$(DATADIR)|g' \
 	    -e 's|@NAME@|$(NAME)|g' \
 	    -e 's|@PYTHON@|$(PYTHON)|g' \
@@ -42,7 +42,7 @@ CFLAGS ?= -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions \
           -fstack-protector --param=ssp-buffer-size=4
 VLC_BINDINGS_DIR ?= pyvlc_bindings
 VLC_BINDINGS_GENERATE_DIR ?= $(VLC_BINDINGS_DIR)/generated
-VERSION ?= 0.7.1
+VERSION ?= 0.7.2
 
 gtk_update_icon_cache = gtk-update-icon-cache -f -t $(ICONBASEDIR)
 
@@ -94,7 +94,7 @@ install:
 	done
 	$(INSTALL) -m 0644 $(NAME).desktop $(DESTDIR)$(DESKDIR)
 	$(INSTALL) -m 0644 $(NAME).svg $(DESTDIR)$(ICONDIR)
-	$(GCONF_TOOL_EXEC) --install-file=$(DESTDIR)$(INSTALLDIR)/resources/$(NAME).schemas
+	#$(GCONF_TOOL_EXEC) --install-file=$(DESTDIR)$(INSTALLDIR)/resources/$(NAME).schemas
 	if test -z "$(DESTDIR)"; then \
 		echo "Updating GTK icon cache."; \
 		$(gtk_update_icon_cache); \

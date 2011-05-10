@@ -96,7 +96,7 @@ class pySopCast(object):
 		self.context_menu = glade_context_menu.get_widget("context_menu")
 		
 		glade_bookmarks_context_menu = gtk.glade.XML(gladefile, "bookmarks_context_menu", "sopcast-player")
-		self.bookmarks_context_menu = glade_context_menu.get_widget("bookmarks_context_menu")
+		self.bookmarks_context_menu = glade_bookmarks_context_menu.get_widget("bookmarks_context_menu")
 		
 
 		
@@ -310,7 +310,6 @@ class pySopCast(object):
 		self.bookmarks_menu.popdown()
 		self.main_menu.cancel()
 		self.populate_bookmarks()
-		print self.selected_bookmark[1]
 		
 	def populate_bookmarks(self):
 		self.clear_bookmarks()

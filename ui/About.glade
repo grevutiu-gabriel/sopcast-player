@@ -10,7 +10,7 @@
     <property name="icon">sopcast-player.svg</property>
     <property name="type_hint">dialog</property>
     <property name="program_name">SopCast Player</property>
-    <property name="version">0.7.1</property>
+    <property name="version">0.7.2</property>
     <property name="copyright" translatable="yes">Copyright © 2009-2011 Jason Scheunemann</property>
     <property name="comments" translatable="yes">A GUI front-end for SopCast</property>
     <property name="website">http://code.google.com/p/sopcast-player</property>
@@ -24,7 +24,7 @@ You should have received a copy of the GNU General Public License along with Sop
 Makefile and supporting files written by Orcan Ogetbil &lt;oget.fedora@gmail.com&gt;
 Special thank you to 王泽国 Wang Zeguo &lt;zak.zeguo.wang@gmail.com&gt; for his tireless efforts
 Code contribution by Benjamin Klüglein
-Manuel Luitz &lt;manuel.luitz@gmail.com&gt;
+Code contributions by Manuel Luitz &lt;manuel.luitz@gmail.com&gt;
 Makefile fix by Ryan Li &lt;ryan@ryanium.com&gt;</property>
     <property name="translator_credits" translatable="yes">王泽国 Wang Zeguo &lt;zak.zeguo.wang@gmail.com&gt;
 梁穗隆 Liang Suilong &lt;liangsuilong@gmail.com&gt;
