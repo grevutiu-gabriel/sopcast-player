@@ -35,6 +35,7 @@ L{MediaPlayer} and L{MediaListPlayer} instances.
 
 import logging
 import ctypes
+from ctypes.util import find_library
 import sys
 
 build_date="Thu Jan 28 12:00:04 2010"
@@ -45,8 +46,8 @@ detected_plugin_path=None
 if sys.platform == 'linux2':
     try:
         dll = ctypes.CDLL('libvlc.so')
-    except(OSError):
-        dll = ctypes.CDLL('libvlc.so.5')
+    except OSError:  # may fail
+        dll = ctypes.CDLL(find_library("vlc"))
         
 elif sys.platform == 'win32':
     import ctypes.util

@@ -39,6 +39,7 @@ C{get_instance} method of L{MediaPlayer} and L{MediaListPlayer}.
 """
 
 import ctypes
+from ctypes.util import find_library
 import os
 import sys
 
@@ -55,7 +56,7 @@ if sys.platform.startswith('linux'):
     try:
         dll = ctypes.CDLL('libvlc.so')
     except OSError:  # may fail
-        dll = ctypes.CDLL('libvlc.so.5')
+        dll = ctypes.CDLL(find_library("vlc"))
 
 elif sys.platform.startswith('win'):
     import ctypes.util as u
