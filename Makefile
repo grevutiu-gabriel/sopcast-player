@@ -42,7 +42,7 @@ CFLAGS ?= -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions \
           -fstack-protector --param=ssp-buffer-size=4
 VLC_BINDINGS_DIR ?= pyvlc_bindings
 VLC_BINDINGS_GENERATE_DIR ?= $(VLC_BINDINGS_DIR)/generated
-VERSION ?= 0.7.2
+VERSION ?= 0.7.3
 
 gtk_update_icon_cache = gtk-update-icon-cache -f -t $(ICONBASEDIR)
 

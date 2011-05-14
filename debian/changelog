@@ -1,5 +1,8 @@
-sopcast-player (0.7.2~ppa4~oneiric5) oneiric; urgency=low
-
+sopcast-player (0.7.3~ppa4~oneiric1) oneiric; urgency=low
+   
+   * 0.7.3
+     -Added small fix for vlc bindings 1.0.x
+     
    * 0.7.2
      -Fixed issue later vlc versions, code contribution by Manuel Luitz <manuel.luitz@gmail.com>
      
@@ -85,4 +88,4 @@ sopcast-player (0.7.2~ppa4~oneiric5) oneiric; urgency=low
   * 0.1.0
     -Initial release
     
- -- Jason Scheunemann <jason.scheunemann@yahoo.com>  Mon, 02 May 2011 16:27:36 +0100
+ -- Jason Scheunemann <jason.scheunemann@yahoo.com>  Sat, 14 May 2011 10:17:42 +0100

@@ -43,11 +43,11 @@ build_date="Thu Jan 28 12:00:04 2010"
 # Used for win32 and MacOS X
 detected_plugin_path=None
 
-if sys.platform == 'linux2':
+if sys.platform.startswith('linux'):
     try:
-        dll = ctypes.CDLL('libvlc.so')
+        dll = ctypes.CDLL("libvlc.so")
     except OSError:  # may fail
-        dll = ctypes.CDLL(find_library("vlc"))
+        dll = ctypes.CDLL(find_library('vlc'))
         
 elif sys.platform == 'win32':
     import ctypes.util

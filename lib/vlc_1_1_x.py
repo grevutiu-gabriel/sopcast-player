@@ -54,9 +54,9 @@ plugin_path = None
 
 if sys.platform.startswith('linux'):
     try:
-        dll = ctypes.CDLL('libvlc.so')
+        dll = ctypes.CDLL("libvlc.so")
     except OSError:  # may fail
-        dll = ctypes.CDLL(find_library("vlc"))
+        dll = ctypes.CDLL(find_library('vlc'))
 
 elif sys.platform.startswith('win'):
     import ctypes.util as u
