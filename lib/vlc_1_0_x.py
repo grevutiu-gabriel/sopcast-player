@@ -5450,7 +5450,7 @@ class Event(ctypes.Structure):
         ]
 
 # Decorator for callback methods
-callbackmethod=ctypes.CFUNCTYPE(None, Event, ctypes.c_void_p)
+callbackmethod=ctypes.CFUNCTYPE(None, ctypes.POINTER(Event), ctypes.c_void_p)
 
 # Example callback method
 @callbackmethod
