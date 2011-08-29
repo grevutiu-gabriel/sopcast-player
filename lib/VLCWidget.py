@@ -52,9 +52,13 @@ class VLCWidget(gtk.DrawingArea):
 			self.player=instance.mediacontrol_new_from_instance()
 			self.parent_cls.config_manager.uses_new_bindings(False)
 		except(Exception):
-			instance = vlc_1_1_x.Instance()
+			instance=vlc_1_1_x.Instance()
+			#instance = vlc_1_1_x.Instance(["--no-xlib"])
 			self.player=instance.media_player_new()
 			self.parent_cls.config_manager.uses_new_bindings(True)
+		
+		self.vlc_event_manager = self.player.event_manager()
+		self.vlc_event_manager.event_attach(vlc_1_1_x.EventType.MediaPlayerPositionChanged,self.pos_callback, self.player)
 				
 		if self.parent_cls.config_manager.uses_new_bindings():
 			def handle_embed(*args):
@@ -82,6 +86,36 @@ class VLCWidget(gtk.DrawingArea):
 		self.container.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("black"))
 		self.is_fs = False
 		self.is_fw = False
+	
+	def pos_callback(self, event, player):
+		if player.get_time() / 1000 / 3600 / 24 > 0:
+			print "%s day(s) %s:%s:%s/%s:%s:%s" % (player.get_time() / 1000 / 3600 / 24,
+				self.format_time_part(player.get_time() / 1000 / 3600 % 24, True),
+				self.format_time_part(player.get_time() / 1000 / 60 % 60),
+				self.format_time_part(player.get_time() / 1000 % 60),
+				self.format_time_part(player.get_length() / 1000 / 3600, True),
+				self.format_time_part(player.get_length() / 1000 / 60 % 60),
+				self.format_time_part(player.get_length() / 1000 % 60))
+		else:
+			print "%s:%s:%s/%s:%s:%s" % (self.format_time_part(player.get_time() / 1000 / 3600, True),
+				self.format_time_part(player.get_time() / 1000 / 60 % 60),
+				self.format_time_part(player.get_time() / 1000 % 60),
+				self.format_time_part(player.get_length() / 1000 / 3600, True),
+				self.format_time_part(player.get_length() / 1000 / 60 % 60),
+				self.format_time_part(player.get_length() / 1000 % 60))
+        	#print('%s to %.2f%% (%.2f%%)' % (event.type, event.u.new_position * 100, player.get_position() * 100))
+
+	def format_time_part(self, part, hour=False):
+		if hour == False:
+			if part < 10:
+				return "0%s" % (part)
+			else:
+				return part
+		else:
+			if part < 1:
+				return "0"
+			else:
+				return part
 		
 		
 
@@ -120,6 +154,7 @@ class VLCWidget(gtk.DrawingArea):
 		self.player.set_mrl(url)
 		
 	def play_media(self):
+		self.player.set_mrl("http://212.45.104.50:8052/")
 		if self.parent_cls.config_manager.uses_new_bindings():
 			self.player.play()
 			if len(self.container.get_children()) == 0:

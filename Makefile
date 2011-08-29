@@ -37,18 +37,23 @@ EDIT ?= sed -e 's|@DATADIR@|$(DATADIR)|g' \
 	    -e 's|@ICONDIR@|$(ICONDIR)|g' \
 	    -e 's|@DESTDIR@|$(DESTDIR)|g' \
 	    -e 's|@EXECUTABLE@|$(EXECUTABLE)|g'
-PYTHON ?= $(BINDIR)/python
+PYTHON ?= /usr/bin/python
 CFLAGS ?= -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions \
           -fstack-protector --param=ssp-buffer-size=4
 VLC_BINDINGS_DIR ?= pyvlc_bindings
 VLC_BINDINGS_GENERATE_DIR ?= $(VLC_BINDINGS_DIR)/generated
-VERSION ?= 0.7.3
+VERSION ?= 0.7.4
 
 gtk_update_icon_cache = gtk-update-icon-cache -f -t $(ICONBASEDIR)
 
 build: language desktop schema byte-compile
 	
 desktop:
+	#@if test -z "$(DESTDIR)"; then \
+	#	sed -e 's|@PYTHON@|$(PYTHON)|g' -e 's|@DIR@|$(INSTALLDIR)|g' -e 's|@NAME@|$(NAME)|g' $(NAME).in > $(NAME); \
+	#else \
+	#	sed -e 's|@PYTHON@|$(PYTHON)|g' -e 's|@DIR@|$(DESTDIR)/$(NAME)|g' -e 's|@NAME@|$(NAME)|g' $(NAME).in > $(NAME); \
+	#fi
 	$(EDIT) $(NAME).in > $(NAME)
 
 schema:
@@ -76,6 +81,14 @@ clean:
 	rm -rf sopcast-player.schemas
 	
 install:
+	@if [ $(PREFIX) != "/usr" ]; then \
+		$(EDIT) $(NAME).in > $(NAME); \
+	fi
+	
+	#@if test -z "$(DESTDIR)"; then \
+	#	sed -e 's|@PYTHON@|$(PYTHON)|g' -e 's|@DIR@|$(DESTDIR)/$(NAME)|g' -e 's|@NAME@|$(NAME)|g' $(NAME).in > $(NAME); \
+	#fi
+	
 	$(INSTALL) -dm 0755 $(DESTDIR)$(INSTALLDIR)/resources
 	$(INSTALL) -dm 0755 $(DESTDIR)$(INSTALLDIR)/lib
 	$(INSTALL) -dm 0755 $(DESTDIR)$(INSTALLDIR)/ui

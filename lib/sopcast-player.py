@@ -30,7 +30,7 @@ import os
 from DatabaseOperations import DatabaseOperations
 from dynamic_ports import DynamicPorts
 from fork import ForkSOP
-from listen import SOPStats
+from listen import Listen
 import pySocket
 from pySopCastConfigurationManager import pySopCastConfigurationManager
 from VLCWidget import VLCWidget
@@ -662,7 +662,7 @@ class pySopCast(object):
 			if self.inbound_port == None or self.outbound_port == None:
 				self.window.destroy()
 			else:
-				self.sop_stats = SOPStats(self.config_manager.server(), self.outbound_port)
+				self.sop_stats = Listen(self.config_manager.server(), self.outbound_port)
 			
 				if channel_url != None:
 					self.channel_url = channel_url
@@ -679,15 +679,19 @@ class pySopCast(object):
 						records = self.db_operations.retrieve_channel_guide_record_by_address(self.channel_url)
 						if len(records) > 0:
 							self.window.set_title("%s - %s" % (records[0][0], self.window_title))
-			
-				self.fork_sop.fork_sop(self.channel_url, str(self.inbound_port), str(self.outbound_port))
+				try:
+					self.fork_sop.fork_sop(self.channel_url, str(self.inbound_port), str(self.outbound_port))
+					self.menu_add_bookmark.set_sensitive(True)
+					self.menu_fullscreen.set_sensitive(True)
+
+					self.outbound_media_url = "http://%s:%d/tv.asf" % (self.config_manager.server(), self.outbound_port)
+					self.vlc.set_media_url(self.outbound_media_url)
+					self.ui_worker.startup()
+				except Exception as ex:
+					x, y = ex
+					self.update_statusbar(y)
 		
-				self.menu_add_bookmark.set_sensitive(True)
-				self.menu_fullscreen.set_sensitive(True)
-		
-				self.outbound_media_url = "http://%s:%d/tv.asf" % (self.config_manager.server(), self.outbound_port)
-				self.vlc.set_media_url(self.outbound_media_url)
-				self.ui_worker.startup()
+
 
 	def on_play_button_clicked(self, src, data=None):
 		if self.channel_url != None:

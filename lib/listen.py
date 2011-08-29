@@ -18,11 +18,12 @@ import socket
 import string
 import time
 
-class SOPStats:
+class Listen:
 	def __init__(self, host=None, port=None):
 		self.sock = None
 		self.host = host
 		self.port = port
+		self.connected = False
 		
 	def set_host(self, host):
 		self.host = host
@@ -31,17 +32,22 @@ class SOPStats:
 		self.port = port
 		
 	def connect_to_server(self):
-		try:
-			self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-			self.sock.connect((self.host, self.port))
+		if not self.connected:
+			try:
+				self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+				self.sock.connect((self.host, self.port))
+				self.connected = True
+				return True
+			except:
+				return False
+		else:
 			return True
-		except:
-			return False
 		
 	def send_msg(self, msg):
-		sent = self.sock.send(msg)
-		if sent == 0:
-			raise RuntimeError, "socket connection broken"
+		if self.connect_to_server() == True:
+			sent = self.sock.send(msg)
+			if sent == 0:
+				raise RuntimeError, "socket connection broken"
 			
 	def receive_msg(self):
 		BUFSIZE = 128
@@ -53,25 +59,25 @@ class SOPStats:
 			if chunk == '':
 				raise RuntimeError, "socket connection broken"
 			msg = msg + chunk
+		
+		self.sock.close()
+		self.connected = False
 			
 		return msg
 		
 	def update_stats(self):
 		try:
-			if self.connect_to_server() == True:
-				self.send_msg("state\ns\n")
-				self.send_msg("state\ns\n")
-				stats = self.receive_msg()
-	
-				while len(stats.split(" ")) > 7:
-					stats = stats.replace("  ", " ")
-		
-				stats = stats.split(" ")
-				self.sock.close()
-		
-				return stats
-			else:
-				return None
+			self.send_msg("state\ns\n")
+			self.send_msg("state\ns\n")
+			stats = self.receive_msg()
+
+			while len(stats.split(" ")) > 7:
+				stats = stats.replace("  ", " ")
+
+			stats = stats.split(" ")
+			self.sock.close()
+
+			return stats
 		except:
 			return None
 

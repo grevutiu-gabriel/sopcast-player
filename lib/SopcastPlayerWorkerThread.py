@@ -51,6 +51,7 @@ class UpdateUIThread(threading.Thread):
 		self.retry = False
 		self.volume = None
 		self.external_player = fork.ForkExternalPlayer()
+		self.external_player.connect('killed', self.on_external_player_killed)
 		
 	def run(self):
 		err_point = 0
@@ -69,7 +70,6 @@ class UpdateUIThread(threading.Thread):
 							if self.parent.external_player_command != None:
 								if self.parent.external_player_command != "":
 									self.external_player.kill()
-									print("stoping external media player")
 							else:
 								self.parent.stop_vlc()						
 								
@@ -132,7 +132,6 @@ class UpdateUIThread(threading.Thread):
 									if self.parent.external_player_command != None:
 										if self.parent.external_player_command != "":
 											self.external_player.fork_player(self.parent.external_player_command, self.parent.outbound_media_url)
-											print("Executing " + self.parent.external_player_command)
 									else:
 										gtk.gdk.threads_enter()
 										started = self.parent.start_vlc()
@@ -166,6 +165,13 @@ class UpdateUIThread(threading.Thread):
 			time.sleep(self.sleep_time)
 		self.external_player.kill()
 		self.terminated = True
+		
+	def on_external_player_killed(self, obj, data=None):
+		self.shutdown()
+		self.parent.fork_sop.kill_sop()
+		gtk.gdk.threads_enter()
+		self.parent.update_statusbar('')
+		gtk.gdk.threads_leave()
 		
 	def print_point_on_exit(self, point):
 		if self.terminate == True:
