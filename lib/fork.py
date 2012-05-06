@@ -103,7 +103,7 @@ class Fork(gobject.GObject):
 				killedpid, stat = os.wait()
 				self.set_property('pid', 0)
 			except OSError:
-				sys.stderr.write("Process %s does not exist\n" % self.child_pid)
+				sys.stderr.write("Process %s does not exist\n" % self.pid)
 	
 	def is_running(self):
 		if self.get_property('pid') != 0:
