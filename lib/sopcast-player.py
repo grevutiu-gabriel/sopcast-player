@@ -449,7 +449,7 @@ class pySopCast(object):
 		
 		clipboard = gtk.clipboard_get().wait_for_text()
 		
-		if clipboard[0:6].lower() == "sop://":
+		if clipboard and clipboard[0:6].lower() == "sop://":
 			entry.set_text(clipboard)
 		
 		############# Code contribution by Benjamin Kluglein ####################
