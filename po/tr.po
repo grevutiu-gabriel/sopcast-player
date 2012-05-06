@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: sopcast-player\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-01-20 20:24+0100\n"
-"PO-Revision-Date: 2010-01-02 14:24+0000\n"
-"Last-Translator: zeugma <Unknown>\n"
+"PO-Revision-Date: 2012-04-04 19:04+0000\n"
+"Last-Translator: Virus666 <Unknown>\n"
 "Language-Team: Turkish <tr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-04-23 21:32+0000\n"
-"X-Generator: Launchpad (build 12883)\n"
+"X-Launchpad-Export-Date: 2012-05-06 12:52+0000\n"
+"X-Generator: Launchpad (build 15195)\n"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:88
 msgid "Retrying channel"
@@ -63,7 +63,7 @@ msgstr "Sop Adresi Giriniz"
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:865
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:872
 msgid "Name"
-msgstr "İsim"
+msgstr "Ad"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:470
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:865

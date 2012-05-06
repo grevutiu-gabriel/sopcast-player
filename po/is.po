@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: sopcast-player\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-01-20 20:24+0100\n"
-"PO-Revision-Date: 2011-04-30 17:32+0000\n"
-"Last-Translator: Tómas Guðmundsson <wildrabbit@gmail.com>\n"
+"PO-Revision-Date: 2011-05-23 23:46+0000\n"
+"Last-Translator: Palliv <pall.valur@gmail.com>\n"
 "Language-Team: Icelandic <is@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-05-02 15:08+0000\n"
-"X-Generator: Launchpad (build 12915)\n"
+"X-Launchpad-Export-Date: 2012-05-06 12:52+0000\n"
+"X-Generator: Launchpad (build 15195)\n"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:88
 msgid "Retrying channel"
@@ -83,12 +83,12 @@ msgstr "Straumsnið"
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:470
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:865
 msgid "QC"
-msgstr ""
+msgstr "QC"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:470
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:865
 msgid "QS"
-msgstr ""
+msgstr "QS"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:470
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:475
@@ -109,15 +109,15 @@ msgstr "Esc til að minnka gluggann"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:677
 msgid "Contacting Server"
-msgstr "Tengist netþjónn"
+msgstr "Tengist netþjóni"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:685
 msgid "Updating Database"
-msgstr "Uppfæra gagnagrunn"
+msgstr "Uppfæri gagnagrunn"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:733
 msgid "Channel Guide Update Completed"
-msgstr "Uppfærsla stöðvalista lokið"
+msgstr "Uppfærslu stöðvalista lokið"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:741
 msgid "Channel Guide Retrieval Failed Due to Network Problems"
@@ -129,7 +129,7 @@ msgstr "Sæki stöðvalista"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "_File"
-msgstr ""
+msgstr "_Skrá"
 
 #: /home/jason/Desktop/SopCast-Player/ui/pySopCast.glade
 msgid "> Channel Guide"
@@ -185,7 +185,7 @@ msgstr "<b>Uppstilling stöðvalista:</b>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Channel Guide URL</b>"
-msgstr "<b>Tengill stöðvalista</B>"
+msgstr "<b>Tengill stöðvalista</b>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Channel Timeout</b>"
@@ -193,158 +193,159 @@ msgstr "<b>Tímamörk stöðvar</b>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Media Player</b>"
-msgstr ""
+msgstr "<b>Margmiðlunarspilari</b>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Ports</b>"
-msgstr ""
+msgstr "<b>Tengi</b>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Classic (Separate windows)"
-msgstr ""
+msgstr "Klassískt (Aðskildir gluggar)"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Command: "
-msgstr ""
+msgstr "Skipun: "
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Frequency"
-msgstr ""
+msgstr "Tíðni"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "In-bound Port: "
-msgstr ""
+msgstr "Inngátt: "
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Language"
-msgstr ""
+msgstr "Tungumál"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Out-bound Port: "
-msgstr ""
+msgstr "Útgátt: "
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Player"
-msgstr ""
+msgstr "Spilari"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Static Ports"
-msgstr ""
+msgstr "Föst gátt"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Timeout"
-msgstr ""
+msgstr "Tímamörk"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "URL: "
-msgstr ""
+msgstr "URL: "
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Unity (Single-window)"
-msgstr ""
+msgstr "Heild (Einn gluggi)"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Use External Player"
-msgstr ""
+msgstr "Nota annan spilara"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Completed"
-msgstr ""
+msgstr "Lokið"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Server Down"
-msgstr ""
+msgstr "Næst ekki í netþjónn"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Downloading"
-msgstr ""
+msgstr "Sæki gögn"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "Static Ports Unavailable"
-msgstr ""
+msgstr "Stöðugar gáttir ekki tiltækar"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid ""
 "Static ports unavailable, do you wish to continue using dynamic ports?"
 msgstr ""
+"Stöðugar gáttir ekki tiltækar. viltu reyna að nota breytilegar gáttir?"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:754
 msgid "<i>3 Seconds</i>"
-msgstr ""
+msgstr "<i>3 Sekúndur</i>"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:755
 msgid "<i>30 Seconds</i>"
-msgstr ""
+msgstr "<i>30 Sekúndur</i>"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:756
 msgid "<i>5 Minutes</i>"
-msgstr ""
+msgstr "<i>5 Mínútur</i>"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:757
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<i>Never</i>"
-msgstr ""
+msgstr "<i>Aldrei</i>"
 
 msgid "Screenshot"
-msgstr ""
+msgstr "Skjámynd"
 
 msgid "Name:"
-msgstr ""
+msgstr "Heiti:"
 
 msgid "Format:"
-msgstr ""
+msgstr "Snið:"
 
 msgid "Bitrate:"
-msgstr ""
+msgstr "Bitatíðni:"
 
 msgid "Channel Group:"
-msgstr ""
+msgstr "Stöðva hópur:"
 
 msgid "Classification:"
-msgstr ""
+msgstr "Flokkun:"
 
 msgid "Description:"
-msgstr ""
+msgstr "Lýsing:"
 
 msgid "Preferences"
-msgstr ""
+msgstr "Valmöguleikar"
 
 msgid "Play"
-msgstr ""
+msgstr "Spila"
 
 msgid "Stop"
-msgstr ""
+msgstr "Stöðva"
 
 msgid "Always On Top"
-msgstr ""
+msgstr "Alltaf fremst"
 
 msgid "Show Controls"
-msgstr ""
+msgstr "Sýna tækjaslá"
 
 msgid "Chinese"
-msgstr ""
+msgstr "Kínverska"
 
 msgid "English"
-msgstr ""
+msgstr "Enska"
 
 msgid "<i>Daily</i>"
-msgstr ""
+msgstr "<i>Daglega</i>"
 
 msgid "<i>Program Start</i>"
-msgstr ""
+msgstr "<i>Forrit ræst</i>"
 
 msgid "<big><b>Channel Bookmark</b></big>"
-msgstr ""
+msgstr "<big><b>Stöðva bókamerki</b></big>"
 
 msgid "_Edit"
-msgstr ""
+msgstr "Breyta"
 
 msgid "Properties"
-msgstr ""
+msgstr "Stillingar"
 
 msgid "Bookmark"
-msgstr ""
+msgstr "Bókamerki"
 
 msgid "Show Toolbar"
-msgstr ""
+msgstr "Sýna tækjaslá"

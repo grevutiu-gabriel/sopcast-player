@@ -10,7 +10,7 @@
     <property name="icon">sopcast-player.svg</property>
     <property name="type_hint">dialog</property>
     <property name="program_name">SopCast Player</property>
-    <property name="version">0.7.4</property>
+    <property name="version">0.7.5</property>
     <property name="copyright" translatable="yes">Copyright © 2009-2011 Jason Scheunemann</property>
     <property name="comments" translatable="yes">A GUI front-end for SopCast</property>
     <property name="website">http://code.google.com/p/sopcast-player</property>
@@ -87,7 +87,15 @@ nanker
 CrabMan
 أبو همام &lt;xx1429xx@hotmail.com&gt;
 Josu Orbe
-Tómas Guðmundsson &lt;wildrabbit@gmail.com&gt;</property>
+Tómas Guðmundsson &lt;wildrabbit@gmail.com&gt;
+Uwe Dulz &lt;uwe.dulz@gmail.com&gt;
+Rafael Neri
+fermuch@gmail.com &lt;fermuch@gmail.com&gt;
+Oier Mees
+Palliv &lt;pall.valur@gmail.com&gt;
+Jon Arne Westgaard &lt;westgaard@linux.com&gt;
+Daniel Șerbănescu &lt;cyber19rider@gmail.com&gt;
+Virus666</property>
     <property name="wrap_license">True</property>
     <child internal-child="vbox">
       <widget class="GtkVBox" id="dialog-vbox1">

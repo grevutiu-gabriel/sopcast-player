@@ -6,14 +6,14 @@ msgstr ""
 "Project-Id-Version: es_ES\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-01-20 20:24+0100\n"
-"PO-Revision-Date: 2010-06-19 11:14+0000\n"
-"Last-Translator: Kytos <Unknown>\n"
+"PO-Revision-Date: 2012-01-21 07:52+0000\n"
+"Last-Translator: fermuch@gmail.com <fermuch@gmail.com>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-04-23 21:32+0000\n"
-"X-Generator: Launchpad (build 12883)\n"
+"X-Launchpad-Export-Date: 2012-05-06 12:52+0000\n"
+"X-Generator: Launchpad (build 15195)\n"
 "X-Poedit-Country: SPAIN\n"
 "X-Poedit-Language: Spanish\n"
 "X-Poedit-SourceCharset: utf-8\n"
@@ -37,7 +37,7 @@ msgstr "Almacenando en búfer"
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:124
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:131
 msgid "Buffer"
-msgstr "Buffer"
+msgstr "Búfer"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:213
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:813
@@ -47,7 +47,7 @@ msgstr "Última actualización de la lista de canales"
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:231
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:240
 msgid "SopCast Player"
-msgstr "Sopcast Player"
+msgstr "SopCast Player"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:289
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade

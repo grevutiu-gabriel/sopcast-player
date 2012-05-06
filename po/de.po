@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: sopcast-player\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-01-20 20:24+0100\n"
-"PO-Revision-Date: 2010-12-11 19:06+0000\n"
-"Last-Translator: Atalanttore <atalanttore@googlemail.com>\n"
+"PO-Revision-Date: 2012-02-28 12:01+0000\n"
+"Last-Translator: Uwe Dulz <uwe.dulz@gmail.com>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-04-23 21:32+0000\n"
-"X-Generator: Launchpad (build 12883)\n"
+"X-Launchpad-Export-Date: 2012-05-06 12:52+0000\n"
+"X-Generator: Launchpad (build 15195)\n"
 
 #: /home/jason/Desktop/SopCast-Player/sopcast-player.py:88
 msgid "Retrying channel"
@@ -183,7 +183,7 @@ msgstr "<b>Sprache des Programmführers</b>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Channel Guide Layout:</b>"
-msgstr "<b>Layout des Programmführers:</b>"
+msgstr "<b>Aussehen des Programmführers:</b>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Channel Guide URL</b>"
@@ -195,7 +195,7 @@ msgstr "<b>Zeitüberschreitung des Senders</b>"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Media Player</b>"
-msgstr "<b>Media Player</b>"
+msgstr "Medien-Abspielprogramm"
 
 #: /home/jason/Desktop/SopCast-Player/ui/Options.glade
 msgid "<b>Ports</b>"
