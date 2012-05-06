@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 
 #! /usr/bin/python
-# Copyright (C) 2009-2011 Jason Scheunemann <jason.scheunemann@yahoo.com>.
+# Copyright (C) 2009-2012 Jason Scheunemann <jason.scheunemann@yahoo.com>.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -42,7 +42,7 @@ CFLAGS ?= -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions \
           -fstack-protector --param=ssp-buffer-size=4
 VLC_BINDINGS_DIR ?= pyvlc_bindings
 VLC_BINDINGS_GENERATE_DIR ?= $(VLC_BINDINGS_DIR)/generated
-VERSION ?= 0.7.4
+VERSION ?= 0.7.5
 
 gtk_update_icon_cache = gtk-update-icon-cache -f -t $(ICONBASEDIR)
 
