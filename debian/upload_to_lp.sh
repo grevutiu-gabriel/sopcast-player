@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION='0.7.4'
+VERSION='0.7.5'
 UPLOAD_ITERATOR='1'
 
 DISTROS='
@@ -12,6 +12,7 @@ lucid
 maverick
 natty
 oneiric
+precise
 '
 
 DEB_HELPER_6='hardy
@@ -23,7 +24,8 @@ lucid'
 
 DEB_HELPER_8='maverick
 natty
-oneiric'
+oneiric
+precise'
 
 DATE=`date --rfc-2822`
 
@@ -45,7 +47,7 @@ sed -i "s/ -- Jason Scheunemann <jason.scheunemann@yahoo.com>  .*/ -- Jason Sche
 sed -i "0,/([0-9]*.[0-9]*.[0-9]*~/s//($VERSION~/" changelog
 
 
-if [[ -n `cat 'changelog' | grep -E '~ppa*~(hardy|intrepid|jaunty|karmic|lucid|maverick|natty|oneiric)[0-9]*'` ]]
+if [[ -n `cat 'changelog' | grep -E '~ppa*~(hardy|intrepid|jaunty|karmic|lucid|maverick|natty|oneiric|precise)[0-9]*'` ]]
 then
 	for REPLACEMENT_DISTRO in ${DISTROS};
 	do	
