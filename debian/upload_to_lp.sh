@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION='0.7.5'
+VERSION='0.8.1'
 UPLOAD_ITERATOR='1'
 
 DISTROS='

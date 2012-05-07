@@ -1,5 +1,11 @@
-sopcast-player (0.7.4~ppa~oneiric1) oneiric; urgency=low
+sopcast-player (0.8.1~ppa~precise1) precise; urgency=low
 
+   * 0.8.1
+     -Removed for vlc < 1.1 support, should resolve segfault issues
+     
+   * 0.7.4
+     -Updated for precise
+     
    * 0.7.4
      -Fixed makefile to deal with different prefixes in a sane way
      -Enabled smart searching for sp-sc-auth binary aliases
@@ -92,4 +98,4 @@ sopcast-player (0.7.4~ppa~oneiric1) oneiric; urgency=low
   * 0.1.0
     -Initial release
     
- -- Jason Scheunemann <jason.scheunemann@yahoo.com>  Mon, 23 May 2011 19:43:51 +0100
+ -- Jason Scheunemann <jason.scheunemann@yahoo.com>  Sun, 06 May 2012 12:16:32 -0800

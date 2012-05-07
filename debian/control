@@ -7,7 +7,7 @@ Standards-Version: 3.7.2
 
 Package: sopcast-player
 Architecture: any
-Depends: python (>=2.4), vlc (>= 0.9.4), libvlc-dev, sp-auth (>= 3.0.1), hicolor-icon-theme, python-glade2, python-gobject, python-gtk2
+Depends: python (>=2.4), vlc (>= 1.1.0), libvlc-dev, sp-auth (>= 3.0.1), hicolor-icon-theme, python-glade2, python-gobject, python-gtk2
 Suggests: python-gnome2
 Description: A GUI front-end to SopCast
  SopCast Player is designed to be a complete GUI front-end for the SopCast streaming program. SopCast Player allow users easy access to p2p intenet TV channel streams.
