@@ -29,7 +29,6 @@ $Id$
 
 import gtk
 import sys
-import vlc_1_0_x
 import vlc_1_1_x
 
 from WindowingTransformations import WindowingTransformations
@@ -47,39 +46,28 @@ class VLCWidget(gtk.DrawingArea):
 		self.parent_cls = parent
 		self.container = container
 		
-		try:
-			instance=vlc_1_0_x.Instance()
-			self.player=instance.mediacontrol_new_from_instance()
-			self.parent_cls.config_manager.uses_new_bindings(False)
-		except(Exception):
-			instance=vlc_1_1_x.Instance()
-			#instance = vlc_1_1_x.Instance(["--no-xlib"])
-			self.player=instance.media_player_new()
-			self.parent_cls.config_manager.uses_new_bindings(True)
+		instance=vlc_1_1_x.Instance()
+		self.player=instance.media_player_new()
 		
 		self.vlc_event_manager = self.player.event_manager()
 		self.vlc_event_manager.event_attach(vlc_1_1_x.EventType.MediaPlayerPositionChanged,self.pos_callback, self.player)
-				
-		if self.parent_cls.config_manager.uses_new_bindings():
-			def handle_embed(*args):
-				if sys.platform == 'win32':
-					self.player.set_hwnd(self.window.handle)
-				else:
-					self.player.set_xwindow(self.window.xid)
-				return True
-				
-			self.add_events(gtk.gdk.BUTTON_PRESS_MASK)
-			self.connect("button_press_event", self.on_mouse_button_clicked)				
-				
-			self.connect("map", handle_embed)
+		
+		def handle_embed(*args):
+			if sys.platform == 'win32':
+				self.player.set_hwnd(self.window.handle)
+			else:
+				self.player.set_xwindow(self.window.xid)
+			return True
 			
-			self.wt = WindowingTransformations(self.container, self.parent_cls)
-	
-			self.container.get_toplevel().add_events(gtk.gdk.KEY_PRESS_MASK)
-			self.container.get_toplevel().connect("key-press-event", self.on_key_press)
-		else:
-			self.wt = WindowingTransformations(self, self.parent_cls)
-			self.media_playing = False
+		self.add_events(gtk.gdk.BUTTON_PRESS_MASK)
+		self.connect("button_press_event", self.on_mouse_button_clicked)				
+			
+		self.connect("map", handle_embed)
+		
+		self.wt = WindowingTransformations(self.container, self.parent_cls)
+
+		self.container.get_toplevel().add_events(gtk.gdk.KEY_PRESS_MASK)
+		self.container.get_toplevel().connect("key-press-event", self.on_key_press)
 		
 		self.set_size_request(320, 200)		
 		self.modify_bg(gtk.STATE_NORMAL, self.get_colormap().alloc_color("black"))		
@@ -154,24 +142,14 @@ class VLCWidget(gtk.DrawingArea):
 		self.player.set_mrl(url)
 		
 	def play_media(self):
-		self.player.set_mrl("http://212.45.104.50:8052/")
-		if self.parent_cls.config_manager.uses_new_bindings():
-			self.player.play()
-			if len(self.container.get_children()) == 0:
-				self.container.add(self)
-			
-			self.show()
-		else:
-			self.realize()
-			self.player.set_visual(self.window.xid)
-			self.player.start(0)
-			self.media_playing = True	
+		self.player.play()
+		if len(self.container.get_children()) == 0:
+			self.container.add(self)
+		
+		self.show()
 
 	def is_playing(self):
-		if self.parent_cls.config_manager.uses_new_bindings():
-			return self.player.is_playing()
-		else:
-			return self.media_playing
+		return self.player.is_playing()
 		
 	def media_loaded(self):
 		return self.is_playing()
@@ -196,32 +174,22 @@ class VLCWidget(gtk.DrawingArea):
 		
 	def fullscreen(self):
 		self.wt.fullscreen()
-		
-		if self.parent_cls.config_manager.uses_new_bindings():
-			self.is_fs = True
+		self.is_fs = True
 	
 	def unfullscreen(self):
 		self.wt.unfullscreen()
-		if self.parent_cls.config_manager.uses_new_bindings():
-			self.is_fs = False
+		self.is_fs = False
 		
 	def fullwindow(self):
 		self.wt.fullwindow()
-		
-		if self.parent_cls.config_manager.uses_new_bindings():
-			self.is_fw = True
+		self.is_fw = True
 	
 	def unfullwindow(self):
 		self.wt.unfullwindow()
-		
-		if self.parent_cls.config_manager.uses_new_bindings():
-			self.is_fw = False
+		self.is_fw = False
 	
 	def set_volume(self, level):
-		if self.parent_cls.config_manager.uses_new_bindings():
-			self.player.audio_set_volume(level)
-		else:
-			self.player.sound_set_volume(level)
+		self.player.audio_set_volume(level)
 		
 	def screenshot(self):
 		return self.player.snapshot(0)
