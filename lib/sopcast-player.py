@@ -109,6 +109,7 @@ class pySopCast(object):
 			"on_volume_adjust_bounds" : self.on_volume_adjust_bounds,
 			"on_menu_about_activate" : self.on_menu_about_activate,
 			"on_open_sop_address_activate" : self.on_open_sop_address_activate,
+			"on_show_url_activate" : self.on_show_url_activate,
 			"on_refresh_channel_guide_clicked" : self.on_refresh_channel_guide_clicked,
 			"on_menu_screenshot_activate" : self.on_menu_screenshot_activate,
 			"on_menu_preferences_activate" : self.on_menu_preferences_activate,
@@ -168,10 +169,6 @@ class pySopCast(object):
 		
 		if show_channel_guide_pane == False:
 			self.channel_guide_pane.hide()
-		
-		if not self.config_manager.uses_new_bindings():
-			self.eb.add_events(gtk.gdk.BUTTON_PRESS_MASK)
-			self.eb.connect("button_press_event", self.on_mouse_button_clicked)
 		
 		self.wt = WindowingTransformations(self.eb, self)
 		self.show_channel_guide.set_active(show_channel_guide_pane)
@@ -237,10 +234,7 @@ class pySopCast(object):
 	#end
 	
 	def on_fullscreen_activate(self, src, data=None):
-		if self.config_manager.uses_new_bindings():
-			self.vlc.toggle_fullscreen()
-		else:
-			self.toggle_fullscreen()
+		self.vlc.toggle_fullscreen()
 		
 	def __getattribute__(self, key):
 		value = None
@@ -468,6 +462,35 @@ class pySopCast(object):
 				self.play_channel(entry.get_text())
 			
 		dialog.destroy()
+		
+		
+	def on_show_url_activate(self, src, data=None):
+		dialog = gtk.Dialog(_("URL"),
+			self.window,
+			gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+			(gtk.STOCK_OK, gtk.RESPONSE_ACCEPT))
+			
+		hbox = gtk.HBox()
+		entry = gtk.Entry(30)
+		
+		clipboard = gtk.clipboard_get().wait_for_text()
+		
+		entry.set_text(self.channel_url)
+		entry.set_editable(False)
+		if len(entry.get_text()) > 0:
+			entry.select_region(0, len(entry.get_text()))
+		
+		############# Code contribution by Benjamin Kluglein ####################
+		entry.connect("activate", lambda a: dialog.response(gtk.RESPONSE_ACCEPT))
+		#########################################################################
+		
+		hbox.pack_start(entry)
+		hbox.set_size_request(250, 50)
+		hbox.show_all()
+		dialog.set_default_response(gtk.RESPONSE_ACCEPT)
+		dialog.vbox.pack_start(hbox)
+		dialog.run()
+		dialog.destroy()
 	
 	def on_show_channel_guide_toggled(self, src, data=None):
 		window_width = self.window.get_size()[0]
@@ -555,44 +578,25 @@ class pySopCast(object):
 		self.toggle_menu_controls()
 		
 	def toggle_menu_controls(self):
-		if self.config_manager.uses_new_bindings():
-			self.vlc.toggle_fullwindow()
-		else:
-			if self.fullwindow:
-				self.wt.unfullwindow()
-			else:
-				self.wt.fullwindow()
-		
-			self.fullwindow = not self.fullwindow
+		self.vlc.toggle_fullwindow()
 
 	def on_window_key_press_event(self, src, event, data=None):
-		if not self.config_manager.uses_new_bindings():
-			if gtk.gdk.keyval_name(event.keyval) in ["h", "H"]:
-				if not self.fullscreen:
-					self.toggle_menu_controls()
-				return True
-			elif event.keyval == gtk.keysyms.Escape:
-				if self.fullscreen:
-					self.toggle_fullscreen()
-				return True
-			elif gtk.gdk.keyval_name(event.keyval) in ["f", "F"]:
+		if event.keyval == gtk.keysyms.F11:
+			if self.vlc.is_playing():
 				self.menu_fullscreen.activate()
-				return True
-		
-		if gtk.gdk.keyval_name(event.keyval) in ["t", "T"]:
-			active = not self.menu_stay_on_top.get_active()
-			self.menu_stay_on_top.set_active(active)
 			return True
-		elif gtk.gdk.keyval_name(event.keyval) in ["q", "Q"]:
-			self.menu_quit.activate()
+		elif gtk.gdk.keyval_name(event.keyval) in ["h", "H"]:
+			if not self.fullscreen:
+				self.toggle_menu_controls()
 			return True
-		elif gtk.gdk.keyval_name(event.keyval) in ["o", "O"]:
-			self.open_sop_address.activate()
+		elif event.keyval == gtk.keysyms.Escape:
+			if self.fullscreen:
+				self.toggle_fullscreen()
 			return True
-		elif gtk.gdk.keyval_name(event.keyval) in ["d", "D"]:
-			if self.menu_add_bookmark.get_sensitive():
-				self.menu_add_bookmark.activate()
-				return True
+		elif gtk.gdk.keyval_name(event.keyval) in ["f", "F"]:
+			if self.vlc.is_playing():
+				self.menu_fullscreen.activate()
+			return True
 		
 		return False
 	
@@ -629,27 +633,15 @@ class pySopCast(object):
 		self.vlc.set_volume(volume)
 		
 	def start_vlc(self):
-		if self.config_manager.uses_new_bindings():
-			self.vlc.play_media()
-			self.vlc.set_volume(self.player_volume)
-			return True
-		else:
-			if self.vlc.get_parent() == None:
-				self.eb.add(self.vlc)
-				self.eb.show_all()
-				return False
-		
-			if self.vlc.get_parent() == self.eb:
-				self.vlc.play_media()
-				self.vlc.set_volume(self.player_volume)
-				return True
-			else:
-				return False
+		self.vlc.play_media()
+		self.vlc.set_volume(self.player_volume)
+		return True
 			
 	def stop_vlc(self):
 		self.vlc.stop_media()
 		
 	def play_channel(self, channel_url=None, title=None):
+		self.show_url.set_sensitive(True)
 		self.menu_add_bookmark.set_sensitive(True)
 		if self.fork_sop != None:
 			if self.fork_sop.is_running() == True:

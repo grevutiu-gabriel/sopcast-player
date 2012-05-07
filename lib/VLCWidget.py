@@ -29,7 +29,7 @@ $Id$
 
 import gtk
 import sys
-import vlc_1_1_x
+import vlc
 
 from WindowingTransformations import WindowingTransformations
 
@@ -46,11 +46,11 @@ class VLCWidget(gtk.DrawingArea):
 		self.parent_cls = parent
 		self.container = container
 		
-		instance=vlc_1_1_x.Instance()
+		instance=vlc.Instance()
 		self.player=instance.media_player_new()
 		
 		self.vlc_event_manager = self.player.event_manager()
-		self.vlc_event_manager.event_attach(vlc_1_1_x.EventType.MediaPlayerPositionChanged,self.pos_callback, self.player)
+		self.vlc_event_manager.event_attach(vlc.EventType.MediaPlayerPositionChanged,self.pos_callback, self.player)
 		
 		def handle_embed(*args):
 			if sys.platform == 'win32':
