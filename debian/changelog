@@ -1,9 +1,12 @@
-sopcast-player (0.8.1~ppa~precise1) precise; urgency=low
+sopcast-player (0.8.2~ppa~precise1) precise; urgency=low
+
+   * 0.8.2
+     -Added support for F11 fullscreen, and View->URL to view currently playing URL
 
    * 0.8.1
      -Removed for vlc < 1.1 support, should resolve segfault issues
      
-   * 0.7.4
+   * 0.7.5
      -Updated for precise
      
    * 0.7.4
@@ -98,4 +101,4 @@ sopcast-player (0.8.1~ppa~precise1) precise; urgency=low
   * 0.1.0
     -Initial release
     
- -- Jason Scheunemann <jason.scheunemann@yahoo.com>  Sun, 06 May 2012 12:16:32 -0800
+ -- Jason Scheunemann <jason.scheunemann@yahoo.com>  Sun, 06 May 2012 16:51:00 -0800
