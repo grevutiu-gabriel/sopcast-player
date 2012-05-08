@@ -43,7 +43,7 @@ class Fork(gobject.GObject):
 			'resulting pid after fork',
 			'The process id after fork is succesfully called',
 			0,
-			sys.maxint,
+			4194304,
 			0,
 		 	gobject.PARAM_READWRITE),
 		 	     
