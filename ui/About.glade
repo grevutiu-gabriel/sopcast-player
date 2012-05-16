@@ -26,7 +26,8 @@ Makefile and supporting files written by Orcan Ogetbil &lt;oget.fedora@gmail.com
 Special thank you to 王泽国 Wang Zeguo &lt;zak.zeguo.wang@gmail.com&gt; for his tireless efforts
 Code contribution by Benjamin Klüglein
 Code contributions by Manuel Luitz &lt;manuel.luitz@gmail.com&gt;
-Makefile fix by Ryan Li &lt;ryan@ryanium.com&gt;</property>
+Makefile fix by Ryan Li &lt;ryan@ryanium.com&gt;
+Gentoo overlay by Manuel Luitz &lt;manuel.luitz@gmail.com&gt;</property>
     <property name="translator_credits" translatable="yes">王泽国 Wang Zeguo &lt;zak.zeguo.wang@gmail.com&gt;
 梁穗隆 Liang Suilong &lt;liangsuilong@gmail.com&gt;
 張兆柏 Paul Chang &lt;chunchengch@gmail.com&gt;
