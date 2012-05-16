@@ -11,7 +11,7 @@
     <property name="icon">sopcast-player.svg</property>
     <property name="type_hint">dialog</property>
     <property name="program_name">SopCast Player</property>
-    <property name="version">0.8.3</property>
+    <property name="version">0.8.5</property>
     <property name="copyright" translatable="yes">Copyright © 2009-2012 Jason Scheunemann</property>
     <property name="comments" translatable="yes">A GUI front-end for SopCast</property>
     <property name="website">http://code.google.com/p/sopcast-player</property>
@@ -27,7 +27,8 @@ Special thank you to 王泽国 Wang Zeguo &lt;zak.zeguo.wang@gmail.com&gt; for h
 Code contribution by Benjamin Klüglein
 Code contributions by Manuel Luitz &lt;manuel.luitz@gmail.com&gt;
 Makefile fix by Ryan Li &lt;ryan@ryanium.com&gt;
-Gentoo overlay by Manuel Luitz &lt;manuel.luitz@gmail.com&gt;</property>
+Gentoo overlay by Manuel Luitz &lt;manuel.luitz@gmail.com&gt;
+SopCast web handler by João Martins &lt;joaomartins139@gmail.com&gt;</property>
     <property name="translator_credits" translatable="yes">王泽国 Wang Zeguo &lt;zak.zeguo.wang@gmail.com&gt;
 梁穗隆 Liang Suilong &lt;liangsuilong@gmail.com&gt;
 張兆柏 Paul Chang &lt;chunchengch@gmail.com&gt;

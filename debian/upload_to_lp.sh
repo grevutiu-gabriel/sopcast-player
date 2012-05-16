@@ -1,11 +1,10 @@
 #!/bin/bash
 
-VERSION='0.8.1'
+VERSION='0.8.5'
 UPLOAD_ITERATOR='1'
 
 DISTROS='
 hardy
-intrepid
 jaunty
 karmic
 lucid
@@ -15,8 +14,7 @@ oneiric
 precise
 '
 
-DEB_HELPER_6='hardy
-intrepid'
+DEB_HELPER_6='hardy'
 
 DEB_HELPER_7='jaunty
 karmic

@@ -39,6 +39,7 @@ from WindowingTransformations import WindowingTransformations
 from SopcastPlayerWorkerThread import UpdateUIThread
 from ChannelGuideWorkerThread import UpdateChannelGuideThread
 from OpenSopAddress import OpenSopAddress
+from MimetypeHandler import WriteHandler
 
 cur_locale = locale.setlocale(locale.LC_ALL, "")
 
@@ -80,10 +81,12 @@ class pySopCast(object):
 		#************************End******************************
 		
 		self.status_bar_text = None
-		self.db_operations = DatabaseOperations()		
+		self.db_operations = DatabaseOperations()	
 		self.treeview_selection = None
 		self.window_title = "SopCast Player"
 		self.config_manager = None
+		handler = WriteHandler()
+		handler.write()
 		
 				
 	def main(self, sop_address=None, sop_address_name=None):
